@@ -54,6 +54,7 @@ namespace VoltLang
         JumpIfLessThan,
         JumpIfLessThanOrEqual,
         JumpIfEqual,
+        JumpIfNotEqual,
         JumpIfZero,
         JumpIfNotZero,
         Call,

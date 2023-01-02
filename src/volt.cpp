@@ -72,6 +72,43 @@ bool volt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_
     return true;
 }
 
+char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
+{
+    if(assembly == nullptr)
+    {
+        *count = 0;
+        return nullptr;
+    }
+
+    if(assembly->symbols.size() == 0)
+    {
+        *count = 0;
+        return nullptr;
+    }
+
+    *count = assembly->symbols.size();
+
+    char **symbols = new char *[assembly->symbols.size()];
+
+    size_t index = 0;
+
+    for(auto& item : assembly->symbols)
+    {
+        char *str = new char[item.first.size() + 1];
+        str[item.first.size()] = '\0';
+
+        for (size_t i = 0; i < item.first.size(); i++)
+        {
+            str[i] = item.first[i];
+        }
+
+        symbols[index] = str;
+        index++;
+    }
+
+    return symbols;
+}
+
 VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity)
 {
     stackCapacity = NearestPowerOfTwo(stackCapacity);

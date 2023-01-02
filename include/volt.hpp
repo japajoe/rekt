@@ -18,6 +18,7 @@ extern "C" VOLT_API_EXPORT Assembly* volt_assembly_create(void);
 extern "C" VOLT_API_EXPORT void volt_assembly_destroy(Assembly* assembly);
 extern "C" VOLT_API_EXPORT uint64_t volt_assembly_get_num_instructions(Assembly* assembly);
 extern "C" VOLT_API_EXPORT bool volt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_t* startOffset, uint64_t* size, Type* type);
+extern "C" VOLT_API_EXPORT char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count);
 
 extern "C" VOLT_API_EXPORT VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity);
 extern "C" VOLT_API_EXPORT void volt_virtual_machine_destroy(VirtualMachine* vm);

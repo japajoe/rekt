@@ -103,6 +103,10 @@ Unconditional jump to a label
 Jump to label if CMP instruction evaluated to equal.
 - je someLabel
 
+**JNE**
+Jump to label if CMP instruction evaluated to not equal.
+- jne someLabel
+
 **JG**
 Jump to label if CMP instruction evaluated to greater than.
 - jg someLabel

@@ -712,6 +712,29 @@ namespace VoltLang
                 }            
                 break;            
             }
+            case TokenType::JumpIfNotEqual:
+            {
+                if (!AssertParameterCount(tokens, 1))
+                {
+                    return false;
+                }
+
+                if (AssertParameterTypes(tokens, TokenType::Identifier ))
+                {
+                    Operand operand;
+
+                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    {
+                        Instruction instruction(OpCode::JumpIfNotEqual, { operand });
+                        instructions.push_back(instruction);                    
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }            
+                break;            
+            }            
             case TokenType::JumpIfZero:
             {
                 if (!AssertParameterCount(tokens, 1))
@@ -976,19 +999,6 @@ namespace VoltLang
         return true;
     }
 
-    // bool Compiler::AssertParameterTypes(const std::vector<Token<TokenType>> &tokens, const std::vector<TokenType>& requiredTokens)
-    // {
-    //     for (size_t i = 1; i < tokens.size(); i++)
-    //     {
-    //         if (tokens[i].type != requiredTokens[i - 1])
-    //         {
-    //             return false;
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
     bool Compiler::IsOpCode(TokenType type)
     {
         switch(type)
@@ -1010,6 +1020,7 @@ namespace VoltLang
             case TokenType::JumpIfLessThan:
             case TokenType::JumpIfLessThanOrEqual:
             case TokenType::JumpIfEqual:
+            case TokenType::JumpIfNotEqual:
             case TokenType::JumpIfZero:
             case TokenType::JumpIfNotZero:
             case TokenType::Call:

@@ -51,7 +51,6 @@ namespace VoltLang
         bool GetOperandTargetType(const std::string &text, const AssemblyData& data, AssemblyLabel& labels, OperandType& operandType);
         bool CreateOperand(const Token<TokenType>& token, AssemblyData &data, AssemblyLabel &labels, Operand* operand);
         bool AssertParameterCount(const std::vector<Token<TokenType>> &tokens, int expectedTokensCount);
-        //bool AssertParameterTypes(const std::vector<Token<TokenType>> &tokens, const std::vector<TokenType>& requiredTokens);
         bool IsOpCode(TokenType type);
         void LogError(CompilationError errorCode, const std::string& content, uint64_t lineNumber);
 

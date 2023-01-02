@@ -41,6 +41,7 @@ namespace VoltLang
             items["jl"] = TokenType::JumpIfLessThan;
             items["jle"] = TokenType::JumpIfLessThanOrEqual;
             items["je"] = TokenType::JumpIfEqual;
+            items["jne"] = TokenType::JumpIfNotEqual;
             items["jz"] = TokenType::JumpIfZero;
             items["jnz"] = TokenType::JumpIfNotZero;
             items["call"] = TokenType::Call;

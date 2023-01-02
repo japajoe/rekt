@@ -51,6 +51,7 @@ namespace VoltLang
             tokenToString[TokenType::JumpIfLessThan] = "JumpIfLessThan";
             tokenToString[TokenType::JumpIfLessThanOrEqual] = "JumpIfLessThanOrEqual";
             tokenToString[TokenType::JumpIfEqual] = "JumpIfEqual";
+            tokenToString[TokenType::JumpIfNotEqual] = "JumpIfNotEqual";
             tokenToString[TokenType::JumpIfZero] = "JumpIfZero";
             tokenToString[TokenType::JumpIfNotZero] = "JumpIfNotZero";
             tokenToString[TokenType::Call] = "Call";
