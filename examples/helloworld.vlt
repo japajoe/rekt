@@ -6,3 +6,4 @@ section data
 section text
     push helloText
     call print
+    hlt
