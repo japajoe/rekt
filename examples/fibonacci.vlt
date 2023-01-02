@@ -30,4 +30,4 @@ loop:
     
     jmp loop
 end:
-    hlt ;;technically not needed as compiler appends a halt instruction at the end
+    hlt
