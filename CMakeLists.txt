@@ -47,8 +47,8 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/include/Utilities"
 )
 
-#add_executable(${PROJECT_NAME} ${SOURCES})
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
+#add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} -s)
 
