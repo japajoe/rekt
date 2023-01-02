@@ -45,4 +45,6 @@ extern "C" VOLT_API_EXPORT uint64_t volt_stack_get_capacity(Stack* stack);
 extern "C" VOLT_API_EXPORT uint64_t volt_stack_get_size(Stack* stack);
 extern "C" VOLT_API_EXPORT uint64_t volt_stack_get_count(Stack* stack);
 
+extern "C" VOLT_API_EXPORT void volt_free_char_pointer(char* ptr);
+
 #endif

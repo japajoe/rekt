@@ -47,8 +47,16 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/include/Utilities"
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES})
-#add_library(${PROJECT_NAME} SHARED ${SOURCES})
+if( BUILD_SHARED_LIBRARY ) 
+    message("-- Configuring as shared library")
+    add_library(${PROJECT_NAME} SHARED ${SOURCES})
+else()
+    message("-- Configuring as executable")
+    add_executable(${PROJECT_NAME} ${SOURCES})
+endif()
+
+#add_executable(${PROJECT_NAME} ${SOURCES})
+
 
 target_link_libraries(${PROJECT_NAME} -s)
 

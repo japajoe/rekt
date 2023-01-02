@@ -288,3 +288,12 @@ uint64_t volt_stack_get_count(Stack* stack)
         return 0;
     return stack->GetCount();
 }
+
+void volt_free_char_pointer(char* ptr)
+{
+    if(ptr == nullptr)
+        return;
+    
+    delete[] ptr;
+    ptr = nullptr;
+}

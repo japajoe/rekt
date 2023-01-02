@@ -164,10 +164,7 @@ namespace VoltLang
                             if (instruction->operands[0].type == OperandType::Register)
                             {
                                 uint64_t registerIndex = GetRegisterIndex(&instruction->operands[0]);
-                                //registerType[registerIndex] = instruction->operands[0].valueType;
                                 registerType[registerIndex] = type;
-
-                                //std::cout << "Register index: " << registerIndex << " Type: " << (int)type << std::endl;
                             }
                         }                        
                     }
@@ -532,36 +529,16 @@ namespace VoltLang
             return ExecutionStatus::Ok;
         }
 
+    private:
         void DoMathOperation(Operand *olhs, Operand *orhs, MathOperationPtr operation)
         {
             unsigned char* lhs = GetOperandPointer(olhs);
             unsigned char* rhs = GetOperandPointer(orhs);
-            if(olhs->type == OperandType::Register)
-            {
-                Type typeLeft = GetOperandValueType(olhs);
 
-                if(orhs->type == OperandType::Register)
-                {
-                    Type typeRight = GetOperandValueType(orhs);
-                    operation(lhs, rhs, typeLeft, typeRight);
-                }
-                else
-                {
-                    operation(lhs, rhs, typeLeft, orhs->valueType);
-                }
-            }
-            else
-            {
-                if(orhs->type == OperandType::Register)
-                {
-                    Type typeRight = GetOperandValueType(orhs);
-                    operation(lhs, rhs, olhs->valueType, typeRight);
-                }
-                else
-                {
-                    operation(lhs, rhs, olhs->valueType, orhs->valueType);
-                }
-            }
+            Type typeLeft = GetOperandValueType(olhs);
+            Type typeRight = GetOperandValueType(orhs);
+
+            operation(lhs, rhs, typeLeft, typeRight);
         }    
 
         uint64_t GetRegisterIndex(Operand* operand)
@@ -577,8 +554,8 @@ namespace VoltLang
                     return &registers[0] + (operand->GetValue<uint64_t>() * sizeof(unsigned char) * 8);
                 case OperandType::Data:
                     return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());
-                    //return assembly->GetDataAtOffset<unsigned char>(operand->GetValue<uint64_t>());
                 case OperandType::LabelToInstruction:
+                    return &operand->data[0];
                 case OperandType::LabelToFunction:
                     return &operand->data[0];
                 case OperandType::IntegerLiteral:
@@ -601,13 +578,6 @@ namespace VoltLang
             {
                 return operand->valueType;
             }
-        }
-
-        template<typename T>
-        T* GetDataAs(unsigned char* src) 
-        {
-            uintptr_t ptr = *reinterpret_cast<uintptr_t*>(src);
-            return reinterpret_cast<T*>(ptr);
         }
     };
 }
