@@ -55,9 +55,6 @@ else()
     add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
-#add_executable(${PROJECT_NAME} ${SOURCES})
-
-
 target_link_libraries(${PROJECT_NAME} -s)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
