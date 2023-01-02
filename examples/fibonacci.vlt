@@ -1,0 +1,31 @@
+section data
+    startText db : "Calculating first 20 numbers of the fibonacci sequence:\n"
+    iterations dq : 20
+    counter dq : 0
+    num1 dq : 0
+    num2 dq : 1
+    timeStart dq : 0
+    timeEnd dq : 0
+section text
+start:
+    push startText
+    call print
+loop:
+    cmp counter iterations
+    jge end
+    inc counter
+
+    mov eax num1
+    add eax num2
+    mov ebx eax
+    mov eax num1
+    mov num2 eax
+    mov eax ebx
+    mov num1 eax
+
+    push ebx
+    call println
+    
+    jmp loop
+end:
+    hlt ;;technically not needed as compiler appends a halt instruction at the end
