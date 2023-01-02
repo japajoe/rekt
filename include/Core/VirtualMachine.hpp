@@ -443,6 +443,29 @@ namespace VoltLang
                     }                    
                     break;
                 }
+                case OpCode::JumpIfNotEqual:
+                {
+                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
+                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(MathOperation::GetCompareFlag() != 0)
+                        {
+                            ip = address;
+                        }
+                        else
+                        {
+                            ip++;
+                        }
+                    }
+                    else
+                    {
+                        execute = false;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }                
                 case OpCode::JumpIfZero:
                 {
                     unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
