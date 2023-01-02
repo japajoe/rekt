@@ -1,3 +1,5 @@
+;;This is a comment. Note that it needs double semicolons
+
 section data
     startText db : "Calculating first 20 numbers of the fibonacci sequence:\n"
     iterations dq : 20
