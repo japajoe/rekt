@@ -116,27 +116,14 @@ namespace VoltLang
                         return ExecutionStatus::IllegalOperation;
                     }
 
-                    if (instruction->operands[0].type == OperandType::Register)
-                    {
-                        uint64_t registerIndex = GetRegisterIndex(&instruction->operands[0]);
-                        Type type = registerType[registerIndex];
-                        uint64_t stackOffset = 0;
-                        if(!stack.Push(lhs, type, stackOffset))
-                        {
-                            execute = false;
-                            return ExecutionStatus::StackOverflow;
-                        }                    
-                    }
-                    else
-                    {
-                        uint64_t stackOffset = 0;
+                    Type type = GetOperandValueType(&instruction->operands[0]);
+                    uint64_t stackOffset = 0;
 
-                        if(!stack.Push(lhs, instruction->operands[0].valueType, stackOffset))
-                        {
-                            execute = false;
-                            return ExecutionStatus::StackOverflow;
-                        }
-                    }
+                    if(!stack.Push(lhs, type, stackOffset))
+                    {
+                        execute = false;
+                        return ExecutionStatus::StackOverflow;
+                    }                       
 
                     ip++;
 
@@ -202,16 +189,8 @@ namespace VoltLang
                     if(instruction->operands[0].type == OperandType::Register)
                     {
                         uint64_t registerIndexLHS = GetRegisterIndex(&instruction->operands[0]);
-
-                        if(instruction->operands[1].type == OperandType::Register)
-                        {
-                            uint64_t registerIndexRHS = GetRegisterIndex(&instruction->operands[1]);
-                            registerType[registerIndexLHS] = registerType[registerIndexRHS];
-                        }
-                        else
-                        {
-                            registerType[registerIndexLHS] = instruction->operands[1].valueType;
-                        }
+                        Type type = GetOperandValueType(&instruction->operands[1]);
+                        registerType[registerIndexLHS] = type;
                     }
 
                     ip++;
@@ -530,13 +509,13 @@ namespace VoltLang
         }
 
     private:
-        void DoMathOperation(Operand *olhs, Operand *orhs, MathOperationPtr operation)
+        void DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
         {
-            unsigned char* lhs = GetOperandPointer(olhs);
-            unsigned char* rhs = GetOperandPointer(orhs);
+            unsigned char* lhs = GetOperandPointer(left);
+            unsigned char* rhs = GetOperandPointer(right);
 
-            Type typeLeft = GetOperandValueType(olhs);
-            Type typeRight = GetOperandValueType(orhs);
+            Type typeLeft = GetOperandValueType(left);
+            Type typeRight = GetOperandValueType(right);
 
             operation(lhs, rhs, typeLeft, typeRight);
         }    
@@ -571,7 +550,8 @@ namespace VoltLang
         {
             if(operand->type == OperandType::Register)
             {
-                uint64_t registerIndex = GetRegisterIndex(operand);
+                //uint64_t registerIndex = GetRegisterIndex(operand);
+                uint64_t registerIndex = operand->GetValue<uint64_t>();
                 return registerType[registerIndex];
             }
             else

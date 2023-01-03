@@ -201,11 +201,17 @@ namespace VoltLang
                                 {
                                     case 'x':
                                     case 'a':
+                                    case 'A':
                                     case 'b':
+                                    case 'B':
                                     case 'c':
+                                    case 'C':
                                     case 'd':
+                                    case 'D':
                                     case 'e':
+                                    case 'E':
                                     case 'f':
+                                    case 'F':
                                         currentToken.type = PrimitiveTokenType::IntegerLiteral;
                                         AppendCharacter(currentToken, currentChar);
                                         break;

@@ -16,6 +16,7 @@ namespace VoltLang
         static std::vector<unsigned char> GetBytes(int64_t value);
         static std::vector<unsigned char> GetBytes(uint64_t value);
         static uint64_t GetSizeInWords(uint64_t sizeInBytes);
+        static void GetModuleAddress(const std::string& name, uintptr_t *address);
     };
 }
 #endif

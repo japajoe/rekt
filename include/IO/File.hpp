@@ -15,6 +15,8 @@ namespace VoltLang
         static void WriteAllBytes(const std::string& filepath, unsigned char* bytes, size_t size);
         static size_t GetSize(const std::string& filepath);
         static bool Exists(const std::string& filepath);
+        static std::string GetName(const std::string &filepath);
+        static std::string GetExtension(const std::string &filepath);
     };
 }
 #endif

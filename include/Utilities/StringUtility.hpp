@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 namespace VoltLang
 {
@@ -38,7 +39,9 @@ namespace VoltLang
         static bool ParseNumberLexical(const std::string& text, T& value)
         {
             if(StringUtility::StartsWith(text, "0x"))
+            {
                 return ParseHex<T>(text, value);
+            }
 
             std::stringstream stream(text);
             stream >> value;

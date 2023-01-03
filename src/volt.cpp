@@ -1,4 +1,5 @@
 #include <volt.hpp>
+#include <Utilities/Memory.hpp>
 
 uint64_t NearestPowerOfTwo(uint64_t n)
 {
@@ -16,10 +17,11 @@ uint64_t NearestPowerOfTwo(uint64_t n)
     uint64_t x = v >> 1; // previous power of 2
 
     return (v - n) > (n - x) ? x : v;
-} 
+}
 
 void volt_library_init(void)
 {
+    std::cout << "volt_library_init!!!!!" << std::endl;
     StandardLibrary::Initialize();
 }
 
@@ -155,7 +157,7 @@ ExecutionStatus volt_virtual_machine_run(VirtualMachine* vm)
     return vm->Run();
 }
 
-byte* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
+unsigned char* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
 {
     if(vm == nullptr)
         return nullptr;
@@ -203,7 +205,7 @@ bool volt_compile_from_file(Compiler* compiler, const char* filepath, Assembly* 
     return compiler->Compile(source, assembly);
 }
 
-bool volt_stack_push(Stack* stack, byte* data, Type type, uint64_t* stackOffset)
+bool volt_stack_push(Stack* stack, unsigned char* data, Type type, uint64_t* stackOffset)
 {
     if(stack == nullptr)
         return false;
@@ -232,21 +234,29 @@ bool volt_stack_push_uint64(Stack* stack, uint64_t value, uint64_t* stackOffset)
     return stack->PushUInt64(value, *stackOffset);
 }
 
-bool volt_stack_pop(Stack* stack, byte* target, uint64_t* stackOffset)
+bool volt_stack_push_string(Stack* stack, char* value, uint64_t* stackOffset)
+{
+    if(stack == nullptr)
+        return false;
+
+    return stack->PushString(value, *stackOffset);
+}
+
+bool volt_stack_pop(Stack* stack, unsigned char* target, uint64_t* stackOffset)
 {
     if(stack == nullptr)
         return false;
     return stack->Pop(target, *stackOffset);
 }
 
-byte* volt_stack_get_buffer(Stack* stack)
+unsigned char* volt_stack_get_buffer(Stack* stack)
 {
     if(stack == nullptr)
         return nullptr;
     return stack->GetBuffer();
 }
 
-byte* volt_stack_get_top(Stack* stack)
+unsigned char* volt_stack_get_top(Stack* stack)
 {
     if(stack == nullptr)
         return nullptr;
@@ -257,7 +267,6 @@ bool volt_stack_check_type(Stack* stack, Type type, int64_t index)
 {
     if(stack == nullptr)
         return false;
-
     return stack->CheckType(type, index);
 }
 
@@ -296,4 +305,9 @@ void volt_free_char_pointer(char* ptr)
     
     delete[] ptr;
     ptr = nullptr;
+}
+
+void volt_get_module_address(const char* name, uintptr_t* address)
+{
+    Memory::GetModuleAddress(name, address);
 }

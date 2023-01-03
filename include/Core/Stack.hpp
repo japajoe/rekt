@@ -103,6 +103,12 @@ namespace VoltLang
             return Push<uint64_t>(&value, Type::UInt64, stackOffset);
         }
 
+        bool PushString(char* value, uint64_t& stackOffset)
+        {
+            uintptr_t address = (uintptr_t)value;
+            return Push<char>(value, Type::Pointer, stackOffset);
+        }
+
         bool Pop(unsigned char* target, uint64_t& stackOffset)
         {
             if(stackSize < 8)
@@ -157,7 +163,18 @@ namespace VoltLang
             }
 
             return false;
-        }           
+        }
+
+        bool PopString(unsigned char* target, char* value, uint64_t stackOffset)
+        {
+            if(Pop(target, stackOffset))
+            {
+                value = GetDataAs<char>(target);
+                return true;
+            }
+
+            return false;            
+        }
 
         bool TryPopAsString(unsigned char* target, std::string& value, uint64_t& stackOffset)
         {

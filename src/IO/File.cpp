@@ -6,6 +6,10 @@
 
 namespace VoltLang
 {
+    const char DirectorySeparatorChar = '\\';
+    const char AltDirectorySeparatorChar = '/';
+    const char VolumeSeparatorChar = ':';
+
     std::string File::ReadAllText(const std::string& filepath)
     {
         std::ifstream file(filepath);
@@ -72,5 +76,50 @@ namespace VoltLang
     {
         struct stat buffer;   
         return (stat(filepath.c_str(), &buffer) == 0); 
+    }
+
+    std::string File::GetName(const std::string& filepath)
+    {
+        if (filepath.size() > 0) 
+        {
+            size_t length = filepath.size();
+
+            for (size_t i = length; --i > 0;) 
+            {
+                char ch = filepath[i];
+
+                if (ch == DirectorySeparatorChar || ch == AltDirectorySeparatorChar || ch == VolumeSeparatorChar)
+                {
+                    return filepath.substr(i + 1, length - i - 1);
+                }
+            }
+        }
+        return filepath;
+    }
+
+    std::string File::GetExtension(const std::string& filepath) 
+    {
+        if (filepath.size() == 0)
+            return "";
+
+        size_t length = filepath.size();
+        
+        for (int i = length; --i > 0;) 
+        {
+            char ch = filepath[i];
+        
+            if (ch == '.')
+            {
+                if (i != length - 1)
+                    return filepath.substr(i, length - i);
+                else
+                    return "";
+            }
+        
+            if (ch == DirectorySeparatorChar || ch == AltDirectorySeparatorChar || ch == VolumeSeparatorChar)
+                break;
+        }
+        
+        return "";
     }
 }

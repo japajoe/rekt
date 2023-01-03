@@ -80,11 +80,13 @@ namespace VoltLang
 
     class Instruction
     {
+    private:
+        size_t numOperands;
     public:
         OpCode opcode;
         std::vector<Operand> operands;
 
-        Instruction(OpCode opcode, const std::vector<Operand> operands)
+        Instruction(OpCode opcode, const std::vector<Operand>& operands)
         {
             this->opcode = opcode;
             this->operands = operands;

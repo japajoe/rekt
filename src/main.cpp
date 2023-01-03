@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     Assembly assembly;
     VirtualMachine machine;
 
-    std::string filepath = "helloworld.vlt";
+    std::string filepath = "fibonacci.vlt";
 
     if (!File::Exists(filepath))
     {
