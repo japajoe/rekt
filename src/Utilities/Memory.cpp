@@ -18,6 +18,14 @@ namespace VoltLang
         uintptr_t address;
     };
 
+    #if defined(_WIN32)
+    static void volt_get_module_handle(const char* name, uintptr_t* address)
+    {
+        *address = (uintptr_t)GetModuleHandle(name);
+    }
+    #endif
+
+    #if defined(__linux__) || defined(__FreeBSD__)
     static int volt_dl_callback(struct dl_phdr_info *info, size_t size, void *data)
     {
         if(info->dlpi_name[0] != '\0')
@@ -35,14 +43,6 @@ namespace VoltLang
         return 0;
     }
 
-    #if defined(_WIN32)
-    static void volt_get_module_handle(const char* name, uintptr_t* address)
-    {
-        *address = GetModuleHandle(name);
-    }
-    #endif
-
-    #if defined(__linux__) || defined(__FreeBSD__)
     static void volt_get_module_handle(const char* name, uintptr_t* address)
     {
         VoltModuleInfo moduleInfo = {name, 0};

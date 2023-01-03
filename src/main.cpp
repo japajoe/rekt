@@ -13,7 +13,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;
 
-int main(int argc, char** argv)
+int main2(int argc, char** argv)
 {
     StandardLibrary::Initialize();
 

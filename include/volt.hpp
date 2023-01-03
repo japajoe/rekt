@@ -30,6 +30,7 @@ extern "C" VOLT_API_EXPORT bool volt_virtual_machine_set_instruction_pointer(Vir
 extern "C" VOLT_API_EXPORT uint64_t volt_virtual_machine_get_instruction_pointer(VirtualMachine* vm);
 extern "C" VOLT_API_EXPORT ExecutionStatus volt_virtual_machine_run(VirtualMachine* vm);
 extern "C" VOLT_API_EXPORT unsigned char* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size);
+extern "C" VOLT_API_EXPORT Stack* volt_virtual_machine_get_stack(VirtualMachine* vm);
 
 extern "C" VOLT_API_EXPORT Compiler* volt_compiler_create(void);
 extern "C" VOLT_API_EXPORT void volt_compiler_destroy(Compiler* compiler);

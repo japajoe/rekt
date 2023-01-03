@@ -233,6 +233,14 @@ unsigned char* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* 
     return vm->GetRegisters();
 }
 
+Stack* volt_virtual_machine_get_stack(VirtualMachine* vm)
+{
+    if(vm == nullptr)
+        return nullptr;
+
+    return vm->GetStack();
+}
+
 Compiler* volt_compiler_create(void)
 {
     Compiler* compiler = new Compiler();

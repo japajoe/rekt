@@ -67,6 +67,11 @@ namespace VoltLang
             return &registers[0];
         }
 
+        Stack* GetStack()
+        {
+            return &stack;
+        }
+
         uint64_t GetRegisterCapacity() const
         {
             return REGISTER_CAPACITY;
