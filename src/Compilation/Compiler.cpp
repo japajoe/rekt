@@ -62,6 +62,7 @@ namespace VoltLang
         assembly->offsets = data.offsets;
         assembly->types = data.types;
         assembly->instructions = instructions;
+        assembly->labels = labels.labels;
 
         compilationStage = CompilationStage::None;
 

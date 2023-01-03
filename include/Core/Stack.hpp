@@ -38,6 +38,18 @@ namespace VoltLang
             }
         }
 
+        void Clear()
+        {
+            stackSize = 0;
+            stackIndex = 0;
+            memset(&buffer[0], 0, capacity);
+
+            for (int i = 0; i < types.size(); i++)
+            {
+                types[i] = Type::Unknown;
+            }
+        }
+
         bool Push(unsigned char* data, Type type, uint64_t& stackOffset)
         {
             if(stackSize >= capacity)

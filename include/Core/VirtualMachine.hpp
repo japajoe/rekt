@@ -83,6 +83,8 @@ namespace VoltLang
             {
                 registerType[i] = Type::Unknown;
             }
+
+            stack.Clear();
         }
 
         bool LoadAssembly(Assembly* assembly)
@@ -91,6 +93,16 @@ namespace VoltLang
             this->assembly = assembly;
             execute = this->assembly != nullptr;
             return execute;
+        }
+
+        void SetInstructionPointer(uint64_t offset)
+        {
+            this->ip = offset;
+        }
+
+        uint64_t GetInstructionPointer() const
+        {
+            return this->ip;
         }
 
         ExecutionStatus Run()

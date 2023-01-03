@@ -74,6 +74,19 @@ bool volt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_
     return true;
 }
 
+bool volt_assembly_get_label_info(Assembly* assembly, const char* name, uint64_t* offset)
+{
+    if(assembly == nullptr)
+        return false;
+
+    if(assembly->labels.count(name) == 0)
+        return false;
+
+    *offset = assembly->labels[name];
+
+    return true;
+}
+
 char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
 {
     if(assembly == nullptr)
@@ -109,6 +122,43 @@ char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
     }
 
     return symbols;
+}
+
+char** volt_assembly_get_labels(Assembly* assembly, uint64_t* count)
+{
+    if(assembly == nullptr)
+    {
+        *count = 0;
+        return nullptr;
+    }
+
+    if(assembly->labels.size() == 0)
+    {
+        *count = 0;
+        return nullptr;
+    }
+
+    *count = assembly->labels.size();
+
+    char **labels = new char *[assembly->labels.size()];
+
+    size_t index = 0;
+
+    for(auto& item : assembly->labels)
+    {
+        char *str = new char[item.first.size() + 1];
+        str[item.first.size()] = '\0';
+
+        for (size_t i = 0; i < item.first.size(); i++)
+        {
+            str[i] = item.first[i];
+        }
+
+        labels[index] = str;
+        index++;
+    }
+
+    return labels;
 }
 
 VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity)
@@ -148,6 +198,23 @@ bool volt_virtual_machine_reset(VirtualMachine* vm)
 
     vm->Reset();
     return true;
+}
+
+bool volt_virtual_machine_set_instruction_pointer(VirtualMachine* vm, uint64_t offset)
+{
+    if(vm == nullptr)
+        return false;
+
+    vm->SetInstructionPointer(offset);
+    return true;
+}
+
+uint64_t volt_virtual_machine_get_instruction_pointer(VirtualMachine* vm)
+{
+    if(vm == nullptr)
+        return 0;
+
+    return vm->GetInstructionPointer();
 }
 
 ExecutionStatus volt_virtual_machine_run(VirtualMachine* vm)
@@ -203,6 +270,13 @@ bool volt_compile_from_file(Compiler* compiler, const char* filepath, Assembly* 
     std::string source = File::ReadAllText(filepath);
 
     return compiler->Compile(source, assembly);
+}
+
+void volt_stack_clear(Stack *stack)
+{
+    if(stack == nullptr)
+        return;
+    stack->Clear();
 }
 
 bool volt_stack_push(Stack* stack, unsigned char* data, Type type, uint64_t* stackOffset)
