@@ -38,7 +38,7 @@ namespace VoltLang
     {
     public:
         Compiler();
-        bool Compile(const std::string &source, Assembly* assembly);
+        bool Compile(const std::string &source, Assembly* assembly);        
     private:
         std::map<std::string, uint64_t> registers;
         Tokenizer tokenizer;

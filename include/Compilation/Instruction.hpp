@@ -69,13 +69,19 @@ namespace VoltLang
             memcpy(&data[0], &value, sizeof(double));
         }
 
+        // template<typename T>
+        // T GetValue() const
+        // {
+        //     T value;
+        //     memcpy(&value, &data[0], sizeof(T));        
+        //     return value;
+        // } 
+
         template<typename T>
-        T GetValue() const
+        T GetValue()
         {
-            T value;
-            memcpy(&value, &data[0], sizeof(T));        
-            return value;
-        } 
+            return *reinterpret_cast<T*>(&data[0]);
+        }
     };
 
     class Instruction

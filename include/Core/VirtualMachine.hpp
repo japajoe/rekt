@@ -532,7 +532,7 @@ namespace VoltLang
         }
 
     private:
-        void DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
+        inline void DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
         {
             unsigned char* lhs = GetOperandPointer(left);
             unsigned char* rhs = GetOperandPointer(right);
@@ -543,37 +543,53 @@ namespace VoltLang
             operation(lhs, rhs, typeLeft, typeRight);
         }    
 
-        uint64_t GetRegisterIndex(Operand* operand)
+        inline uint64_t GetRegisterIndex(Operand* operand)
         {
             return operand->GetValue<uint64_t>();
         }
 
-        unsigned char* GetOperandPointer(Operand* operand)
+        inline unsigned char* GetOperandPointer(Operand* operand)
         {
             switch (operand->type)
             {
                 case OperandType::Register:
-                    return &registers[0] + (operand->GetValue<uint64_t>() * sizeof(unsigned char) * 8);
+                    return &registers[0] + (operand->GetValue<uint64_t>() * 8);
                 case OperandType::Data:
-                    return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());
+                    return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());                
                 case OperandType::LabelToInstruction:
-                    return &operand->data[0];
                 case OperandType::LabelToFunction:
-                    return &operand->data[0];
                 case OperandType::IntegerLiteral:
-                    return &operand->data[0];
                 case OperandType::FloatingPointLiteral:
                     return &operand->data[0];
                 default:
                     return nullptr;
             }
+
+            //Note: Just for reference, this switch below causes a speed decrease of about 15-20 percent!
+            //This test was done by computing the fibonacci sequence with 10 million iterations
+            // switch (operand->type)
+            // {
+            //     case OperandType::Register:
+            //         return &registers[0] + (operand->GetValue<uint64_t>() * 8);
+            //     case OperandType::Data:
+            //         return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());                
+            //     case OperandType::LabelToInstruction:
+            //         return &operand->data[0];
+            //     case OperandType::LabelToFunction:
+            //         return &operand->data[0];
+            //     case OperandType::IntegerLiteral:
+            //         return &operand->data[0];
+            //     case OperandType::FloatingPointLiteral:
+            //         return &operand->data[0];
+            //     default:
+            //         return nullptr;
+            // }            
         }
 
-        Type GetOperandValueType(Operand* operand)
+        inline Type GetOperandValueType(Operand* operand)
         {
             if(operand->type == OperandType::Register)
             {
-                //uint64_t registerIndex = GetRegisterIndex(operand);
                 uint64_t registerIndex = operand->GetValue<uint64_t>();
                 return registerType[registerIndex];
             }
