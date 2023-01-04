@@ -46,10 +46,10 @@ namespace VoltLang
             GetLabelPointer(tokens[i], numInstructions, labels);
         }
 
-        //Finally create all instructions
+        // Finally create all instructions
         for (size_t i = 0; i < tokens.size(); i++)
-        {        
-            if(!GetInstructions(tokens[i], data, labels, instructions))
+        {
+            if (!GetInstructions(tokens[i], data, labels, instructions))
             {
                 return false;
             }
@@ -229,13 +229,13 @@ namespace VoltLang
         }
 
         return true;
-    }
+    }   
 
     bool Compiler::GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, AssemblyLabel& labels)
     {
         if(tokens[0].type == TokenType::Identifier && tokens.size() == 2)
         {
-            if(!IsOpCode(tokens[0].type))
+            if(!IsOpCode(tokens[0].type) && tokens[1].type == TokenType::Colon)
             {
                 if(labels.labels.count(tokens[0].text))
                 {
@@ -812,11 +812,8 @@ namespace VoltLang
                     return false;
                 }
 
-                if (AssertParameterTypes(tokens, TokenType::Identifier ))
-                {
-                    Instruction instruction(OpCode::Return, {});
-                    instructions.push_back(instruction);   
-                }            
+                Instruction instruction(OpCode::Return, {});
+                instructions.push_back(instruction);   
                 break;            
             }
             case TokenType::NOP:
@@ -826,11 +823,8 @@ namespace VoltLang
                     return false;
                 }
 
-                if (AssertParameterTypes(tokens, TokenType::Identifier ))
-                {
-                    Instruction instruction(OpCode::NOP, {});
-                    instructions.push_back(instruction);                 
-                }            
+                Instruction instruction(OpCode::NOP, {});
+                instructions.push_back(instruction);                 
                 break;            
             }
             default:

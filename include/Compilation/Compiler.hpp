@@ -32,7 +32,7 @@ namespace VoltLang
         UnknownAddressLabel,
         DuplicateDeclaration,    
         ParseNumber
-    };
+    }; 
 
     class Compiler
     {
@@ -46,7 +46,7 @@ namespace VoltLang
         TokenList GetTokens(const std::string &source);
         bool GetData(const std::vector<Token<TokenType>> &tokens, AssemblyData& data);
         bool GetLabels(const std::vector<Token<TokenType>> &tokens, AssemblyLabel& labels);
-        bool GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, AssemblyLabel &labels);
+        bool GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, AssemblyLabel& labels);
         bool GetInstructions(const std::vector<Token<TokenType>> &tokens, AssemblyData& data, AssemblyLabel& labels, std::vector<Instruction> &instructions);
         bool GetOperandTargetType(const std::string &text, const AssemblyData& data, AssemblyLabel& labels, OperandType& operandType);
         bool CreateOperand(const Token<TokenType>& token, AssemblyData &data, AssemblyLabel &labels, Operand* operand);

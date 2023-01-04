@@ -161,6 +161,17 @@ char** volt_assembly_get_labels(Assembly* assembly, uint64_t* count)
     return labels;
 }
 
+OpCode volt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset)
+{
+    if(assembly == nullptr)
+        return OpCode::NUM_OPCODES;
+
+    if(offset >= assembly->instructions.size())
+        return OpCode::NUM_OPCODES;
+
+    return assembly->instructions[offset].opcode;
+}
+
 VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity)
 {
     stackCapacity = NearestPowerOfTwo(stackCapacity);
@@ -392,4 +403,25 @@ void volt_free_char_pointer(char* ptr)
 void volt_get_module_address(const char* name, uintptr_t* address)
 {
     Memory::GetModuleAddress(name, address);
+}
+
+void* volt_memory_alloc(uint64_t size)
+{
+    void* ptr = malloc(size);
+    return ptr;
+}
+
+void* volt_memory_set(void* src, int value, uint64_t size)
+{
+    return memset(src, value, size);
+}
+
+void* volt_memory_copy(void* src, void* dest, uint64_t size)
+{
+    return memcpy(src, dest, size);
+}
+
+void volt_memory_free(void* ptr)
+{
+    free(ptr);
 }

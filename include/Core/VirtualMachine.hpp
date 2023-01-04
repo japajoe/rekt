@@ -129,7 +129,7 @@ namespace VoltLang
                     if(lhs == nullptr)
                     {
                         execute = false;
-                        std::cout << "Push: Illegal operation\n";
+                        std::cout << "Push: Illegal operation at offset " << ip << std::endl;
                         return ExecutionStatus::IllegalOperation;
                     }
 
@@ -159,7 +159,7 @@ namespace VoltLang
                         if (!stack.Pop(lhs, stackOffset))
                         {
                             execute = false;
-                            std::cout << "Pop: Illegal operation\n";
+                            std::cout << "Pop: Illegal operation at offset " << ip << std::endl;
                             return ExecutionStatus::StackUnderflow;
                         }
 
@@ -194,7 +194,7 @@ namespace VoltLang
                     if(lhs == nullptr || rhs == nullptr)
                     {
                         execute = false;
-                        std::cout << "MOV: Illegal operation\n";
+                        std::cout << "MOV: Illegal operation at offset " << ip << std::endl;
                         return ExecutionStatus::IllegalOperation;
                     }
 
@@ -287,8 +287,8 @@ namespace VoltLang
                         returnAddress = ip + 1;
                         ip = address;
                     }
-                    else
-                    {
+                    else if(instruction->operands[0].type == OperandType::LabelToFunction)
+                    {                        
                         VoltVMFunction func = reinterpret_cast<VoltVMFunction>(address);
                         
                         int result = func(&stack);
@@ -296,11 +296,17 @@ namespace VoltLang
                         if(result < 0)
                         {
                             execute = false;
-                            std::cout << "Call: Illegal operation\n";
-                            return ExecutionStatus::IllegalOperation;                            
+                            std::cout << "Call: Illegal operation at offset " << ip << std::endl;
+                            return ExecutionStatus::IllegalOperation;
                         }
 
                         ip++;
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "Call: Illegal operation at offset " << ip << std::endl;
+                        return ExecutionStatus::IllegalOperation;                        
                     }
 
                     break;

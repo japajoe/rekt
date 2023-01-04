@@ -21,6 +21,7 @@ extern "C" VOLT_API_EXPORT bool volt_assembly_get_symbol_info(Assembly* assembly
 extern "C" VOLT_API_EXPORT bool volt_assembly_get_label_info(Assembly* assembly, const char* name, uint64_t* offset);
 extern "C" VOLT_API_EXPORT char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count);
 extern "C" VOLT_API_EXPORT char** volt_assembly_get_labels(Assembly* assembly, uint64_t* count);
+extern "C" VOLT_API_EXPORT OpCode volt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset);
 
 extern "C" VOLT_API_EXPORT VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity);
 extern "C" VOLT_API_EXPORT void volt_virtual_machine_destroy(VirtualMachine* vm);
@@ -55,5 +56,10 @@ extern "C" VOLT_API_EXPORT uint64_t volt_stack_get_count(Stack* stack);
 extern "C" VOLT_API_EXPORT void volt_free_char_pointer(char* ptr);
 
 extern "C" VOLT_API_EXPORT void volt_get_module_address(const char* name, uintptr_t* address);
+
+extern "C" VOLT_API_EXPORT void* volt_memory_alloc(uint64_t size);
+extern "C" VOLT_API_EXPORT void* volt_memory_set(void* src, int value, uint64_t size);
+extern "C" VOLT_API_EXPORT void* volt_memory_copy(void* src, void* dest, uint64_t size);
+extern "C" VOLT_API_EXPORT void volt_memory_free(void* ptr);
 
 #endif
