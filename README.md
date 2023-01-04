@@ -87,13 +87,13 @@ Compares 2 values for equality and sets a flag whether the lefthandside is less 
 - cmp myVariable, 45
 
 **CALL**
-Makes a jump to a specific label defined by the user, OR calls predefined functions inside the library. A label can be defined above any instruction and it could be seen like a function identifier. After the CALL instruction the instructionpointer is set to the first instruction after the label. When  instructions have been executed and the RET instruction has been reached, the instructionpointer is set to the instruction after the CALL instruction. This is useful when you need to run a specific routine and then return to where you came from and continue with other instructions.
+Makes a jump to a specific label defined by the user, OR calls predefined functions provided by your application. A label can be defined above any instruction and it could be seen like a function identifier. If a jump to a label is made, the return address will get placed on top of the stack. Then whenever a RET instruction is being executed, the return address will get popped off the top of the stack and the instruction pointer is set to this address. In order to prevent corruption of the stack, it is very important that you take good care of what you push and pop to/from the stack.
 - call doWork
 - call printInfo
 - call doCalculation
 
 **RET**
-The RET instruction sets the instructionpointer back to the instruction that comes right after the CALL instruction.
+The RET instruction sets the instructionpointer back to the instruction that comes right after the CALL instruction. See description about the CALL opcode to get an understanding of how these two instructions relate.
 
 **JMP**
 Unconditional jump to a label

@@ -110,6 +110,14 @@ namespace VoltLang
             return this->ip;
         }
 
+        ExecutionStatus Call(uint64_t labelOffset)
+        {
+            if(assembly == nullptr)
+                return ExecutionStatus::Error;
+
+            return ExecutionStatus::NotImplemented;
+        }
+
         ExecutionStatus Run()
         {
             if(assembly == nullptr)
@@ -129,7 +137,7 @@ namespace VoltLang
                     if(lhs == nullptr)
                     {
                         execute = false;
-                        std::cout << "Push: Illegal operation at offset " << ip << std::endl;
+                        std::cout << "PUSH: Illegal operation at offset " << ip << std::endl;
                         return ExecutionStatus::IllegalOperation;
                     }
 
@@ -159,7 +167,7 @@ namespace VoltLang
                         if (!stack.Pop(lhs, stackOffset))
                         {
                             execute = false;
-                            std::cout << "Pop: Illegal operation at offset " << ip << std::endl;
+                            std::cout << "POP: Illegal operation at offset " << ip << std::endl;
                             return ExecutionStatus::StackUnderflow;
                         }
 
@@ -286,6 +294,9 @@ namespace VoltLang
                     {
                         returnAddress = ip + 1;
                         ip = address;
+
+                        uint64_t offset;
+                        stack.PushUInt64(returnAddress, offset);
                     }
                     else if(instruction->operands[0].type == OperandType::LabelToFunction)
                     {                        
@@ -296,7 +307,7 @@ namespace VoltLang
                         if(result < 0)
                         {
                             execute = false;
-                            std::cout << "Call: Illegal operation at offset " << ip << std::endl;
+                            std::cout << "CALL: Illegal operation at offset " << ip << std::endl;
                             return ExecutionStatus::IllegalOperation;
                         }
 
@@ -305,7 +316,7 @@ namespace VoltLang
                     else
                     {
                         execute = false;
-                        std::cout << "Call: Illegal operation at offset " << ip << std::endl;
+                        std::cout << "CALL: Illegal operation at offset " << ip << std::endl;
                         return ExecutionStatus::IllegalOperation;                        
                     }
 
@@ -513,6 +524,23 @@ namespace VoltLang
                 }
                 case OpCode::Return:
                 {
+                    unsigned char bytes[8];
+                    uint64_t offset;
+                    
+                    if(!stack.PopUInt64(bytes, returnAddress, offset))
+                    {
+                        execute = false;
+                        std::cout << "RET: failed to get return address at offset " << ip << std::endl;
+                        return ExecutionStatus::StackUnderflow;
+                    }
+
+                    if(returnAddress >= assembly->instructions.size())
+                    {
+                        execute = false;
+                        std::cout << "RET: unable to jump to offset " << returnAddress << std::endl;
+                        return ExecutionStatus::IllegalJump;                        
+                    }
+
                     ip = returnAddress;
                     break;
                 }

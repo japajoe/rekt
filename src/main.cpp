@@ -15,12 +15,18 @@ using std::chrono::microseconds;
 
 int main(int argc, char** argv)
 {
+    std::string filepath = "fibonacci.vlt";
+
+    if(argc > 1)
+    {
+        filepath = std::string(argv[1]);
+    }
+
     StandardLibrary::Initialize();
 
     Assembly assembly;
     VirtualMachine machine;
 
-    std::string filepath = "fibonacci.vlt";
 
     if (!File::Exists(filepath))
     {
