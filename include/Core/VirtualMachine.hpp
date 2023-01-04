@@ -40,6 +40,7 @@ namespace VoltLang
         unsigned char registers[REGISTER_CAPACITY];
         Type registerType[NUM_REGISTERS];
         Stack stack;
+        Stack internalStack; //Internal use only
 
         MathOperationPtr mathOperationAdd;
         MathOperationPtr mathOperationSub;
@@ -55,6 +56,8 @@ namespace VoltLang
                 stack = Stack(STACK_CAPACITY);
             else
                 stack = Stack(stackCapacity);
+
+            internalStack = Stack(STACK_CAPACITY);
 
             for (size_t i = 0; i < NUM_REGISTERS; i++)
             {
@@ -90,6 +93,7 @@ namespace VoltLang
             }
 
             stack.Clear();
+            internalStack.Clear();
         }
 
         bool LoadAssembly(Assembly* assembly)
@@ -115,13 +119,38 @@ namespace VoltLang
             if(assembly == nullptr)
                 return ExecutionStatus::Error;
 
-            return ExecutionStatus::NotImplemented;
+            if(labelOffset >= assembly->instructions.size())
+                return ExecutionStatus::IllegalJump;
+
+            //Very useful that the compiler always puts a HLT instruction at the end :)
+            returnAddress = assembly->instructions.size() - 1;
+
+            uint64_t offset;
+            
+            if(!internalStack.PushUInt64(returnAddress, offset))
+            {
+                return ExecutionStatus::StackOverflow;
+            }
+
+            ip = labelOffset;
+
+            ExecutionStatus status = ExecutionStatus::Ok;
+            
+            while(status == ExecutionStatus::Ok)
+            {
+                status = Run(true);
+            }
+
+            return status;
         }
 
-        ExecutionStatus Run()
+        ExecutionStatus Run(bool forceRun = false)
         {
             if(assembly == nullptr)
                 return ExecutionStatus::Error;
+
+            if(forceRun)
+                execute = true;
 
             if(execute == false)
                 return ExecutionStatus::Error;            
@@ -296,7 +325,12 @@ namespace VoltLang
                         ip = address;
 
                         uint64_t offset;
-                        stack.PushUInt64(returnAddress, offset);
+                        if(!internalStack.PushUInt64(returnAddress, offset))
+                        {
+                            execute = false;
+                            std::cout << "CALL: Unable to push return address to internal stack at offset " << ip << std::endl;
+                            return ExecutionStatus::StackOverflow;
+                        }
                     }
                     else if(instruction->operands[0].type == OperandType::LabelToFunction)
                     {                        
@@ -527,7 +561,7 @@ namespace VoltLang
                     unsigned char bytes[8];
                     uint64_t offset;
                     
-                    if(!stack.PopUInt64(bytes, returnAddress, offset))
+                    if(!internalStack.PopUInt64(bytes, returnAddress, offset))
                     {
                         execute = false;
                         std::cout << "RET: failed to get return address at offset " << ip << std::endl;

@@ -235,6 +235,14 @@ ExecutionStatus volt_virtual_machine_run(VirtualMachine* vm)
     return vm->Run();
 }
 
+ExecutionStatus volt_virtual_machine_call(VirtualMachine* vm, uint64_t labelOffset)
+{
+    if(vm == nullptr)
+        return ExecutionStatus::Error;
+
+    return vm->Call(labelOffset);
+}
+
 unsigned char* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
 {
     if(vm == nullptr)

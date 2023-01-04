@@ -46,10 +46,13 @@ int main(int argc, char** argv)
 
         auto startTime = high_resolution_clock::now();
 
-        while (status == ExecutionStatus::Ok)
-        {
-            status = machine.Run();
-        }
+        status = machine.Call(3);
+        status = machine.Call(3);
+
+        // while (status == ExecutionStatus::Ok)
+        // {
+        //     status = machine.Run();
+        // }
 
         auto endTime = high_resolution_clock::now();
         auto elapsedMilliseconds = duration_cast<microseconds>(endTime - startTime).count() * 0.001;
