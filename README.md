@@ -9,12 +9,12 @@ Support for integer types like
 - None
 
 # About
-This is a similar project to https://github.com/japajoe/StackVMCPP but with quite a lot of changes. I have decided I don't want to deal with all these push/pop instructions anymore, so I got rid of them. I also felt little need to support so many numeric types because it only complicates matters in an already complicated project. There is now also support for defining string literals, which is so much more fun than pushing individual characters to the stack. 
+This is a similar project to https://github.com/japajoe/StackVMCPP but with quite a lot of changes. I have decided I don't want to deal with all these push/pop instructions anymore, so I got rid of them. I also felt little need to support so many numeric types because it only complicates matters in an already complicated project. There is now also support for defining string literals, which is so much more fun than pushing individual characters to the stack.
+
+As anything in life, there are always ifs and buts. I can not guarantee this project solves your problems, and I can not guarantee it has no bugs or problems. In fact there must be issues that I'm either not aware of, or haven't found a solution for yet. Please open an issue if you find something, because only then I know people actually use this. I personally have used this successfully in different applications where there was a need to have an embedded programming language with a small footprint. I have found it reasonably fast and pretty capable.
 
 # News
 - As of 01/05/2023 it is possible to print formatted strings. For more info on what string formatting options there are, see https://github.com/fmtlib/fmt
-
-As anything in life, there are always ifs and buts. I can not guarantee this project solves your problems, and I can not guarantee it has no bugs or problems. In fact there must be issues that I'm either not aware of, or haven't found a solution for yet. Please open an issue if you find something, because only then I know people actually use this. I personally have used this successfully in different applications where there was a need to have an embedded programming language with a small footprint. I have found it reasonably fast and pretty capable.
 
 # Note
 In contrary to my previous project, the instruction opcodes are case sensitive and MUST be lower case!
