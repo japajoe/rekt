@@ -46,6 +46,7 @@ extern "C" VOLT_API_EXPORT bool volt_stack_push_int64(Stack* stack, int64_t valu
 extern "C" VOLT_API_EXPORT bool volt_stack_push_uint64(Stack* stack, uint64_t value, uint64_t* stackOffset);
 extern "C" VOLT_API_EXPORT bool volt_stack_push_string(Stack* stack, char* value, uint64_t* stackOffset);
 extern "C" VOLT_API_EXPORT bool volt_stack_pop(Stack *stack, byte *target, uint64_t *stackOffset);
+extern "C" VOLT_API_EXPORT bool volt_stack_pop_with_count(Stack *stack, uint64_t count, uint64_t *stackOffset);
 extern "C" VOLT_API_EXPORT unsigned char* volt_stack_get_buffer(Stack* stack);
 extern "C" VOLT_API_EXPORT unsigned char* volt_stack_get_top(Stack* stack);
 extern "C" VOLT_API_EXPORT bool volt_stack_check_type(Stack* stack, Type type, int64_t index);

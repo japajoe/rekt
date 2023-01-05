@@ -1,27 +1,8 @@
 #include <volt.hpp>
 #include <Utilities/Memory.hpp>
 
-uint64_t NearestPowerOfTwo(uint64_t n)
-{
-    uint64_t v = n; 
-
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    v |= v >> 32;
-    v++; // next power of 2
-
-    uint64_t x = v >> 1; // previous power of 2
-
-    return (v - n) > (n - x) ? x : v;
-}
-
 void volt_library_init(void)
 {
-    std::cout << "volt_library_init!!!!!" << std::endl;
     StandardLibrary::Initialize();
 }
 
@@ -174,11 +155,6 @@ OpCode volt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset)
 
 VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity)
 {
-    stackCapacity = NearestPowerOfTwo(stackCapacity);
-
-    if(stackCapacity < 1024)
-        stackCapacity = 1024;
-
     VirtualMachine *vm = new VirtualMachine(stackCapacity);
     return vm;
 }
@@ -348,6 +324,22 @@ bool volt_stack_pop(Stack* stack, unsigned char* target, uint64_t* stackOffset)
     if(stack == nullptr)
         return false;
     return stack->Pop(target, *stackOffset);
+}
+
+bool volt_stack_pop_with_count(Stack *stack, uint64_t count, uint64_t *stackOffset)
+{
+    if(stack == nullptr)
+        return false;
+
+    bool result = false;
+
+    for (uint64_t i = 0; i < count; i++)
+    {
+        if(!stack->Pop(*stackOffset))
+            return false;
+    }
+
+    return true;
 }
 
 unsigned char* volt_stack_get_buffer(Stack* stack)

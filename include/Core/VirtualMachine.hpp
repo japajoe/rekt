@@ -2,6 +2,7 @@
 #define VIRTUALMACHINE_HPP
 
 #include <Compilation/Instruction.hpp>
+#include <Utilities/MathUtility.hpp>
 #include <MathOperation.hpp>
 #include <StandardLibrary.hpp>
 #include <Assembly.hpp>
@@ -50,6 +51,11 @@ namespace VoltLang
     public:
         VirtualMachine(uint64_t stackCapacity = 0)
         {
+            stackCapacity = MathUtility::NearestPowerOfTwo(stackCapacity);
+
+            if(stackCapacity < VOLT_MIN_STACK_CAPACITY)
+                stackCapacity = VOLT_MIN_STACK_CAPACITY;
+
             memset(&registers[0], 0, REGISTER_CAPACITY);
             
             if(stackCapacity == 0)

@@ -6,9 +6,12 @@
 #include <vector>
 #include <type_traits>
 #include <Instruction.hpp>
+#include <Utilities/MathUtility.hpp>
 
 namespace VoltLang
 {
+    constexpr uint64_t VOLT_MIN_STACK_CAPACITY = 1024;
+
     class Stack
     {
     private:
@@ -25,6 +28,11 @@ namespace VoltLang
 
         Stack(uint64_t capacity)
         {
+            capacity = MathUtility::NearestPowerOfTwo(capacity);
+
+            if(capacity < VOLT_MIN_STACK_CAPACITY)
+                capacity = VOLT_MIN_STACK_CAPACITY;
+
             this->capacity = capacity;
             stackSize = 0;
             stackIndex = 0;
@@ -119,6 +127,21 @@ namespace VoltLang
         {
             uintptr_t address = (uintptr_t)value;
             return Push<char>(value, Type::Pointer, stackOffset);
+        }
+
+        bool Pop(uint64_t& stackOffset)
+        {
+            if(stackSize < 8)
+            {
+                return false;
+            }
+
+            types[stackIndex-1] = Type::Unknown;
+
+            stackSize -= 8;
+            stackIndex--;
+            stackOffset = stackSize;
+            return true;
         }
 
         bool Pop(unsigned char* target, uint64_t& stackOffset)
