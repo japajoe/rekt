@@ -27,7 +27,6 @@ int main(int argc, char** argv)
     Assembly assembly;
     VirtualMachine machine;
 
-
     if (!File::Exists(filepath))
     {
         std::cout << "File does not exist: " << filepath << std::endl;
@@ -46,13 +45,10 @@ int main(int argc, char** argv)
 
         auto startTime = high_resolution_clock::now();
 
-        status = machine.Call(3);
-        status = machine.Call(3);
-
-        // while (status == ExecutionStatus::Ok)
-        // {
-        //     status = machine.Run();
-        // }
+        while (status == ExecutionStatus::Ok)
+        {
+            status = machine.Run();
+        }
 
         auto endTime = high_resolution_clock::now();
         auto elapsedMilliseconds = duration_cast<microseconds>(endTime - startTime).count() * 0.001;

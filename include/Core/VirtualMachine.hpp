@@ -135,22 +135,21 @@ namespace VoltLang
             ip = labelOffset;
 
             ExecutionStatus status = ExecutionStatus::Ok;
+
+            execute = true;
             
             while(status == ExecutionStatus::Ok)
             {
-                status = Run(true);
+                status = Run();
             }
 
             return status;
         }
 
-        ExecutionStatus Run(bool forceRun = false)
+        ExecutionStatus Run()
         {
             if(assembly == nullptr)
                 return ExecutionStatus::Error;
-
-            if(forceRun)
-                execute = true;
 
             if(execute == false)
                 return ExecutionStatus::Error;            
