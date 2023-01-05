@@ -17,6 +17,7 @@ file(GLOB SOURCES
     "${PROJECT_SOURCE_DIR}/src/Core/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/IO/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/Utilities/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/Formatting/fmt/*.c"
 )
 
 # Will add __FILENAME__ macros for all source files, which is the filename without full find_path
@@ -45,6 +46,7 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/include/IO"
     "${PROJECT_SOURCE_DIR}/include/Tokenization"
     "${PROJECT_SOURCE_DIR}/include/Utilities"
+    "${PROJECT_SOURCE_DIR}/include/Formatting/fmt"
 )
 
 if( BUILD_SHARED_LIBRARY ) 

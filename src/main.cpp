@@ -5,13 +5,17 @@
 #include <Core/VirtualMachine.hpp>
 #include <Core/Assembly.hpp>
 #include <Core/StandardLibrary.hpp>
+#include <Core/Object.hpp>
 #include <chrono>
+#include <memory>
+#include <exception>
 
 using namespace VoltLang;
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;
+
 
 int main(int argc, char** argv)
 {

@@ -1,7 +1,7 @@
 ;;This is a comment. Note that it needs double semicolons
 
 section data
-    startText db : "Calculating first 20 numbers of the fibonacci sequence:\n"
+    startText db : "Calculating first {:d} numbers of the fibonacci sequence:\n"
     iterations dq : 20
     counter dq : 0
     num1 dq : 0
@@ -10,8 +10,9 @@ section data
     timeEnd dq : 0
 section text
 start:
+    push iterations
     push startText
-    call print
+    call printf
 loop:
     cmp counter iterations
     jge end
@@ -26,7 +27,8 @@ loop:
     mov num1 eax
 
     push ebx
-    call println
+    call printf
+    call printf ;; if no argument is pushed, prints a new line
     
     jmp loop
 end:

@@ -6,6 +6,7 @@
 #include <vector>
 #include <type_traits>
 #include <Instruction.hpp>
+#include <Object.hpp>
 #include <Utilities/MathUtility.hpp>
 
 namespace VoltLang
@@ -257,7 +258,59 @@ namespace VoltLang
                 default:
                     return false;
             }        
-        }    
+        }
+
+        bool TryPopAsObject(unsigned char* target, ObjectBase& value, uint64_t& stackOffset)
+        {
+            Type type = GetTopType();
+
+            switch(type)
+            {
+                case Type::Double:
+                {
+                    double v;
+                    if (!PopDouble(target, v, stackOffset))
+                        return false;
+
+                    value.value.as_double = v;
+                    value.type = ObjectType::Double;
+                    return true;
+                }
+                case Type::UInt64:
+                {
+                    uint64_t v;
+                    if(!PopUInt64(target, v, stackOffset))
+                        return false;
+
+                    value.value.as_uint64 = v;
+                    value.type = ObjectType::UInt64;
+                    return true;
+                }
+                case Type::Int64:
+                {
+                    int64_t v;
+                    if (!PopInt64(target, v, stackOffset))
+                        return false;
+
+                    value.value.as_int64 = v;
+                    value.type = ObjectType::Int64;
+                    return true;
+                }
+                case Type::Pointer:
+                {
+                    if (!Pop(target, stackOffset))
+                        return false;
+
+                    char *ptr = GetDataAs<char>(target);
+
+                    value.value.as_string = ptr;
+                    value.type = ObjectType::String;
+                    return true;
+                }
+                default:
+                    return false;
+            }        
+        }         
 
         bool CheckType(Type type, int64_t index)
         {

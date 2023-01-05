@@ -1,7 +1,14 @@
 #include <StandardLibrary.hpp>
+#include <Object.hpp>
+
 #include <iostream>
 #include <cstring>
 #include <chrono>
+#include <vector>
+
+#define FMT_HEADER_ONLY
+#include <Formatting/fmt/format.h>
+#include <Formatting/fmt/args.h>
 
 namespace VoltLang
 {
@@ -9,10 +16,7 @@ namespace VoltLang
 
     void StandardLibrary::Initialize()
     {
-        RegisterFunction("print", StandardLibrary::Print);
-        RegisterFunction("println", StandardLibrary::PrintLine);
-        RegisterFunction("printnum", StandardLibrary::PrintNumber);
-        RegisterFunction("newln", StandardLibrary::NewLine);
+        RegisterFunction("printf", StandardLibrary::PrintF);
         RegisterFunction("timestamp", StandardLibrary::TimeStamp);
     }
 
@@ -48,64 +52,76 @@ namespace VoltLang
         return false;    
     }
 
-    int StandardLibrary::Print(Stack *stack)
-    {
-        unsigned char buffer[8];
-        memset(buffer, 0, 8);
-        
-        std::string value;
-        uint64_t offset;
-
-        if (!stack->TryPopAsString(buffer, value, offset))
-        {
-            return -1;
-        }
-
-        std::cout << value;
-
-        return 0;
-    }
-
-    int StandardLibrary::PrintLine(Stack *stack)
+    int StandardLibrary::PrintF(Stack *stack)
     {
         unsigned char buffer[8];
         memset(buffer, 0, 8);
 
-        std::string value;
-        uint64_t offset;
+        uint64_t offset = 0;
+        uint64_t stackCount = stack->GetCount();
 
-        if (!stack->TryPopAsString(buffer, value, offset))
+        if(stackCount == 0)
         {
-            return -1;
+            std::cout << '\n';
+        }
+        else if(stackCount == 1)
+        {
+            std::string message;
+
+            if(!stack->TryPopAsString(buffer, message, offset))
+                return -1;
+
+            std::cout << message;
+        }
+        else
+        {
+            std::string message;
+
+            if(!stack->TryPopAsString(buffer, message, offset))
+                return -1;
+
+            fmt::dynamic_format_arg_store<fmt::format_context> store;
+
+            for (uint64_t i = 0; i < stackCount-1; i++)
+            {
+                ObjectBase value;
+                if (!stack->TryPopAsObject(buffer, value, offset))
+                    return -1;
+
+                switch(value.type)
+                {
+                    case ObjectType::Double:
+                        store.push_back(value.value.as_double);
+                        break;
+                    case ObjectType::Int64:
+                        store.push_back(value.value.as_int64);
+                        break;
+                    case ObjectType::UInt64:
+                        store.push_back(value.value.as_uint64);
+                        break;
+                    case ObjectType::String:
+                        store.push_back(value.value.as_string);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            fmt::v9::string_view sv(message);
+
+            try
+            {
+                auto msg = fmt::vformat(sv, store);
+                fmt::print(msg);
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << "printf error: " << e.what() << "-> " << message << '\n';
+                return -1;
+            }
         }
 
-        std::cout << value << '\n';
-
-        return 0;
-    }
-
-    int StandardLibrary::PrintNumber(Stack *stack)
-    {
-        unsigned char buffer[8];
-        memset(buffer, 0, 8);
-
-        std::string value;
-        uint64_t offset;
-
-        if (!stack->TryPopAsString(buffer, value, offset))
-        {
-            return -1;
-        }
-
-        std::cout << value;
-
-        return 0;
-    }
-
-    int StandardLibrary::NewLine(Stack *stack)
-    {
-        std::cout << '\n';
-        return 0;
+        return 0;        
     }
 
     int StandardLibrary::TimeStamp(Stack *stack)

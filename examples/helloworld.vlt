@@ -5,5 +5,5 @@ section data
 
 section text
     push helloText
-    call print
+    call printf
     hlt

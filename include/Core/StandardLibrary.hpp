@@ -13,10 +13,7 @@ namespace VoltLang
     {
     private:
         static std::map<std::string, uint64_t> functionMap;
-        static int Print(Stack *stack);
-        static int PrintLine(Stack *stack);
-        static int PrintNumber(Stack *stack);
-        static int NewLine(Stack *stack);
+        static int PrintF(Stack *stack);
         static int TimeStamp(Stack *stack);
     public:
         static void Initialize();
