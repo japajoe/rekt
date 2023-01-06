@@ -236,6 +236,22 @@ Stack* volt_virtual_machine_get_stack(VirtualMachine* vm)
     return vm->GetStack();
 }
 
+int64_t volt_virtual_machine_get_compare_flag(VirtualMachine* vm)
+{
+    if(vm == nullptr)
+        return 0;
+
+    return vm->GetCompareFlag();
+}
+
+int64_t volt_virtual_machine_get_zero_flag(VirtualMachine* vm)
+{
+    if(vm == nullptr)
+        return 0;
+
+    return vm->GetZeroFlag();
+}
+
 Compiler* volt_compiler_create(void)
 {
     Compiler* compiler = new Compiler();

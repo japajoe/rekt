@@ -29,13 +29,15 @@ namespace VoltLang
         Error
     };
 
-    typedef void MathOperationPtr(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType);
+    typedef int64_t MathOperationPtr(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType);
 
     class VirtualMachine
     {
     private:
         uint64_t ip;
         uint64_t returnAddress;
+        int64_t compareFlag;
+        int64_t zeroFlag;
         Assembly *assembly;
         bool execute;
         unsigned char registers[REGISTER_CAPACITY];
@@ -69,6 +71,10 @@ namespace VoltLang
             {
                 registerType[i] = Type::Unknown;
             }
+
+            assembly = nullptr;
+            compareFlag = 0;
+            zeroFlag = 0;
         }
 
         unsigned char* GetRegisters()
@@ -86,12 +92,25 @@ namespace VoltLang
             return REGISTER_CAPACITY;
         }
 
+        int64_t GetCompareFlag() const
+        {
+            return compareFlag;
+        }
+
+        int64_t GetZeroFlag() const
+        {
+            return zeroFlag;
+        }        
+
         void Reset()
         {
             assembly = nullptr;
             ip = 0;
             returnAddress = 0;
             execute = false;
+            compareFlag = 0;
+            zeroFlag = 0;
+
             memset(&registers[0], 0, REGISTER_CAPACITY);
             for (size_t i = 0; i < NUM_REGISTERS; i++)
             {
@@ -128,7 +147,7 @@ namespace VoltLang
             if(labelOffset >= assembly->instructions.size())
                 return ExecutionStatus::IllegalJump;
 
-            //Very useful that the compiler always puts a HLT instruction at the end :)
+            //Return to last instruction (HLT) which compiler always adds automatically
             returnAddress = assembly->instructions.size() - 1;
 
             uint64_t offset;
@@ -217,7 +236,7 @@ namespace VoltLang
                     else
                     {
                         uint64_t stackOffset;
-                        if (!stack.Pop(nullptr, stackOffset))
+                        if (!stack.Pop(stackOffset))
                         {
                             execute = false;
                             return ExecutionStatus::StackUnderflow;
@@ -262,7 +281,7 @@ namespace VoltLang
                     unsigned char* valuePtr = reinterpret_cast<unsigned char *>(&value);
 
                     Type type = GetOperandValueType(&instruction->operands[0]);
-                    MathOperation::Add(lhs, valuePtr, type, Type::UInt64);
+                    zeroFlag = MathOperation::Add(lhs, valuePtr, type, Type::UInt64);
                     ip++;
                     break;
                 }
@@ -273,25 +292,25 @@ namespace VoltLang
                     unsigned char* valuePtr = reinterpret_cast<unsigned char *>(&value);
 
                     Type type = GetOperandValueType(&instruction->operands[0]);
-                    MathOperation::Subtract(lhs, valuePtr, type, Type::UInt64);
+                    zeroFlag = MathOperation::Subtract(lhs, valuePtr, type, Type::UInt64);
                     ip++;                    
                     break;
                 }
                 case OpCode::Add:
                 {
-                    DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Add);                
+                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Add);                
                     ip++;
                     break;
                 }
                 case OpCode::Subtract:
                 {
-                    DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Subtract);
+                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Subtract);
                     ip++;
                     break;
                 }
                 case OpCode::Multiply:
                 {
-                    DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Multiply);
+                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Multiply);
                     ip++;
                     break;
                 }
@@ -309,13 +328,13 @@ namespace VoltLang
                         return ExecutionStatus::DivisionByZero;
                     }
 
-                    DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Divide);
+                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Divide);
                     ip++;
                     break;
                 }              
                 case OpCode::Compare:
                 {
-                    DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Compare);
+                    compareFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Compare);
                     ip++;
                     break;
                 }
@@ -384,7 +403,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() > 0)
+                        if(compareFlag > 0)
                         {
                             ip = address;
                         }
@@ -407,7 +426,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() >= 0)
+                        if(compareFlag >= 0)
                         {
                             ip = address;
                         }
@@ -430,7 +449,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() < 0)
+                        if(compareFlag < 0)
                         {
                             ip = address;
                         }
@@ -453,7 +472,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() <= 0)
+                        if(compareFlag <= 0)
                         {
                             ip = address;
                         }
@@ -476,7 +495,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() == 0)
+                        if(compareFlag == 0)
                         {
                             ip = address;
                         }
@@ -499,7 +518,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetCompareFlag() != 0)
+                        if(compareFlag != 0)
                         {
                             ip = address;
                         }
@@ -522,7 +541,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetZeroFlag() == 0)
+                        if(compareFlag == 0)
                         {
                             ip = address;
                         }
@@ -545,7 +564,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(MathOperation::GetZeroFlag() != 0)
+                        if(compareFlag != 0)
                         {
                             ip = address;
                         }
@@ -599,7 +618,7 @@ namespace VoltLang
         }
 
     private:
-        inline void DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
+        inline int64_t DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
         {
             unsigned char* lhs = GetOperandPointer(left);
             unsigned char* rhs = GetOperandPointer(right);
@@ -607,8 +626,8 @@ namespace VoltLang
             Type typeLeft = GetOperandValueType(left);
             Type typeRight = GetOperandValueType(right);
 
-            operation(lhs, rhs, typeLeft, typeRight);
-        }    
+            return operation(lhs, rhs, typeLeft, typeRight);
+        }
 
         inline uint64_t GetRegisterIndex(Operand* operand)
         {
@@ -630,27 +649,7 @@ namespace VoltLang
                     return &operand->data[0];
                 default:
                     return nullptr;
-            }
-
-            //Note: Just for reference, this switch below causes a speed decrease of about 15-20 percent!
-            //This test was done by computing the fibonacci sequence with 10 million iterations
-            // switch (operand->type)
-            // {
-            //     case OperandType::Register:
-            //         return &registers[0] + (operand->GetValue<uint64_t>() * 8);
-            //     case OperandType::Data:
-            //         return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());                
-            //     case OperandType::LabelToInstruction:
-            //         return &operand->data[0];
-            //     case OperandType::LabelToFunction:
-            //         return &operand->data[0];
-            //     case OperandType::IntegerLiteral:
-            //         return &operand->data[0];
-            //     case OperandType::FloatingPointLiteral:
-            //         return &operand->data[0];
-            //     default:
-            //         return nullptr;
-            // }            
+            }           
         }
 
         inline Type GetOperandValueType(Operand* operand)

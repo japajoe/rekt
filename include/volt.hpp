@@ -33,6 +33,8 @@ extern "C" VOLT_API_EXPORT ExecutionStatus volt_virtual_machine_run(VirtualMachi
 extern "C" VOLT_API_EXPORT ExecutionStatus volt_virtual_machine_call(VirtualMachine* vm, uint64_t labelOffset);
 extern "C" VOLT_API_EXPORT unsigned char* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size);
 extern "C" VOLT_API_EXPORT Stack* volt_virtual_machine_get_stack(VirtualMachine* vm);
+extern "C" VOLT_API_EXPORT int64_t volt_virtual_machine_get_compare_flag(VirtualMachine* vm);
+extern "C" VOLT_API_EXPORT int64_t volt_virtual_machine_get_zero_flag(VirtualMachine* vm);
 
 extern "C" VOLT_API_EXPORT Compiler* volt_compiler_create(void);
 extern "C" VOLT_API_EXPORT void volt_compiler_destroy(Compiler* compiler);
