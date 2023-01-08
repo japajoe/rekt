@@ -19,6 +19,90 @@ As anything in life, there are always ifs and buts. I can not guarantee this pro
 # Note
 In contrary to my previous project, the instruction opcodes are case sensitive and MUST be lower case!
 
+# Example use
+```cpp
+#include <iostream>
+#include <chrono>
+#include <memory>
+#include <exception>
+#include <IO/File.hpp>
+#include <Compilation/Compiler.hpp>
+#include <Compilation/Instruction.hpp>
+#include <Core/VirtualMachine.hpp>
+#include <Core/Assembly.hpp>
+#include <Modules/ModuleLoader.hpp>
+#include <Modules/SystemModule.hpp>
+#include <Modules/MemoryModule.hpp>
+#include <Modules/MathModule.hpp>
+
+using namespace VoltLang;
+
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::microseconds;
+
+int main(int argc, char** argv)
+{
+    std::string filepath = "helloworld.vlt";
+
+    if(argc > 1)
+    {
+        filepath = std::string(argv[1]);
+    }
+
+    //Load some standard modules so you can call functions such as printf etc.
+    ModuleLoader::Load<SystemModule>();
+    ModuleLoader::Load<MemoryModule>();
+    ModuleLoader::Load<MathModule>();
+
+    Assembly assembly;
+    VirtualMachine machine;
+
+    if (!File::Exists(filepath))
+    {
+        std::cout << "File does not exist: " << filepath << std::endl;
+        return 1;
+    }
+
+    std::string source = File::ReadAllText(filepath);
+
+    Compiler compiler;
+
+    if(compiler.Compile(source, &assembly))
+    {
+        machine.LoadAssembly(&assembly);
+
+        ExecutionStatus status = ExecutionStatus::Ok;
+
+        auto startTime = high_resolution_clock::now();
+
+        while (status == ExecutionStatus::Ok)
+        {
+            status = machine.Run();
+        }
+
+        auto endTime = high_resolution_clock::now();
+        auto elapsedMilliseconds = duration_cast<microseconds>(endTime - startTime).count() * 0.001;
+
+        std::cout << "Execution finished with status " << (int)status << " in " << elapsedMilliseconds << " milliseconds" << std::endl;
+    }
+
+    //Release resources allocated by modules (if any).
+    ModuleLoader::Dispose();
+
+    return 0;
+}
+```
+
+# Building
+In the root directory of the folder (where the include and src folder are located), create a directory called build. From within the build directory run one of the following commands
+- cmake .. -DBUILD_SHARED_LIBRARY=0
+- cmake .. -DBUILD_SHARED_LIBRARY=1
+
+If you pass 0 to BUILD_SHARED_LIBRARY, CMake will configure the makefile to generate an executable. If you pass it 1, it will generate it for a shared library. After running the command run 'make' or whichever tool you use to execute a makefile.
+
+
+
 # Instructions
 **MOV**
 Move a value into a register or into a variable. Registers are able to store any type, variables are constrained to only contain the type they are defined as.

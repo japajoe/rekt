@@ -1,20 +1,26 @@
 #include <SystemModule.hpp>
 #include <chrono>
+#include <iostream>
 #define FMT_HEADER_ONLY
 #include <Formatting/fmt/format.h>
 #include <Formatting/fmt/args.h>
 
 namespace VoltLang
 {
+    std::unique_ptr<Arena> SystemModule::arena;
+    void *SystemModule::lastString = nullptr;
+
     SystemModule::SystemModule()
     {
         this->name = "System";
         this->description = "Contains standard functionality for writing to the console etc.";
-    }
+        arena = std::make_unique<Arena>();
+    } 
 
     void SystemModule::Register()
     {
         RegisterFunction("printf", SystemModule::PrintF);
+        RegisterFunction("getline", SystemModule::GetLine);
         RegisterFunction("timestamp", SystemModule::TimeStamp);
     }
 
@@ -89,7 +95,28 @@ namespace VoltLang
             }
         }
 
+        //I know, this is an incredible dirty way of dealing with memory
+        if(lastString != nullptr)
+        {
+            arena->Deallocate(lastString);
+            lastString = nullptr;
+        }
+
         return 0;        
+    }
+
+    int SystemModule::GetLine(Stack *stack)
+    {
+        char *str = reinterpret_cast<char *>(arena->Allocate(1024));
+        lastString = str;
+
+        if (fgets(str, 1024, stdin) == NULL) 
+            return -1;
+
+        uint64_t offset;
+        stack->PushString(str, offset);
+
+        return 0;
     }
 
     int SystemModule::TimeStamp(Stack *stack)

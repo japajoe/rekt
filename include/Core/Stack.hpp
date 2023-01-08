@@ -68,7 +68,11 @@ namespace VoltLang
             }
 
             if(type == Type::Pointer)
+            {
                 memcpy(&buffer[stackSize], &data, sizeof(void *)); //Pointers have different size on x64 than x86
+                //uintptr_t address = reinterpret_cast<uintptr_t>(data);
+                //std::cout << "Pushed a pointer to the stack " << std::hex << address << std::dec << std::endl;
+            }
             else
                 memcpy(&buffer[stackSize], data, sizeof(uint64_t)); //size of uint64_t is typically 8 bytes
 
@@ -90,7 +94,11 @@ namespace VoltLang
             }
 
             if(type == Type::Pointer)
+            {
                 memcpy(&buffer[stackSize], &data, sizeof(void *)); //Pointers have different size on x64 than x86
+                //uintptr_t address = reinterpret_cast<uintptr_t>(data);
+                //std::cout << "Pushed a pointer to the stack " << std::hex << address << std::dec << std::endl;
+            }
             else
                 memcpy(&buffer[stackSize], data, sizeof(uint64_t)); //size of uint64_t is typically 8 bytes
             
@@ -156,7 +164,11 @@ namespace VoltLang
             if(target != nullptr)
             {
                 if (types[stackIndex - 1] == Type::Pointer)
+                {
                     memcpy(target, std::addressof(buffer[stackSize - 8]), sizeof(void *));
+                    //uintptr_t address = *reinterpret_cast<uintptr_t*>(target);
+                    //std::cout << "Popped a pointer off the stack " << std::hex << address << std::dec << std::endl;
+                }
                 else
                     memcpy(target, &buffer[stackSize-8], sizeof(uint64_t));
             }
