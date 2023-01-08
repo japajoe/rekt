@@ -16,6 +16,7 @@ file(GLOB SOURCES
     "${PROJECT_SOURCE_DIR}/src/Compilation/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/Core/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/IO/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/Modules/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/Utilities/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/Formatting/fmt/*.c"
 )
@@ -44,6 +45,7 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/include/Compilation"
     "${PROJECT_SOURCE_DIR}/include/Core"
     "${PROJECT_SOURCE_DIR}/include/IO"
+    "${PROJECT_SOURCE_DIR}/include/Modules"
     "${PROJECT_SOURCE_DIR}/include/Tokenization"
     "${PROJECT_SOURCE_DIR}/include/Utilities"
     "${PROJECT_SOURCE_DIR}/include/Formatting/fmt"

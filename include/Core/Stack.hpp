@@ -1,6 +1,7 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
+#include <memory>
 #include <cstring>
 #include <iostream>
 #include <vector>
@@ -154,8 +155,8 @@ namespace VoltLang
 
             if(target != nullptr)
             {
-                if(types[stackIndex -1] == Type::Pointer)
-                    memcpy(target, &buffer[stackSize-8], sizeof(void *));
+                if (types[stackIndex - 1] == Type::Pointer)
+                    memcpy(target, std::addressof(buffer[stackSize - 8]), sizeof(void *));
                 else
                     memcpy(target, &buffer[stackSize-8], sizeof(uint64_t));
             }
@@ -209,7 +210,18 @@ namespace VoltLang
                 return true;
             }
 
-            return false;            
+            return false;
+        }
+
+        bool PopPointer(unsigned char* target, uint64_t& value, uint64_t stackOffset)
+        {
+            if(Pop(target, stackOffset))
+            {
+                memcpy(&value, target, sizeof(uint64_t));
+                return true;
+            }
+
+            return false;
         }
 
         bool TryPopAsString(unsigned char* target, std::string& value, uint64_t& stackOffset)
@@ -260,7 +272,7 @@ namespace VoltLang
             }        
         }
 
-        bool TryPopAsObject(unsigned char* target, ObjectBase& value, uint64_t& stackOffset)
+        bool TryPopAsObject(unsigned char* target, Object& value, uint64_t& stackOffset)
         {
             Type type = GetTopType();
 

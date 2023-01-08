@@ -48,6 +48,20 @@ namespace VoltLang
             this->labels = labels;
         }
 
+        bool GetLabelByOffset(uint64_t offset, std::string& name)
+        {
+            for(auto& l : labels)
+            {
+                if(l.second == offset)
+                {
+                    name = l.first;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         template<typename T>
         T* GetDataAtOffset(uint64_t offset)
         {

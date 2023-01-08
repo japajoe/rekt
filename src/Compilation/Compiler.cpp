@@ -1,5 +1,5 @@
 #include <Compiler.hpp>
-#include <Core/StandardLibrary.hpp>
+#include <Modules/Module.hpp>
 
 namespace VoltLang
 {
@@ -848,7 +848,7 @@ namespace VoltLang
             return true;
         }
 
-        if(StandardLibrary::HasFunction(text))
+        if(Module::HasFunction(text))
         {
             operandType = OperandType::LabelToFunction;
             return true;
@@ -943,7 +943,7 @@ namespace VoltLang
             {
                 uint64_t value = 0;
 
-                if(StandardLibrary::FindFunction(text, &value))
+                if(Module::FindFunction(text, &value))
                 {
                     *operand = Operand(type, Type::UInt64, value);
                     //std::cout << "Create operand to LabelToFunction: " << text << " with value: " << value << '\n';

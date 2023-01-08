@@ -1,14 +1,22 @@
 #include <volt.hpp>
 #include <Utilities/Memory.hpp>
+#include <Modules/ModuleLoader.hpp>
+#include <Modules/SystemModule.hpp>
 
-void volt_library_init(void)
+
+void volt_modules_load(void)
 {
-    StandardLibrary::Initialize();
+    ModuleLoader::Load<SystemModule>();
+}
+
+void volt_modules_dispose(void)
+{
+    ModuleLoader::Dispose();
 }
 
 bool volt_function_register(const char* name, VoltVMFunction fn_ptr)
 {
-    return StandardLibrary::RegisterFunction(name, fn_ptr);
+    return Module::RegisterFunction(name, fn_ptr);
 }
 
 Assembly* volt_assembly_create(void)
@@ -331,6 +339,19 @@ bool volt_stack_push_string(Stack* stack, char* value, uint64_t* stackOffset)
 {
     if(stack == nullptr)
         return false;
+
+
+    // Might have to deal with this differently
+    // size_t size = 0;
+
+    // while(value[size] != '\0')
+    // {
+    //     size++;
+    // }
+
+    // char *ptr = new char[size + 1];
+    // memcpy(ptr, value, size);
+    // ptr[size] = 0;
 
     return stack->PushString(value, *stackOffset);
 }

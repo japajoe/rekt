@@ -1,21 +1,20 @@
 #include <iostream>
-#include <Compilation/Compiler.hpp>
-#include <IO/File.hpp>
-#include <Compilation/Instruction.hpp>
-#include <Core/VirtualMachine.hpp>
-#include <Core/Assembly.hpp>
-#include <Core/StandardLibrary.hpp>
-#include <Core/Object.hpp>
 #include <chrono>
 #include <memory>
 #include <exception>
+#include <IO/File.hpp>
+#include <Compilation/Compiler.hpp>
+#include <Compilation/Instruction.hpp>
+#include <Core/VirtualMachine.hpp>
+#include <Core/Assembly.hpp>
+#include <Modules/ModuleLoader.hpp>
+#include <Modules/SystemModule.hpp>
 
 using namespace VoltLang;
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;
-
 
 int main(int argc, char** argv)
 {
@@ -26,7 +25,10 @@ int main(int argc, char** argv)
         filepath = std::string(argv[1]);
     }
 
-    StandardLibrary::Initialize();
+    if(ModuleLoader::Load<SystemModule>())
+    {
+        std::cout << "System module loaded" << std::endl;
+    }
 
     Assembly assembly;
     VirtualMachine machine;
@@ -59,6 +61,8 @@ int main(int argc, char** argv)
 
         std::cout << "Execution finished with status " << (int)status << " in " << elapsedMilliseconds << " milliseconds" << std::endl;
     }
+
+    ModuleLoader::Dispose();
 
     return 0;
 }

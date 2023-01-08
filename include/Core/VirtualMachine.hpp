@@ -4,7 +4,7 @@
 #include <Compilation/Instruction.hpp>
 #include <Utilities/MathUtility.hpp>
 #include <MathOperation.hpp>
-#include <StandardLibrary.hpp>
+#include <Modules/Module.hpp>
 #include <Assembly.hpp>
 #include <Stack.hpp>
 #include <vector>
@@ -201,7 +201,7 @@ namespace VoltLang
                     {
                         execute = false;
                         return ExecutionStatus::StackOverflow;
-                    }                       
+                    }          
 
                     ip++;
 
@@ -364,8 +364,18 @@ namespace VoltLang
 
                         if(result < 0)
                         {
+                            std::string labelName;
+
+                            if(Module::GetFunctionName(func, labelName))
+                            {
+                                std::cout << "CALL: Illegal operation at call to '" << labelName << "' at offset " << ip << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "CALL: Illegal operation at offset " << ip << std::endl;
+                            }
                             execute = false;
-                            std::cout << "CALL: Illegal operation at offset " << ip << std::endl;
+                            
                             return ExecutionStatus::IllegalOperation;
                         }
 

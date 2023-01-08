@@ -7,12 +7,12 @@
 #include <Compilation/Instruction.hpp>
 #include <Core/VirtualMachine.hpp>
 #include <Core/Assembly.hpp>
-#include <Core/StandardLibrary.hpp>
 
 using namespace VoltLang;
 
-extern "C" VOLT_API_EXPORT void volt_library_init(void);
-extern "C" VOLT_API_EXPORT bool volt_function_register(const char* name, VoltVMFunction fn_ptr);
+extern "C" VOLT_API_EXPORT void volt_modules_load(void);
+extern "C" VOLT_API_EXPORT void volt_modules_dispose(void);
+extern "C" VOLT_API_EXPORT bool volt_function_register(const char *name, VoltVMFunction fn_ptr);
 
 extern "C" VOLT_API_EXPORT Assembly* volt_assembly_create(void);
 extern "C" VOLT_API_EXPORT void volt_assembly_destroy(Assembly* assembly);
