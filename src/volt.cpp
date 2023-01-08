@@ -2,11 +2,15 @@
 #include <Utilities/Memory.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
+#include <Modules/MemoryModule.hpp>
+#include <Modules/MathModule.hpp>
 
 
 void volt_modules_load(void)
 {
     ModuleLoader::Load<SystemModule>();
+    ModuleLoader::Load<MemoryModule>();
+    ModuleLoader::Load<MathModule>();
 }
 
 void volt_modules_dispose(void)

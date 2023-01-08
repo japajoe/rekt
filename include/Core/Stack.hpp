@@ -224,8 +224,10 @@ namespace VoltLang
             return false;
         }
 
-        bool TryPopAsString(unsigned char* target, std::string& value, uint64_t& stackOffset)
+        bool TryPopAsString(std::string& value, uint64_t& stackOffset)
         {
+            unsigned char target[8];
+            memset(target, 0, 8);
             Type type = GetTopType();
 
             switch(type)
@@ -272,8 +274,142 @@ namespace VoltLang
             }        
         }
 
-        bool TryPopAsObject(unsigned char* target, Object& value, uint64_t& stackOffset)
+        bool TryPopAsUInt64(uint64_t& value, uint64_t& stackOffset)
         {
+            unsigned char target[8];
+            memset(target, 0, 8);
+            Type type = GetTopType();
+
+            switch(type)
+            {
+                case Type::Double:
+                {
+                    double v;
+                    if (!PopDouble(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    value = static_cast<uint64_t>(v);
+                    return true;
+                }
+                case Type::UInt64:
+                {
+                    if(!PopUInt64(target, value, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+                case Type::Int64:
+                {
+                    int64_t v;
+                    if(!PopInt64(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    value = static_cast<uint64_t>(v);
+                    return true;
+                }               
+                default:
+                    return false;
+            }
+        }
+
+        bool TryPopAsInt64(int64_t& value, uint64_t& stackOffset)
+        {
+            unsigned char target[8];
+            memset(target, 0, 8);
+            Type type = GetTopType();
+
+            switch(type)
+            {
+                case Type::Double:
+                {
+                    double v;
+                    if (!PopDouble(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    value = static_cast<int64_t>(v);
+                    return true;
+                }
+                case Type::UInt64:
+                {
+                    uint64_t v;
+                    if(!PopUInt64(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+                    
+                    value = static_cast<uint64_t>(v);
+                    return true;
+                }
+                case Type::Int64:
+                {
+                    if(!PopInt64(target, value, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }               
+                default:
+                    return false;
+            }
+        }
+
+        bool TryPopAsDouble(double& value, uint64_t& stackOffset)
+        {
+            unsigned char target[8];
+            memset(target, 0, 8);
+            Type type = GetTopType();
+
+            switch(type)
+            {
+                case Type::Double:
+                {
+                    if (!PopDouble(target, value, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+                case Type::UInt64:
+                {
+                    uint64_t v;
+                    if(!PopUInt64(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+                    
+                    value = static_cast<double>(v);
+                    return true;
+                }
+                case Type::Int64:
+                {
+                    int64_t v;
+                    if(!PopInt64(target, v, stackOffset))
+                    {
+                        return false;
+                    }
+
+                    value = static_cast<double>(v);
+                    return true;
+                }               
+                default:
+                    return false;
+            }
+        }         
+
+        bool TryPopAsObject(Object& value, uint64_t& stackOffset)
+        {
+            unsigned char target[8];
+            memset(target, 0, 8);
             Type type = GetTopType();
 
             switch(type)

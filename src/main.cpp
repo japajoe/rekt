@@ -9,6 +9,8 @@
 #include <Core/Assembly.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
+#include <Modules/MemoryModule.hpp>
+#include <Modules/MathModule.hpp>
 
 using namespace VoltLang;
 
@@ -25,10 +27,9 @@ int main(int argc, char** argv)
         filepath = std::string(argv[1]);
     }
 
-    if(ModuleLoader::Load<SystemModule>())
-    {
-        std::cout << "System module loaded" << std::endl;
-    }
+    ModuleLoader::Load<SystemModule>();
+    ModuleLoader::Load<MemoryModule>();
+    ModuleLoader::Load<MathModule>();
 
     Assembly assembly;
     VirtualMachine machine;

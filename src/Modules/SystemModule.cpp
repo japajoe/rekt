@@ -16,8 +16,6 @@ namespace VoltLang
     {
         RegisterFunction("printf", SystemModule::PrintF);
         RegisterFunction("timestamp", SystemModule::TimeStamp);
-
-        std::cout << "Registered functions" << std::endl;
     }
 
     void SystemModule::Dispose()
@@ -27,9 +25,6 @@ namespace VoltLang
 
     int SystemModule::PrintF(Stack *stack)
     {
-        unsigned char buffer[8];
-        memset(buffer, 0, 8);
-
         uint64_t offset = 0;
         uint64_t stackCount = stack->GetCount();
 
@@ -41,7 +36,7 @@ namespace VoltLang
         {
             std::string message;
 
-            if(!stack->TryPopAsString(buffer, message, offset))
+            if(!stack->TryPopAsString(message, offset))
                 return -1;
 
             std::cout << message;
@@ -50,7 +45,7 @@ namespace VoltLang
         {
             std::string message;
 
-            if(!stack->TryPopAsString(buffer, message, offset))
+            if(!stack->TryPopAsString(message, offset))
                 return -1;
 
             fmt::dynamic_format_arg_store<fmt::format_context> store;
@@ -58,7 +53,7 @@ namespace VoltLang
             for (uint64_t i = 0; i < stackCount-1; i++)
             {
                 Object value;
-                if (!stack->TryPopAsObject(buffer, value, offset))
+                if (!stack->TryPopAsObject(value, offset))
                     return -1;
 
                 switch(value.type)
