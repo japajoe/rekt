@@ -78,7 +78,44 @@ namespace VoltLang
                 tokenList.push_back(token);
             }
 
-            return tokenList;
+            //Apply some hack to allow negative numbers
+            std::vector<Token<TokenType>> newTokens;
+            std::vector<size_t> indicesToAdd;
+
+            for (size_t i = 0; i < tokenList.size(); i++)
+            {
+                size_t next = i + 1;
+
+                if (next < tokenList.size())
+                {
+                    if (tokenList[i].type == TokenType::Operator && tokenList[i].text == "-")
+                    {
+                        if (tokenList[i + 1].type == TokenType::FloatingPointLiteral || tokenList[i + 1].type == TokenType::IntegerLiteral)
+                        {
+                            tokenList[i + 1].text = "-" + tokenList[i + 1].text;
+                        }
+                        else
+                        {
+                            indicesToAdd.push_back(i);
+                        }
+                    }
+                    else
+                    {
+                        indicesToAdd.push_back(i);
+                    }
+                }
+                else
+                {
+                    indicesToAdd.push_back(i);
+                }
+            }
+
+            for (size_t i = 0; i < indicesToAdd.size(); i++)
+            {
+                newTokens.push_back(tokenList[indicesToAdd[i]]);
+            }            
+
+            return newTokens;
         }    
     };
 }
