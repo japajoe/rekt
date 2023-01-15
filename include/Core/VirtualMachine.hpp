@@ -551,7 +551,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(compareFlag == 0)
+                        if(zeroFlag != 0)
                         {
                             ip = address;
                         }
@@ -574,7 +574,7 @@ namespace VoltLang
 
                     if(instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        if(compareFlag != 0)
+                        if(zeroFlag == 0)
                         {
                             ip = address;
                         }
