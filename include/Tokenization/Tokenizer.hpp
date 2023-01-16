@@ -1,5 +1,5 @@
-#ifndef TOKENIZER_HPP
-#define TOKENIZER_HPP
+#ifndef VOLT_TOKENIZER_HPP
+#define VOLT_TOKENIZER_HPP
 
 #include <Token.hpp>
 #include <TokenizerA.hpp>

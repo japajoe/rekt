@@ -23,47 +23,37 @@ namespace VoltLang
     bool Compiler::Compile(const std::string& source, Assembly* assembly)
     {
         compilationStage = CompilationStage::None;
+        
         // Tokenizes the input string and returns a std::vector<std::vector<Token<TokenType>>>
         // This way we can process the source line by line. This also means none of our instructions or declarations
         // are allowed to be defined over the span of multiple lines.
         auto tokens = GetTokens(source);
 
-        AssemblyData data;
-        AssemblyLabel labels;
         uint64_t numInstructions = 0;
-        std::vector<Instruction> instructions;
 
         //Registers any data and labels
         for (size_t i = 0; i < tokens.size(); i++)
         {
-            GetData(tokens[i], data);
-            GetLabels(tokens[i], labels);
-        }
+            GetData(tokens[i], *assembly);
+            GetLabels(tokens[i], *assembly);
+        }        
 
         //Once all labels are found, count instructions and determine to which instruction a label points towards
         for (size_t i = 0; i < tokens.size(); i++)
         {
-            GetLabelPointer(tokens[i], numInstructions, labels);
+            GetLabelPointer(tokens[i], numInstructions, *assembly);
         }
 
         // Finally create all instructions
         for (size_t i = 0; i < tokens.size(); i++)
         {
-            if (!GetInstructions(tokens[i], data, labels, instructions))
+            if (!GetInstructions(tokens[i], *assembly, assembly->instructions))
             {
                 return false;
             }
         }
 
-        instructions.push_back(Instruction(OpCode::Halt, {}));
-
-        assembly->data = data.data;
-        assembly->symbols = data.symbols;
-        assembly->offsets = data.offsets;
-        assembly->types = data.types;
-        assembly->instructions = instructions;
-        assembly->labels = labels.labels;
-
+        assembly->instructions.push_back(Instruction(OpCode::HLT, {}));
         compilationStage = CompilationStage::None;
 
         return true;
@@ -120,7 +110,7 @@ namespace VoltLang
         return tokenList;
     }
 
-    bool Compiler::GetData(const std::vector<Token<TokenType>> &tokens, AssemblyData& data)
+    bool Compiler::GetData(const std::vector<Token<TokenType>> &tokens, Assembly& assembly)
     {
         size_t numParameters = tokens.size() - 1;
 
@@ -141,7 +131,7 @@ namespace VoltLang
                     {
                         if (tokens[3].type == TokenType::StringLiteral)
                         {
-                            if (!data.Add(tokens[0].text, tokens[3].text))
+                            if (!assembly.AddData(tokens[0].text, tokens[3].text))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -149,14 +139,15 @@ namespace VoltLang
                         }
                         else
                         {
-                            unsigned char result;
-                            if(!StringUtility::ParseNumberLexical<unsigned char>(tokens[3].text, result))
+                            //Instead of allocating space for a string, allocate x number of bytes
+                            uint64_t numBytesToAllocate;
+                            if(!StringUtility::ParseNumberLexical<uint64_t>(tokens[3].text, numBytesToAllocate))
                             {
                                 LogError(CompilationError::ParseNumber, "", tokens[0].lineNumber);
                                 return false;
                             }
 
-                            if (!data.Add(tokens[0].text, result))
+                            if (!assembly.AddDataWithRange(tokens[0].text, numBytesToAllocate))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -174,7 +165,7 @@ namespace VoltLang
                                 return false;
                             }
 
-                            if (!data.Add(tokens[0].text, result))
+                            if (!assembly.AddData(tokens[0].text, result))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -189,7 +180,7 @@ namespace VoltLang
                                 return false;
                             }
 
-                            if (!data.Add(tokens[0].text, result))
+                            if (!assembly.AddData(tokens[0].text, result))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -205,7 +196,7 @@ namespace VoltLang
         return true;
     }
 
-    bool Compiler::GetLabels(const std::vector<Token<TokenType>> &tokens, AssemblyLabel& labels)
+    bool Compiler::GetLabels(const std::vector<Token<TokenType>> &tokens, Assembly& assembly)
     {
         switch (tokens[0].type)
         {
@@ -217,7 +208,7 @@ namespace VoltLang
 
                 if (AssertParameterTypes(tokens, TokenType::Colon))
                 {
-                    if (!labels.Add(tokens[0].text, 0))
+                    if (!assembly.AddLabel(tokens[0].text, 0))
                     {
                         LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                         return false;
@@ -231,15 +222,15 @@ namespace VoltLang
         return true;
     }   
 
-    bool Compiler::GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, AssemblyLabel& labels)
+    bool Compiler::GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, Assembly& assembly)
     {
         if(tokens[0].type == TokenType::Identifier && tokens.size() == 2)
         {
             if(!IsOpCode(tokens[0].type) && tokens[1].type == TokenType::Colon)
             {
-                if(labels.labels.count(tokens[0].text))
+                if(assembly.labels.count(tokens[0].text))
                 {
-                    labels.labels[tokens[0].text] = numInstructions;
+                    assembly.labels[tokens[0].text] = numInstructions;
                 }
             }
         }
@@ -251,7 +242,7 @@ namespace VoltLang
         return true;
     }
 
-    bool Compiler::GetInstructions(const std::vector<Token<TokenType>> &tokens, AssemblyData& data, AssemblyLabel& labels, std::vector<Instruction> &instructions)
+    bool Compiler::GetInstructions(const std::vector<Token<TokenType>> &tokens, Assembly& assembly, std::vector<Instruction> &instructions)
     {
         if(!IsOpCode(tokens[0].type))
         {
@@ -298,10 +289,11 @@ namespace VoltLang
             {            
                 if (!AssertParameterCount(tokens, 0))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
-                Instruction instruction(OpCode::Halt, {});
+                Instruction instruction(OpCode::HLT, {});
                 instructions.push_back(instruction);        
                 break;
             }
@@ -309,6 +301,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -318,9 +311,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::Push, { operand });
+                        Instruction instruction(OpCode::PUSH, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -334,12 +327,13 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 0) && !AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
                 if (numParameters == 0)
                 {
-                    Instruction instruction(OpCode::Pop, {});
+                    Instruction instruction(OpCode::POP, {});
                     instructions.push_back(instruction);
                 }
                 else
@@ -348,9 +342,9 @@ namespace VoltLang
                     {
                         Operand operand;
 
-                        if (CreateOperand(tokens[1], data, labels, &operand))
+                        if (CreateOperand(tokens[1], assembly, &operand))
                         {
-                            Instruction instruction(OpCode::Pop, { operand });
+                            Instruction instruction(OpCode::POP, { operand });
                             instructions.push_back(instruction);                    
                         }
                         else
@@ -365,6 +359,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -375,10 +370,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Move, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::MOV, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -392,6 +387,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -399,9 +395,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::Increment, { operand });
+                        Instruction instruction(OpCode::INC, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -415,6 +411,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -422,9 +419,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::Decrement, { operand });
+                        Instruction instruction(OpCode::DEC, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -438,6 +435,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -448,10 +446,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Add, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::ADD, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -465,6 +463,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -475,10 +474,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Subtract, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::SUB, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -492,6 +491,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -502,10 +502,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Multiply, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::MUL, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -519,6 +519,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -529,10 +530,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Divide, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::DIV, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -546,6 +547,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 2))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -562,10 +564,10 @@ namespace VoltLang
                     Operand operandLeft;
                     Operand operandRight;
 
-                    if (CreateOperand(tokens[1], data, labels, &operandLeft) && 
-                        CreateOperand(tokens[2], data, labels, &operandRight))
+                    if (CreateOperand(tokens[1], assembly, &operandLeft) && 
+                        CreateOperand(tokens[2], assembly, &operandRight))
                     {
-                        Instruction instruction(OpCode::Compare, { operandLeft, operandRight });
+                        Instruction instruction(OpCode::CMP, { operandLeft, operandRight });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -579,6 +581,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -586,9 +589,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::Jump, { operand });
+                        Instruction instruction(OpCode::JMP, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -602,6 +605,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -609,9 +613,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfGreaterThan, { operand });
+                        Instruction instruction(OpCode::JG, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -625,6 +629,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -632,9 +637,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfGreaterThanOrEqual, { operand });
+                        Instruction instruction(OpCode::JGE, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -648,6 +653,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -655,9 +661,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfLessThan, { operand });
+                        Instruction instruction(OpCode::JL, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -671,6 +677,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -678,9 +685,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfLessThanOrEqual, { operand });
+                        Instruction instruction(OpCode::JLE, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -694,6 +701,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -701,9 +709,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfEqual, { operand });
+                        Instruction instruction(OpCode::JE, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -717,6 +725,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -724,9 +733,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfNotEqual, { operand });
+                        Instruction instruction(OpCode::JNE, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -740,6 +749,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -747,9 +757,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfZero, { operand });
+                        Instruction instruction(OpCode::JZ, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -763,6 +773,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -770,9 +781,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::JumpIfNotZero, { operand });
+                        Instruction instruction(OpCode::JNZ, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -786,6 +797,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 1))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -793,9 +805,9 @@ namespace VoltLang
                 {
                     Operand operand;
 
-                    if (CreateOperand(tokens[1], data, labels, &operand))
+                    if (CreateOperand(tokens[1], assembly, &operand))
                     {
-                        Instruction instruction(OpCode::Call, { operand });
+                        Instruction instruction(OpCode::CALL, { operand });
                         instructions.push_back(instruction);                    
                     }
                     else
@@ -809,10 +821,11 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 0))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
-                Instruction instruction(OpCode::Return, {});
+                Instruction instruction(OpCode::RET, {});
                 instructions.push_back(instruction);   
                 break;            
             }
@@ -820,6 +833,7 @@ namespace VoltLang
             {
                 if (!AssertParameterCount(tokens, 0))
                 {
+                    LogError(CompilationError::UnexpectedToken, "", tokens[0].lineNumber);
                     return false;
                 }
 
@@ -834,7 +848,7 @@ namespace VoltLang
         return true;
     }
 
-    bool Compiler::GetOperandTargetType(const std::string &text, const AssemblyData& data, AssemblyLabel& labels, OperandType& operandType)
+    bool Compiler::GetOperandTargetType(const std::string &text, Assembly& assembly, OperandType& operandType)
     {
         if (registers.count(text))
         {
@@ -842,7 +856,7 @@ namespace VoltLang
             return true;
         }
 
-        if(labels.labels.count(text))
+        if(assembly.labels.count(text))
         {
             operandType = OperandType::LabelToInstruction;
             return true;
@@ -854,7 +868,7 @@ namespace VoltLang
             return true;
         }
 
-        if(data.symbols.count(text))
+        if(assembly.symbols.count(text))
         {
             operandType = OperandType::Data;
             return true;
@@ -883,12 +897,13 @@ namespace VoltLang
         return true;
     }
 
-    bool Compiler::CreateOperand(const Token<TokenType>& token, AssemblyData &data, AssemblyLabel &labels, Operand* operand)
+    bool Compiler::CreateOperand(const Token<TokenType>& token, Assembly& assembly, Operand* operand)
     {
         const std::string &text = token.text;
 
         OperandType type;
-        GetOperandTargetType(text, data, labels, type);
+        GetOperandTargetType(text, assembly, type);
+        operand->type = type;
 
         switch(type)
         {
@@ -897,9 +912,7 @@ namespace VoltLang
                 if(registers.count(text))
                 {
                     uint64_t value = registers[text];
-                    Type valueType = data.types[text];
-                    *operand = Operand(type, valueType, value);
-                    //std::cout << "Create operand to Register: " << text << " with value: " << value << '\n';
+                    operand->object = Object(value);
                     return true;
                 }
                 else
@@ -910,12 +923,13 @@ namespace VoltLang
             }
             case OperandType::Data:
             {            
-                if(data.symbols.count(text))
+                if(assembly.symbols.count(text))
                 {
-                    uint64_t value = data.symbols[text];
-                    Type valueType = data.types[text];
-                    *operand = Operand(type, valueType, value);
-                    //std::cout << "Create operand to Data: " << text << " with value: " << value << '\n';
+                    uint64_t value = assembly.symbols[text];
+                    Type valueType = assembly.types[text];
+
+                    void *ptr = &assembly.data[value];
+                    operand->object = Object(ptr, valueType);
                     return true;
                 }
                 else
@@ -926,11 +940,10 @@ namespace VoltLang
             }
             case OperandType::LabelToInstruction:
             {            
-                if(labels.labels.count(text))
+                if(assembly.labels.count(text))
                 {
-                    uint64_t value = labels.labels[text];
-                    *operand = Operand(type, Type::UInt64, value);
-                    //std::cout << "Create operand to LabelToInstruction: " << text << " with value: " << value << '\n';
+                    uint64_t value = assembly.labels[text];                    
+                    operand->object = Object(value);
                     return true;
                 }
                 else
@@ -941,12 +954,11 @@ namespace VoltLang
             }
             case OperandType::LabelToFunction:
             {
-                uint64_t value = 0;
+                VoltVMFunction value;
 
-                if(Module::FindFunction(text, &value))
+                if(Module::FindFunction(text, value))
                 {
-                    *operand = Operand(type, Type::UInt64, value);
-                    //std::cout << "Create operand to LabelToFunction: " << text << " with value: " << value << '\n';
+                    operand->object = Object((void*)value, Type::VoidPointer);
                     return true;
                 }
                 else
@@ -960,8 +972,7 @@ namespace VoltLang
                 int64_t value;
                 if (StringUtility::ParseNumberLexical<int64_t>(text, value))
                 {
-                    *operand = Operand(type, Type::Int64, value);
-                    //std::cout << "Create operand to IntegerLiteral: " << text << " with value: " << value << '\n';
+                    operand->object = Object(value);
                     return true;
                 }
                 break;
@@ -971,8 +982,7 @@ namespace VoltLang
                 double value;
                 if (StringUtility::ParseNumberLexical<double>(text, value))
                 {
-                    *operand = Operand(type, Type::Double, value);
-                    //std::cout << "Create operand to FloatingPointLiteral: " << text << " with value: " << value << '\n';
+                    operand->object = Object(value);
                     return true;
                 }
                 break;

@@ -2,7 +2,7 @@
 
 namespace VoltLang
 {
-    std::map<std::string, uint64_t> Module::functionMap;
+    std::map<std::string, VoltVMFunction> Module::functionMap;
 
     void Module::Register()
     {
@@ -18,7 +18,7 @@ namespace VoltLang
     {
         if(functionMap.count(name) == 0)
         {
-            functionMap[name] = reinterpret_cast<uint64_t>(fn_ptr);
+            functionMap[name] = fn_ptr;
             return true;
         }
         else
@@ -28,11 +28,11 @@ namespace VoltLang
         }
     }
 
-    bool Module::FindFunction(const std::string &name, uint64_t* fn_ptr)
+    bool Module::FindFunction(const std::string &name, VoltVMFunction& fn_ptr)
     {
         if(functionMap.count(name))
         {
-            *fn_ptr = functionMap[name];
+            fn_ptr = functionMap[name];
             return true;
         }
 
@@ -43,7 +43,7 @@ namespace VoltLang
     {
         for(auto& f : functionMap)
         {
-            if(f.second == reinterpret_cast<uint64_t>(fn_ptr))
+            if(f.second == fn_ptr)
             {
                 name = f.first;
                 return true;

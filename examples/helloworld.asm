@@ -1,8 +1,5 @@
-;;This is a comment. Note that it needs double semicolons
-
 section data
     helloText db : "Hello, world!\n"
-
 section text
     push helloText
     call printf

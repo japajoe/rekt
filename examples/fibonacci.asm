@@ -1,34 +1,29 @@
-;;This is a comment. Note that it needs double semicolons
-
 section data
     startText db : "Calculating first {:d} numbers of the fibonacci sequence:\n"
     iterations dq : 20
     counter dq : 0
-    num1 dq : 0
-    num2 dq : 1
-    timeStart dq : 0
-    timeEnd dq : 0
 section text
-start:
+init:
     push iterations
     push startText
     call printf
+    
+    mov eax 1
+    mov ebx 0
+    mov edx 1
 loop:
     cmp counter iterations
     jge end
     inc counter
-
-    mov eax num1
-    add eax num2
-    mov ebx eax
-    mov eax num1
-    mov num2 eax
+    
     mov eax ebx
-    mov num1 eax
-
-    push ebx
+    add eax edx
+    mov ebx edx
+    mov edx eax
+    
+    push eax
     call printf
-    call printf ;; if no argument is pushed, prints a new line
+    call printf
     
     jmp loop
 end:

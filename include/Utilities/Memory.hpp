@@ -1,6 +1,8 @@
-#ifndef MEMORY_HPP
-#define MEMORY_HPP
+#ifndef VOLT_MEMORY_HPP
+#define VOLT_MEMORY_HPP
 
+#include <cstdint>
+#include <Specification.hpp>
 #include <vector>
 #include <string>
 
@@ -11,12 +13,12 @@ namespace VoltLang
     class Memory
     {
     public:
-        static std::vector<unsigned char> GetBytes(const std::string& value);
-        static std::vector<unsigned char> GetBytes(double value);
-        static std::vector<unsigned char> GetBytes(int64_t value);
-        static std::vector<unsigned char> GetBytes(uint64_t value);
         static uint64_t GetSizeInWords(uint64_t sizeInBytes);
-        static void GetModuleAddress(const std::string& name, uintptr_t *address);
+        static std::vector<byte> GetBytes(const std::string& value);
+        static std::vector<byte> GetBytes(double value);
+        static std::vector<byte> GetBytes(int64_t value);
+        static std::vector<byte> GetBytes(uint64_t value);        
     };
 }
+
 #endif

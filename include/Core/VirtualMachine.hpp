@@ -1,21 +1,21 @@
 #ifndef VIRTUALMACHINE_HPP
 #define VIRTUALMACHINE_HPP
 
-#include <Compilation/Instruction.hpp>
-#include <Utilities/MathUtility.hpp>
-#include <MathOperation.hpp>
+#include <Utilities/ConversionUtility.hpp>
 #include <Modules/Module.hpp>
+#include <MathOperation.hpp>
+#include <Specification.hpp>
 #include <Assembly.hpp>
 #include <Stack.hpp>
 #include <vector>
 #include <cstring>
 
-constexpr uint64_t STACK_CAPACITY = 1024 * 8;
-constexpr uint64_t NUM_REGISTERS = 13;
-constexpr uint64_t REGISTER_CAPACITY = NUM_REGISTERS * 8;
-
 namespace VoltLang
 {
+    constexpr uint64_t STACK_CAPACITY = 1024;
+    constexpr uint64_t NUM_REGISTERS = 13;
+    typedef int64_t MathOperationPtr(Object* lhs, Object* rhs);
+
     enum class ExecutionStatus : int
     {
         Ok = 0,
@@ -29,27 +29,17 @@ namespace VoltLang
         Error
     };
 
-    typedef int64_t MathOperationPtr(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType);
-
     class VirtualMachine
     {
     private:
-        uint64_t ip;
-        uint64_t returnAddress;
-        int64_t compareFlag;
-        int64_t zeroFlag;
         Assembly *assembly;
         bool execute;
-        unsigned char registers[REGISTER_CAPACITY];
-        Type registerType[NUM_REGISTERS];
-        Stack stack;
-        Stack internalStack; //Internal use only
-
-        MathOperationPtr mathOperationAdd;
-        MathOperationPtr mathOperationSub;
-        MathOperationPtr mathOperationMul;
-        MathOperationPtr mathOperationDiv;
-
+        uint64_t ip;
+        int64_t compareFlag;
+        int64_t zeroFlag;
+        Object registers[NUM_REGISTERS];
+        Stack<Object> stack;
+        Stack<Object> internalStack;
     public:
         VirtualMachine(uint64_t stackCapacity = 0)
         {
@@ -58,38 +48,38 @@ namespace VoltLang
             if(stackCapacity < VOLT_MIN_STACK_CAPACITY)
                 stackCapacity = VOLT_MIN_STACK_CAPACITY;
 
-            memset(&registers[0], 0, REGISTER_CAPACITY);
-            
-            if(stackCapacity == 0)
-                stack = Stack(STACK_CAPACITY);
-            else
-                stack = Stack(stackCapacity);
-
-            internalStack = Stack(STACK_CAPACITY);
-
             for (size_t i = 0; i < NUM_REGISTERS; i++)
             {
-                registerType[i] = Type::Unknown;
+                registers[i] = Object();
+                registers[i].type = Type::Int64;
+                registers[i].as_int64 = 0;
             }
+
+            if (stackCapacity == 0)
+                stack = Stack<Object>(STACK_CAPACITY);
+            else
+                stack = Stack<Object>(stackCapacity);
+
+            internalStack = Stack<Object>(STACK_CAPACITY);
 
             assembly = nullptr;
             compareFlag = 0;
             zeroFlag = 0;
         }
 
-        unsigned char* GetRegisters()
+        Object* GetRegisters()
         {
             return &registers[0];
         }
 
-        Stack* GetStack()
+        Stack<Object>* GetStack()
         {
             return &stack;
         }
 
         uint64_t GetRegisterCapacity() const
         {
-            return REGISTER_CAPACITY;
+            return NUM_REGISTERS;
         }
 
         int64_t GetCompareFlag() const
@@ -102,25 +92,28 @@ namespace VoltLang
             return zeroFlag;
         }        
 
+        /// @brief Resets the state of this machine. This will unload any loaded assembly.
         void Reset()
         {
             assembly = nullptr;
             ip = 0;
-            returnAddress = 0;
             execute = false;
             compareFlag = 0;
             zeroFlag = 0;
 
-            memset(&registers[0], 0, REGISTER_CAPACITY);
-            for (size_t i = 0; i < NUM_REGISTERS; i++)
-            {
-                registerType[i] = Type::Unknown;
-            }
-
             stack.Clear();
             internalStack.Clear();
+
+            for (size_t i = 0; i < NUM_REGISTERS; i++)
+            {
+                registers[i].type = Type::Int64;
+                registers[i].as_int64 = 0;
+            }            
         }
 
+        /// @brief Resets the state of this VirtualMachine instance and loads the given assembly.
+        /// @param assembly The assembly to load.
+        /// @return True on success or false on failure.
         bool LoadAssembly(Assembly* assembly)
         {
             Reset();
@@ -129,48 +122,18 @@ namespace VoltLang
             return execute;
         }
 
-        void SetInstructionPointer(uint64_t offset)
+        void SetInstructionPointerOffset(uint64_t offset)
         {
             this->ip = offset;
-        }
+        }       
 
         uint64_t GetInstructionPointer() const
         {
             return this->ip;
         }
 
-        ExecutionStatus Call(uint64_t labelOffset)
-        {
-            if(assembly == nullptr)
-                return ExecutionStatus::Error;
-
-            if(labelOffset >= assembly->instructions.size())
-                return ExecutionStatus::IllegalJump;
-
-            //Return to last instruction (HLT) which compiler always adds automatically
-            returnAddress = assembly->instructions.size() - 1;
-
-            uint64_t offset;
-            
-            if(!internalStack.PushUInt64(returnAddress, offset))
-            {
-                return ExecutionStatus::StackOverflow;
-            }
-
-            ip = labelOffset;
-
-            ExecutionStatus status = ExecutionStatus::Ok;
-
-            execute = true;
-            
-            while(status == ExecutionStatus::Ok)
-            {
-                status = Run();
-            }
-
-            return status;
-        }
-
+        /// @brief Executes a single instruction of a loaded assembly and increments the instruction pointer.
+        /// @return An ExecutionStatus telling whether the execution was successfull or not.
         ExecutionStatus Run()
         {
             if(assembly == nullptr)
@@ -183,182 +146,156 @@ namespace VoltLang
 
             switch(instruction->opcode)
             {
-                case OpCode::Push:
+                case OpCode::PUSH:
                 {
-                    unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
 
-                    if(lhs == nullptr)
-                    {
-                        execute = false;
-                        std::cout << "PUSH: Illegal operation at offset " << ip << std::endl;
-                        return ExecutionStatus::IllegalOperation;
-                    }
-
-                    Type type = GetOperandValueType(&instruction->operands[0]);
-                    uint64_t stackOffset = 0;
-
-                    if(!stack.Push(lhs, type, stackOffset))
+                    if (!stack.Push(*lhs))
                     {
                         execute = false;
                         return ExecutionStatus::StackOverflow;
-                    }          
+                    }
 
-                    ip++;
-
+                    IncrementInstructionPointer();
                     break;
                 }
-                case OpCode::Pop:
+                case OpCode::POP:
                 {
-                    if(instruction->operands.size() > 0)
+                    if(instruction->operands.size() == 0)
                     {
-                        unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
-
-                        uint64_t stackOffset = 0;
-
-                        Type type = stack.GetTopType();
-
-                        if (!stack.Pop(lhs, stackOffset))
-                        {
-                            execute = false;
-                            std::cout << "POP: Illegal operation at offset " << ip << std::endl;
-                            return ExecutionStatus::StackUnderflow;
-                        }
-
-                        if (lhs != nullptr)
-                        {
-                            if (instruction->operands[0].type == OperandType::Register)
-                            {
-                                uint64_t registerIndex = GetRegisterIndex(&instruction->operands[0]);
-                                registerType[registerIndex] = type;
-                            }
-                        }                        
-                    }
-                    else
-                    {
-                        uint64_t stackOffset;
-                        if (!stack.Pop(stackOffset))
+                        if(!stack.Pop())
                         {
                             execute = false;
                             return ExecutionStatus::StackUnderflow;
                         }
-                    }                
-                    
-                    ip++;
-
-                    break;
-                }
-                case OpCode::Move:
-                {
-                    unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
-                    unsigned char* rhs = GetOperandPointer(&instruction->operands[1]);
-
-                    if(lhs == nullptr || rhs == nullptr)
+                    }
+                    else
                     {
-                        execute = false;
-                        std::cout << "MOV: Illegal operation at offset " << ip << std::endl;
-                        return ExecutionStatus::IllegalOperation;
+                        auto dst = GetOperandPointer(&instruction->operands[0]);
+
+                        Object src;
+
+                        if (!stack.Pop(src))
+                        {
+                            execute = false;
+                            return ExecutionStatus::StackUnderflow;
+                        }
+
+                        if(instruction->operands[0].type == OperandType::Register)
+                        {
+                            *dst = src;
+                        }
+                        else
+                        {
+                            ConversionUtility::CastSourceToDestinationType(&src, dst, src.type, dst->type);
+                        }                     
                     }
 
-                    if(instruction->operands[1].valueType == Type::Pointer)
-                        memcpy(lhs, &rhs, sizeof(void *));
-                    else
-                        memcpy(lhs, rhs, sizeof(uint64_t));
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::MOV:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);
 
                     if(instruction->operands[0].type == OperandType::Register)
                     {
-                        uint64_t registerIndexLHS = GetRegisterIndex(&instruction->operands[0]);
-                        Type type = GetOperandValueType(&instruction->operands[1]);
-                        registerType[registerIndexLHS] = type;
+                        *lhs = *rhs;
+                    }
+                    else
+                    {
+                        ConversionUtility::CastSourceToDestinationType(rhs, lhs, rhs->type, lhs->type);
                     }
 
-                    ip++;
+                    IncrementInstructionPointer();
                     break;
                 }
-                case OpCode::Increment:
+                case OpCode::INC:
                 {
-                    unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
-                    uint64_t value = 1;
-                    unsigned char* valuePtr = reinterpret_cast<unsigned char *>(&value);
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    Object rhs((uint64_t)1);
+                    zeroFlag = DoMathOperation(lhs, &rhs, MathOperation::Add);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::DEC:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    Object rhs((uint64_t)1);
+                    zeroFlag = DoMathOperation(lhs, &rhs, MathOperation::Subtract);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::ADD:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);
+                    zeroFlag = DoMathOperation(lhs, rhs, MathOperation::Add);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::SUB:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);
+                    zeroFlag = DoMathOperation(lhs, rhs, MathOperation::Subtract);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::MUL:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);
+                    zeroFlag = DoMathOperation(lhs, rhs, MathOperation::Multiply);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::DIV:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);
 
-                    Type type = GetOperandValueType(&instruction->operands[0]);
-                    zeroFlag = MathOperation::Add(lhs, valuePtr, type, Type::UInt64);
-                    ip++;
-                    break;
-                }
-                case OpCode::Decrement:
-                {
-                    unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
-                    uint64_t value = 1;
-                    unsigned char* valuePtr = reinterpret_cast<unsigned char *>(&value);
-
-                    Type type = GetOperandValueType(&instruction->operands[0]);
-                    zeroFlag = MathOperation::Subtract(lhs, valuePtr, type, Type::UInt64);
-                    ip++;                    
-                    break;
-                }
-                case OpCode::Add:
-                {
-                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Add);                
-                    ip++;
-                    break;
-                }
-                case OpCode::Subtract:
-                {
-                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Subtract);
-                    ip++;
-                    break;
-                }
-                case OpCode::Multiply:
-                {
-                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Multiply);
-                    ip++;
-                    break;
-                }
-                case OpCode::Divide:
-                {
-                    unsigned char* lhs = GetOperandPointer(&instruction->operands[0]);
-                    unsigned char* rhs = GetOperandPointer(&instruction->operands[1]);
-
-                    uint64_t vl = *reinterpret_cast<uint64_t *>(lhs);
-                    uint64_t vr = *reinterpret_cast<uint64_t *>(rhs);
-
-                    if(vl == 0 || vr == 0)
+                    if(lhs->as_void_pointer == 0 || rhs->as_void_pointer == 0)
                     {
                         execute = false;
                         return ExecutionStatus::DivisionByZero;
                     }
 
-                    zeroFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Divide);
-                    ip++;
-                    break;
-                }              
-                case OpCode::Compare:
-                {
-                    compareFlag = DoMathOperation(&instruction->operands[0], &instruction->operands[1], MathOperation::Compare);
-                    ip++;
+                    zeroFlag = DoMathOperation(lhs, rhs, MathOperation::Divide);
+                    IncrementInstructionPointer();
                     break;
                 }
-                case OpCode::Call:
-                {                    
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
+                case OpCode::CMP:
+                {
+                    auto lhs = GetOperandPointer(&instruction->operands[0]);
+                    auto rhs = GetOperandPointer(&instruction->operands[1]);                    
+                    compareFlag = DoMathOperation(lhs, rhs, MathOperation::Compare);
+                    IncrementInstructionPointer();
+                    break;
+                }
+                case OpCode::CALL:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
 
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    if (instruction->operands[0].type == OperandType::LabelToInstruction)
                     {
-                        returnAddress = ip + 1;
-                        ip = address;
+                        uint64_t returnAddress = ip + 1;
 
-                        uint64_t offset;
-                        if(!internalStack.PushUInt64(returnAddress, offset))
+                        Object returnAdd(returnAddress);
+
+                        if (!internalStack.Push(returnAdd))
                         {
                             execute = false;
                             std::cout << "CALL: Unable to push return address to internal stack at offset " << ip << std::endl;
                             return ExecutionStatus::StackOverflow;
                         }
+
+                        SetInstructionPointer(obj->as_uint64);
                     }
                     else if(instruction->operands[0].type == OperandType::LabelToFunction)
                     {                        
-                        VoltVMFunction func = reinterpret_cast<VoltVMFunction>(address);
+                        VoltVMFunction func = reinterpret_cast<VoltVMFunction>(obj->as_void_pointer);
                         
                         int result = func(&stack);
 
@@ -374,12 +311,12 @@ namespace VoltLang
                             {
                                 std::cout << "CALL: Illegal operation at offset " << ip << std::endl;
                             }
-                            execute = false;
                             
+                            execute = false;                            
                             return ExecutionStatus::IllegalOperation;
                         }
 
-                        ip++;
+                        IncrementInstructionPointer();
                     }
                     else
                     {
@@ -390,232 +327,199 @@ namespace VoltLang
 
                     break;
                 }
-                case OpCode::Jump:
+                case OpCode::RET:
                 {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        ip = address;
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfGreaterThan:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag > 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfGreaterThanOrEqual:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag >= 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfLessThan:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag < 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfLessThanOrEqual:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag <= 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfEqual:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag == 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfNotEqual:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(compareFlag != 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }                
-                case OpCode::JumpIfZero:
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(zeroFlag != 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::JumpIfNotZero:       
-                {
-                    unsigned char *lhs = GetOperandPointer(&instruction->operands[0]);
-                    uintptr_t address = *reinterpret_cast<uintptr_t*>(lhs);
-
-                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
-                    {
-                        if(zeroFlag == 0)
-                        {
-                            ip = address;
-                        }
-                        else
-                        {
-                            ip++;
-                        }
-                    }
-                    else
-                    {
-                        execute = false;
-                        return ExecutionStatus::IllegalJump;
-                    }                    
-                    break;
-                }
-                case OpCode::Return:
-                {
-                    unsigned char bytes[8];
-                    uint64_t offset;
-                    
-                    if(!internalStack.PopUInt64(bytes, returnAddress, offset))
+                    Object obj;
+                    if (!internalStack.Pop(obj))
                     {
                         execute = false;
                         std::cout << "RET: failed to get return address at offset " << ip << std::endl;
                         return ExecutionStatus::StackUnderflow;
                     }
 
-                    if(returnAddress >= assembly->instructions.size())
-                    {
-                        execute = false;
-                        std::cout << "RET: unable to jump to offset " << returnAddress << std::endl;
-                        return ExecutionStatus::IllegalJump;                        
-                    }
+                    SetInstructionPointer(obj.as_uint64);
 
-                    ip = returnAddress;
                     break;
                 }
-                case OpCode::Halt:
+                case OpCode::JMP:
                 {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        SetInstructionPointer(obj->as_uint64);
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JMP: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    
+                    break;
+                }
+                case OpCode::JG:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag > 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JG: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }
+
+                    break;
+                }
+                case OpCode::JGE:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag >= 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JGE: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JL:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag < 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JL: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JLE:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag <= 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JLE: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JE:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag == 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JE: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JNE:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(compareFlag != 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JNE: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JZ:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(zeroFlag != 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JZ: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::JNZ:
+                {
+                    auto obj = GetOperandPointer(&instruction->operands[0]);
+
+                    if(instruction->operands[0].type == OperandType::LabelToInstruction)
+                    {
+                        if(zeroFlag == 0)
+                            SetInstructionPointer(obj->as_uint64);
+                        else
+                            IncrementInstructionPointer();
+                    }
+                    else
+                    {
+                        execute = false;
+                        std::cout << "JNZ: can't jump to offset" << obj->as_uint64 << std::endl;
+                        return ExecutionStatus::IllegalJump;
+                    }                    
+                    break;
+                }
+                case OpCode::HLT:
+                {                    
                     execute = false;
                     return ExecutionStatus::Done;
+                }
+                case OpCode::NOP:
+                {
+                    IncrementInstructionPointer();
+                    break;
                 }
                 default:
                 {
@@ -627,52 +531,71 @@ namespace VoltLang
             return ExecutionStatus::Ok;
         }
 
+        /// @brief Sets the instruction pointer to the given offset and executes until a RET instruction is found.
+        /// @param labelOffset The offset to jump to and start executing.
+        /// @return An ExecutionStatus telling whether execution was successful or not.
+        ExecutionStatus Call(uint64_t labelOffset)
+        {
+            if(assembly == nullptr)
+                return ExecutionStatus::Error;
+
+            if(labelOffset >= assembly->instructions.size())
+                return ExecutionStatus::IllegalJump;
+
+            //Return to last instruction (HLT) which compiler always adds automatically
+            uint64_t returnAddress = assembly->instructions.size() - 1;
+
+            Object obj(returnAddress);
+
+            if(!internalStack.Push(obj))
+            {
+                return ExecutionStatus::StackOverflow;
+            }
+
+            SetInstructionPointer(labelOffset);
+
+            ExecutionStatus status = ExecutionStatus::Ok;
+
+            execute = true;
+            
+            while(status == ExecutionStatus::Ok)
+            {
+                status = Run();
+            }
+
+            return status;
+        }
     private:
-        inline int64_t DoMathOperation(Operand *left, Operand *right, MathOperationPtr operation)
-        {
-            unsigned char* lhs = GetOperandPointer(left);
-            unsigned char* rhs = GetOperandPointer(right);
-
-            Type typeLeft = GetOperandValueType(left);
-            Type typeRight = GetOperandValueType(right);
-
-            return operation(lhs, rhs, typeLeft, typeRight);
-        }
-
-        inline uint64_t GetRegisterIndex(Operand* operand)
-        {
-            return operand->GetValue<uint64_t>();
-        }
-
-        inline unsigned char* GetOperandPointer(Operand* operand)
+        inline Object* GetOperandPointer(Operand* operand)
         {
             switch (operand->type)
             {
                 case OperandType::Register:
-                    return &registers[0] + (operand->GetValue<uint64_t>() * 8);
+                    return &registers[operand->object.as_uint64];
                 case OperandType::Data:
-                    return assembly->GetDataAtOffset(operand->GetValue<uint64_t>());                
                 case OperandType::LabelToInstruction:
                 case OperandType::LabelToFunction:
                 case OperandType::IntegerLiteral:
                 case OperandType::FloatingPointLiteral:
-                    return &operand->data[0];
+                    return &operand->object;
                 default:
                     return nullptr;
             }           
         }
 
-        inline Type GetOperandValueType(Operand* operand)
+        inline int64_t DoMathOperation(Object *lhs, Object *rhs, MathOperationPtr operation)
         {
-            if(operand->type == OperandType::Register)
-            {
-                uint64_t registerIndex = operand->GetValue<uint64_t>();
-                return registerType[registerIndex];
-            }
-            else
-            {
-                return operand->valueType;
-            }
+            return operation(lhs, rhs);
+        }
+
+        inline void SetInstructionPointer(uint64_t offset)
+        {
+            ip = offset;
+        }
+
+        inline void IncrementInstructionPointer()
+        {
+            ip++;
         }
     };
 }

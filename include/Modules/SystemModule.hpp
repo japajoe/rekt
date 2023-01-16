@@ -3,7 +3,6 @@
 
 #include <Module.hpp>
 #include <memory>
-#include <Utilities/Arena.hpp>
 
 namespace VoltLang
 {
@@ -14,11 +13,13 @@ namespace VoltLang
         void Register() override;
         void Dispose() override;
     private:
-        static void* lastString;
-        static std::unique_ptr<Arena> arena;
-        static int PrintF(Stack *stack);
-        static int GetLine(Stack *stack);
-        static int TimeStamp(Stack *stack);
+        static int PrintF(Stack<Object> *stack);
+        static int FGets(Stack<Object> *stack);
+        static int TimeStamp(Stack<Object> *stack);
+        static int Malloc(Stack<Object> *stack);
+        static int MemSet(Stack<Object> *stack);
+        static int MemCpy(Stack<Object> *stack);
+        static int Free(Stack<Object> *stack);
     };
 }
 #endif

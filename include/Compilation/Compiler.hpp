@@ -1,17 +1,14 @@
-#ifndef COMPILER_HPP
-#define COMPILER_HPP
+#ifndef VOLT_COMPILER_HPP
+#define VOLT_COMPILER_HPP
 
 #include <string>
 #include <algorithm>
 #include <map>
+#include <Core/Specification.hpp>
 #include <Core/Assembly.hpp>
 #include <Tokenization/Tokenizer.hpp>
 #include <Utilities/StringUtility.hpp>
 #include <Utilities/Memory.hpp>
-#include <AssemblyData.hpp>
-#include <AssemblyLabel.hpp>
-#include <Instruction.hpp>
-#include <OpCode.hpp>
 
 namespace VoltLang
 {
@@ -44,12 +41,12 @@ namespace VoltLang
         Tokenizer tokenizer;
         CompilationStage compilationStage;
         TokenList GetTokens(const std::string &source);
-        bool GetData(const std::vector<Token<TokenType>> &tokens, AssemblyData& data);
-        bool GetLabels(const std::vector<Token<TokenType>> &tokens, AssemblyLabel& labels);
-        bool GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, AssemblyLabel& labels);
-        bool GetInstructions(const std::vector<Token<TokenType>> &tokens, AssemblyData& data, AssemblyLabel& labels, std::vector<Instruction> &instructions);
-        bool GetOperandTargetType(const std::string &text, const AssemblyData& data, AssemblyLabel& labels, OperandType& operandType);
-        bool CreateOperand(const Token<TokenType>& token, AssemblyData &data, AssemblyLabel &labels, Operand* operand);
+        bool GetData(const std::vector<Token<TokenType>> &tokens, Assembly& assembly);
+        bool GetLabels(const std::vector<Token<TokenType>> &tokens, Assembly& assembly);
+        bool GetLabelPointer(const std::vector<Token<TokenType>> &tokens, uint64_t& numInstructions, Assembly& assembly);
+        bool GetInstructions(const std::vector<Token<TokenType>> &tokens, Assembly& assembly, std::vector<Instruction> &instructions);
+        bool GetOperandTargetType(const std::string &text, Assembly& assembly, OperandType& operandType);
+        bool CreateOperand(const Token<TokenType>& token, Assembly& assembly, Operand* operand);
         bool AssertParameterCount(const std::vector<Token<TokenType>> &tokens, int expectedTokensCount);
         bool IsOpCode(TokenType type);
         void LogError(CompilationError errorCode, const std::string& content, uint64_t lineNumber);

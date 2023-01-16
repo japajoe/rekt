@@ -1,5 +1,5 @@
-#ifndef MATHUTILITY_HPP
-#define MATHUTILITY_HPP
+#ifndef VOLT_MATHUTILITY_HPP
+#define VOLT_MATHUTILITY_HPP
 
 #include <cstdint>
 

@@ -1,5 +1,5 @@
-#ifndef TOKENIZER_A_HPP
-#define TOKENIZER_A_HPP
+#ifndef VOLT_TOKENIZER_A_HPP
+#define VOLT_TOKENIZER_A_HPP
 
 #include <iostream>
 #include <vector>

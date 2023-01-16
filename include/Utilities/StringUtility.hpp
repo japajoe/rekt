@@ -1,5 +1,5 @@
-#ifndef STRINGUTILITY_HPP
-#define STRINGUTILITY_HPP
+#ifndef VOLT_STRINGUTILITY_HPP
+#define VOLT_STRINGUTILITY_HPP
 
 #include <string>
 #include <string.h>

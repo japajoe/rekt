@@ -3,4070 +3,9550 @@
 
 namespace VoltLang
 {
-    //WARNING: This class contains generated code, do not modify
-
-    CmpCallbackPtr MathOperation::cmpFunctions[][10] =
+    //Yep this is some retarded shit right here.
+    AddCallbackPtr MathOperation::addFunctions[][18] =
     {
-        { CompareUInt8UInt8, CompareUInt8Int8, CompareUInt8UInt16, CompareUInt8Int16, CompareUInt8UInt32, CompareUInt8Int32, CompareUInt8UInt64, CompareUInt8Int64, CompareUInt8Single, CompareUInt8Double },
-        { CompareInt8UInt8, CompareInt8Int8, CompareInt8UInt16, CompareInt8Int16, CompareInt8UInt32, CompareInt8Int32, CompareInt8UInt64, CompareInt8Int64, CompareInt8Single, CompareInt8Double }, 
-        { CompareUInt16UInt8, CompareUInt16Int8, CompareUInt16UInt16, CompareUInt16Int16, CompareUInt16UInt32, CompareUInt16Int32, CompareUInt16UInt64, CompareUInt16Int64, CompareUInt16Single, CompareUInt16Double },
-        { CompareInt16UInt8, CompareInt16Int8, CompareInt16UInt16, CompareInt16Int16, CompareInt16UInt32, CompareInt16Int32, CompareInt16UInt64, CompareInt16Int64, CompareInt16Single, CompareInt16Double },
-        { CompareUInt32UInt8, CompareUInt32Int8, CompareUInt32UInt16, CompareUInt32Int16, CompareUInt32UInt32, CompareUInt32Int32, CompareUInt32UInt64, CompareUInt32Int64, CompareUInt32Single, CompareUInt32Double },
-        { CompareInt32UInt8, CompareInt32Int8, CompareInt32UInt16, CompareInt32Int16, CompareInt32UInt32, CompareInt32Int32, CompareInt32UInt64, CompareInt32Int64, CompareInt32Single, CompareInt32Double },
-        { CompareUInt64UInt8, CompareUInt64Int8, CompareUInt64UInt16, CompareUInt64Int16, CompareUInt64UInt32, CompareUInt64Int32, CompareUInt64UInt64, CompareUInt64Int64, CompareUInt64Single, CompareUInt64Double },
-        { CompareInt64UInt8, CompareInt64Int8, CompareInt64UInt16, CompareInt64Int16, CompareInt64UInt32, CompareInt64Int32, CompareInt64UInt64, CompareInt64Int64, CompareInt64Single, CompareInt64Double },
-        { CompareSingleUInt8, CompareSingleInt8, CompareSingleUInt16, CompareSingleInt16, CompareSingleUInt32, CompareSingleInt32, CompareSingleUInt64, CompareSingleInt64, CompareSingleSingle, CompareSingleDouble },
-        { CompareDoubleUInt8, CompareDoubleInt8, CompareDoubleUInt16, CompareDoubleInt16, CompareDoubleUInt32, CompareDoubleInt32, CompareDoubleUInt64, CompareDoubleInt64, CompareDoubleSingle, CompareDoubleDouble }
+        { AddInt8PointerInt8Pointer,AddInt8PointerUInt8Pointer,AddInt8PointerInt16Pointer,AddInt8PointerUInt16Pointer,AddInt8PointerInt32Pointer,AddInt8PointerUInt32Pointer,AddInt8PointerInt64Pointer,AddInt8PointerUInt64Pointer,AddInt8PointerDoublePointer,AddInt8PointerInt8,AddInt8PointerUInt8,AddInt8PointerInt16,AddInt8PointerUInt16,AddInt8PointerInt32,AddInt8PointerUInt32,AddInt8PointerInt64,AddInt8PointerUInt64,AddInt8PointerDouble },
+        { AddUInt8PointerInt8Pointer,AddUInt8PointerUInt8Pointer,AddUInt8PointerInt16Pointer,AddUInt8PointerUInt16Pointer,AddUInt8PointerInt32Pointer,AddUInt8PointerUInt32Pointer,AddUInt8PointerInt64Pointer,AddUInt8PointerUInt64Pointer,AddUInt8PointerDoublePointer,AddUInt8PointerInt8,AddUInt8PointerUInt8,AddUInt8PointerInt16,AddUInt8PointerUInt16,AddUInt8PointerInt32,AddUInt8PointerUInt32,AddUInt8PointerInt64,AddUInt8PointerUInt64,AddUInt8PointerDouble },
+        { AddInt16PointerInt8Pointer,AddInt16PointerUInt8Pointer,AddInt16PointerInt16Pointer,AddInt16PointerUInt16Pointer,AddInt16PointerInt32Pointer,AddInt16PointerUInt32Pointer,AddInt16PointerInt64Pointer,AddInt16PointerUInt64Pointer,AddInt16PointerDoublePointer,AddInt16PointerInt8,AddInt16PointerUInt8,AddInt16PointerInt16,AddInt16PointerUInt16,AddInt16PointerInt32,AddInt16PointerUInt32,AddInt16PointerInt64,AddInt16PointerUInt64,AddInt16PointerDouble },
+        { AddUInt16PointerInt8Pointer,AddUInt16PointerUInt8Pointer,AddUInt16PointerInt16Pointer,AddUInt16PointerUInt16Pointer,AddUInt16PointerInt32Pointer,AddUInt16PointerUInt32Pointer,AddUInt16PointerInt64Pointer,AddUInt16PointerUInt64Pointer,AddUInt16PointerDoublePointer,AddUInt16PointerInt8,AddUInt16PointerUInt8,AddUInt16PointerInt16,AddUInt16PointerUInt16,AddUInt16PointerInt32,AddUInt16PointerUInt32,AddUInt16PointerInt64,AddUInt16PointerUInt64,AddUInt16PointerDouble },
+        { AddInt32PointerInt8Pointer,AddInt32PointerUInt8Pointer,AddInt32PointerInt16Pointer,AddInt32PointerUInt16Pointer,AddInt32PointerInt32Pointer,AddInt32PointerUInt32Pointer,AddInt32PointerInt64Pointer,AddInt32PointerUInt64Pointer,AddInt32PointerDoublePointer,AddInt32PointerInt8,AddInt32PointerUInt8,AddInt32PointerInt16,AddInt32PointerUInt16,AddInt32PointerInt32,AddInt32PointerUInt32,AddInt32PointerInt64,AddInt32PointerUInt64,AddInt32PointerDouble },
+        { AddUInt32PointerInt8Pointer,AddUInt32PointerUInt8Pointer,AddUInt32PointerInt16Pointer,AddUInt32PointerUInt16Pointer,AddUInt32PointerInt32Pointer,AddUInt32PointerUInt32Pointer,AddUInt32PointerInt64Pointer,AddUInt32PointerUInt64Pointer,AddUInt32PointerDoublePointer,AddUInt32PointerInt8,AddUInt32PointerUInt8,AddUInt32PointerInt16,AddUInt32PointerUInt16,AddUInt32PointerInt32,AddUInt32PointerUInt32,AddUInt32PointerInt64,AddUInt32PointerUInt64,AddUInt32PointerDouble },
+        { AddInt64PointerInt8Pointer,AddInt64PointerUInt8Pointer,AddInt64PointerInt16Pointer,AddInt64PointerUInt16Pointer,AddInt64PointerInt32Pointer,AddInt64PointerUInt32Pointer,AddInt64PointerInt64Pointer,AddInt64PointerUInt64Pointer,AddInt64PointerDoublePointer,AddInt64PointerInt8,AddInt64PointerUInt8,AddInt64PointerInt16,AddInt64PointerUInt16,AddInt64PointerInt32,AddInt64PointerUInt32,AddInt64PointerInt64,AddInt64PointerUInt64,AddInt64PointerDouble },
+        { AddUInt64PointerInt8Pointer,AddUInt64PointerUInt8Pointer,AddUInt64PointerInt16Pointer,AddUInt64PointerUInt16Pointer,AddUInt64PointerInt32Pointer,AddUInt64PointerUInt32Pointer,AddUInt64PointerInt64Pointer,AddUInt64PointerUInt64Pointer,AddUInt64PointerDoublePointer,AddUInt64PointerInt8,AddUInt64PointerUInt8,AddUInt64PointerInt16,AddUInt64PointerUInt16,AddUInt64PointerInt32,AddUInt64PointerUInt32,AddUInt64PointerInt64,AddUInt64PointerUInt64,AddUInt64PointerDouble },
+        { AddDoublePointerInt8Pointer,AddDoublePointerUInt8Pointer,AddDoublePointerInt16Pointer,AddDoublePointerUInt16Pointer,AddDoublePointerInt32Pointer,AddDoublePointerUInt32Pointer,AddDoublePointerInt64Pointer,AddDoublePointerUInt64Pointer,AddDoublePointerDoublePointer,AddDoublePointerInt8,AddDoublePointerUInt8,AddDoublePointerInt16,AddDoublePointerUInt16,AddDoublePointerInt32,AddDoublePointerUInt32,AddDoublePointerInt64,AddDoublePointerUInt64,AddDoublePointerDouble },
+        { AddInt8Int8Pointer,AddInt8UInt8Pointer,AddInt8Int16Pointer,AddInt8UInt16Pointer,AddInt8Int32Pointer,AddInt8UInt32Pointer,AddInt8Int64Pointer,AddInt8UInt64Pointer,AddInt8DoublePointer,AddInt8Int8,AddInt8UInt8,AddInt8Int16,AddInt8UInt16,AddInt8Int32,AddInt8UInt32,AddInt8Int64,AddInt8UInt64,AddInt8Double },
+        { AddUInt8Int8Pointer,AddUInt8UInt8Pointer,AddUInt8Int16Pointer,AddUInt8UInt16Pointer,AddUInt8Int32Pointer,AddUInt8UInt32Pointer,AddUInt8Int64Pointer,AddUInt8UInt64Pointer,AddUInt8DoublePointer,AddUInt8Int8,AddUInt8UInt8,AddUInt8Int16,AddUInt8UInt16,AddUInt8Int32,AddUInt8UInt32,AddUInt8Int64,AddUInt8UInt64,AddUInt8Double },
+        { AddInt16Int8Pointer,AddInt16UInt8Pointer,AddInt16Int16Pointer,AddInt16UInt16Pointer,AddInt16Int32Pointer,AddInt16UInt32Pointer,AddInt16Int64Pointer,AddInt16UInt64Pointer,AddInt16DoublePointer,AddInt16Int8,AddInt16UInt8,AddInt16Int16,AddInt16UInt16,AddInt16Int32,AddInt16UInt32,AddInt16Int64,AddInt16UInt64,AddInt16Double },
+        { AddUInt16Int8Pointer,AddUInt16UInt8Pointer,AddUInt16Int16Pointer,AddUInt16UInt16Pointer,AddUInt16Int32Pointer,AddUInt16UInt32Pointer,AddUInt16Int64Pointer,AddUInt16UInt64Pointer,AddUInt16DoublePointer,AddUInt16Int8,AddUInt16UInt8,AddUInt16Int16,AddUInt16UInt16,AddUInt16Int32,AddUInt16UInt32,AddUInt16Int64,AddUInt16UInt64,AddUInt16Double },
+        { AddInt32Int8Pointer,AddInt32UInt8Pointer,AddInt32Int16Pointer,AddInt32UInt16Pointer,AddInt32Int32Pointer,AddInt32UInt32Pointer,AddInt32Int64Pointer,AddInt32UInt64Pointer,AddInt32DoublePointer,AddInt32Int8,AddInt32UInt8,AddInt32Int16,AddInt32UInt16,AddInt32Int32,AddInt32UInt32,AddInt32Int64,AddInt32UInt64,AddInt32Double },
+        { AddUInt32Int8Pointer,AddUInt32UInt8Pointer,AddUInt32Int16Pointer,AddUInt32UInt16Pointer,AddUInt32Int32Pointer,AddUInt32UInt32Pointer,AddUInt32Int64Pointer,AddUInt32UInt64Pointer,AddUInt32DoublePointer,AddUInt32Int8,AddUInt32UInt8,AddUInt32Int16,AddUInt32UInt16,AddUInt32Int32,AddUInt32UInt32,AddUInt32Int64,AddUInt32UInt64,AddUInt32Double },
+        { AddInt64Int8Pointer,AddInt64UInt8Pointer,AddInt64Int16Pointer,AddInt64UInt16Pointer,AddInt64Int32Pointer,AddInt64UInt32Pointer,AddInt64Int64Pointer,AddInt64UInt64Pointer,AddInt64DoublePointer,AddInt64Int8,AddInt64UInt8,AddInt64Int16,AddInt64UInt16,AddInt64Int32,AddInt64UInt32,AddInt64Int64,AddInt64UInt64,AddInt64Double },
+        { AddUInt64Int8Pointer,AddUInt64UInt8Pointer,AddUInt64Int16Pointer,AddUInt64UInt16Pointer,AddUInt64Int32Pointer,AddUInt64UInt32Pointer,AddUInt64Int64Pointer,AddUInt64UInt64Pointer,AddUInt64DoublePointer,AddUInt64Int8,AddUInt64UInt8,AddUInt64Int16,AddUInt64UInt16,AddUInt64Int32,AddUInt64UInt32,AddUInt64Int64,AddUInt64UInt64,AddUInt64Double },
+        { AddDoubleInt8Pointer,AddDoubleUInt8Pointer,AddDoubleInt16Pointer,AddDoubleUInt16Pointer,AddDoubleInt32Pointer,AddDoubleUInt32Pointer,AddDoubleInt64Pointer,AddDoubleUInt64Pointer,AddDoubleDoublePointer,AddDoubleInt8,AddDoubleUInt8,AddDoubleInt16,AddDoubleUInt16,AddDoubleInt32,AddDoubleUInt32,AddDoubleInt64,AddDoubleUInt64,AddDoubleDouble }
     };
 
-    AddCallbackPtr MathOperation::addFunctions[][10] =
+    SubCallbackPtr MathOperation::subFunctions[][18] =
     {
-        { AddUInt8UInt8, AddUInt8Int8, AddUInt8UInt16, AddUInt8Int16, AddUInt8UInt32, AddUInt8Int32, AddUInt8UInt64, AddUInt8Int64, AddUInt8Single, AddUInt8Double }, 
-        { AddInt8UInt8, AddInt8Int8, AddInt8UInt16, AddInt8Int16, AddInt8UInt32, AddInt8Int32, AddInt8UInt64, AddInt8Int64, AddInt8Single, AddInt8Double },
-        { AddUInt16UInt8, AddUInt16Int8, AddUInt16UInt16, AddUInt16Int16, AddUInt16UInt32, AddUInt16Int32, AddUInt16UInt64, AddUInt16Int64, AddUInt16Single, AddUInt16Double },
-        { AddInt16UInt8, AddInt16Int8, AddInt16UInt16, AddInt16Int16, AddInt16UInt32, AddInt16Int32, AddInt16UInt64, AddInt16Int64, AddInt16Single, AddInt16Double },
-        { AddUInt32UInt8, AddUInt32Int8, AddUInt32UInt16, AddUInt32Int16, AddUInt32UInt32, AddUInt32Int32, AddUInt32UInt64, AddUInt32Int64, AddUInt32Single, AddUInt32Double },
-        { AddInt32UInt8, AddInt32Int8, AddInt32UInt16, AddInt32Int16, AddInt32UInt32, AddInt32Int32, AddInt32UInt64, AddInt32Int64, AddInt32Single, AddInt32Double },
-        { AddUInt64UInt8, AddUInt64Int8, AddUInt64UInt16, AddUInt64Int16, AddUInt64UInt32, AddUInt64Int32, AddUInt64UInt64, AddUInt64Int64, AddUInt64Single, AddUInt64Double },
-        { AddInt64UInt8, AddInt64Int8, AddInt64UInt16, AddInt64Int16, AddInt64UInt32, AddInt64Int32, AddInt64UInt64, AddInt64Int64, AddInt64Single, AddInt64Double },
-        { AddSingleUInt8, AddSingleInt8, AddSingleUInt16, AddSingleInt16, AddSingleUInt32, AddSingleInt32, AddSingleUInt64, AddSingleInt64, AddSingleSingle, AddSingleDouble },
-        { AddDoubleUInt8, AddDoubleInt8, AddDoubleUInt16, AddDoubleInt16, AddDoubleUInt32, AddDoubleInt32, AddDoubleUInt64, AddDoubleInt64, AddDoubleSingle, AddDoubleDouble }
+        { SubInt8PointerInt8Pointer,SubInt8PointerUInt8Pointer,SubInt8PointerInt16Pointer,SubInt8PointerUInt16Pointer,SubInt8PointerInt32Pointer,SubInt8PointerUInt32Pointer,SubInt8PointerInt64Pointer,SubInt8PointerUInt64Pointer,SubInt8PointerDoublePointer,SubInt8PointerInt8,SubInt8PointerUInt8,SubInt8PointerInt16,SubInt8PointerUInt16,SubInt8PointerInt32,SubInt8PointerUInt32,SubInt8PointerInt64,SubInt8PointerUInt64,SubInt8PointerDouble },
+        { SubUInt8PointerInt8Pointer,SubUInt8PointerUInt8Pointer,SubUInt8PointerInt16Pointer,SubUInt8PointerUInt16Pointer,SubUInt8PointerInt32Pointer,SubUInt8PointerUInt32Pointer,SubUInt8PointerInt64Pointer,SubUInt8PointerUInt64Pointer,SubUInt8PointerDoublePointer,SubUInt8PointerInt8,SubUInt8PointerUInt8,SubUInt8PointerInt16,SubUInt8PointerUInt16,SubUInt8PointerInt32,SubUInt8PointerUInt32,SubUInt8PointerInt64,SubUInt8PointerUInt64,SubUInt8PointerDouble },
+        { SubInt16PointerInt8Pointer,SubInt16PointerUInt8Pointer,SubInt16PointerInt16Pointer,SubInt16PointerUInt16Pointer,SubInt16PointerInt32Pointer,SubInt16PointerUInt32Pointer,SubInt16PointerInt64Pointer,SubInt16PointerUInt64Pointer,SubInt16PointerDoublePointer,SubInt16PointerInt8,SubInt16PointerUInt8,SubInt16PointerInt16,SubInt16PointerUInt16,SubInt16PointerInt32,SubInt16PointerUInt32,SubInt16PointerInt64,SubInt16PointerUInt64,SubInt16PointerDouble },
+        { SubUInt16PointerInt8Pointer,SubUInt16PointerUInt8Pointer,SubUInt16PointerInt16Pointer,SubUInt16PointerUInt16Pointer,SubUInt16PointerInt32Pointer,SubUInt16PointerUInt32Pointer,SubUInt16PointerInt64Pointer,SubUInt16PointerUInt64Pointer,SubUInt16PointerDoublePointer,SubUInt16PointerInt8,SubUInt16PointerUInt8,SubUInt16PointerInt16,SubUInt16PointerUInt16,SubUInt16PointerInt32,SubUInt16PointerUInt32,SubUInt16PointerInt64,SubUInt16PointerUInt64,SubUInt16PointerDouble },
+        { SubInt32PointerInt8Pointer,SubInt32PointerUInt8Pointer,SubInt32PointerInt16Pointer,SubInt32PointerUInt16Pointer,SubInt32PointerInt32Pointer,SubInt32PointerUInt32Pointer,SubInt32PointerInt64Pointer,SubInt32PointerUInt64Pointer,SubInt32PointerDoublePointer,SubInt32PointerInt8,SubInt32PointerUInt8,SubInt32PointerInt16,SubInt32PointerUInt16,SubInt32PointerInt32,SubInt32PointerUInt32,SubInt32PointerInt64,SubInt32PointerUInt64,SubInt32PointerDouble },
+        { SubUInt32PointerInt8Pointer,SubUInt32PointerUInt8Pointer,SubUInt32PointerInt16Pointer,SubUInt32PointerUInt16Pointer,SubUInt32PointerInt32Pointer,SubUInt32PointerUInt32Pointer,SubUInt32PointerInt64Pointer,SubUInt32PointerUInt64Pointer,SubUInt32PointerDoublePointer,SubUInt32PointerInt8,SubUInt32PointerUInt8,SubUInt32PointerInt16,SubUInt32PointerUInt16,SubUInt32PointerInt32,SubUInt32PointerUInt32,SubUInt32PointerInt64,SubUInt32PointerUInt64,SubUInt32PointerDouble },
+        { SubInt64PointerInt8Pointer,SubInt64PointerUInt8Pointer,SubInt64PointerInt16Pointer,SubInt64PointerUInt16Pointer,SubInt64PointerInt32Pointer,SubInt64PointerUInt32Pointer,SubInt64PointerInt64Pointer,SubInt64PointerUInt64Pointer,SubInt64PointerDoublePointer,SubInt64PointerInt8,SubInt64PointerUInt8,SubInt64PointerInt16,SubInt64PointerUInt16,SubInt64PointerInt32,SubInt64PointerUInt32,SubInt64PointerInt64,SubInt64PointerUInt64,SubInt64PointerDouble },
+        { SubUInt64PointerInt8Pointer,SubUInt64PointerUInt8Pointer,SubUInt64PointerInt16Pointer,SubUInt64PointerUInt16Pointer,SubUInt64PointerInt32Pointer,SubUInt64PointerUInt32Pointer,SubUInt64PointerInt64Pointer,SubUInt64PointerUInt64Pointer,SubUInt64PointerDoublePointer,SubUInt64PointerInt8,SubUInt64PointerUInt8,SubUInt64PointerInt16,SubUInt64PointerUInt16,SubUInt64PointerInt32,SubUInt64PointerUInt32,SubUInt64PointerInt64,SubUInt64PointerUInt64,SubUInt64PointerDouble },
+        { SubDoublePointerInt8Pointer,SubDoublePointerUInt8Pointer,SubDoublePointerInt16Pointer,SubDoublePointerUInt16Pointer,SubDoublePointerInt32Pointer,SubDoublePointerUInt32Pointer,SubDoublePointerInt64Pointer,SubDoublePointerUInt64Pointer,SubDoublePointerDoublePointer,SubDoublePointerInt8,SubDoublePointerUInt8,SubDoublePointerInt16,SubDoublePointerUInt16,SubDoublePointerInt32,SubDoublePointerUInt32,SubDoublePointerInt64,SubDoublePointerUInt64,SubDoublePointerDouble },
+        { SubInt8Int8Pointer,SubInt8UInt8Pointer,SubInt8Int16Pointer,SubInt8UInt16Pointer,SubInt8Int32Pointer,SubInt8UInt32Pointer,SubInt8Int64Pointer,SubInt8UInt64Pointer,SubInt8DoublePointer,SubInt8Int8,SubInt8UInt8,SubInt8Int16,SubInt8UInt16,SubInt8Int32,SubInt8UInt32,SubInt8Int64,SubInt8UInt64,SubInt8Double },
+        { SubUInt8Int8Pointer,SubUInt8UInt8Pointer,SubUInt8Int16Pointer,SubUInt8UInt16Pointer,SubUInt8Int32Pointer,SubUInt8UInt32Pointer,SubUInt8Int64Pointer,SubUInt8UInt64Pointer,SubUInt8DoublePointer,SubUInt8Int8,SubUInt8UInt8,SubUInt8Int16,SubUInt8UInt16,SubUInt8Int32,SubUInt8UInt32,SubUInt8Int64,SubUInt8UInt64,SubUInt8Double },
+        { SubInt16Int8Pointer,SubInt16UInt8Pointer,SubInt16Int16Pointer,SubInt16UInt16Pointer,SubInt16Int32Pointer,SubInt16UInt32Pointer,SubInt16Int64Pointer,SubInt16UInt64Pointer,SubInt16DoublePointer,SubInt16Int8,SubInt16UInt8,SubInt16Int16,SubInt16UInt16,SubInt16Int32,SubInt16UInt32,SubInt16Int64,SubInt16UInt64,SubInt16Double },
+        { SubUInt16Int8Pointer,SubUInt16UInt8Pointer,SubUInt16Int16Pointer,SubUInt16UInt16Pointer,SubUInt16Int32Pointer,SubUInt16UInt32Pointer,SubUInt16Int64Pointer,SubUInt16UInt64Pointer,SubUInt16DoublePointer,SubUInt16Int8,SubUInt16UInt8,SubUInt16Int16,SubUInt16UInt16,SubUInt16Int32,SubUInt16UInt32,SubUInt16Int64,SubUInt16UInt64,SubUInt16Double },
+        { SubInt32Int8Pointer,SubInt32UInt8Pointer,SubInt32Int16Pointer,SubInt32UInt16Pointer,SubInt32Int32Pointer,SubInt32UInt32Pointer,SubInt32Int64Pointer,SubInt32UInt64Pointer,SubInt32DoublePointer,SubInt32Int8,SubInt32UInt8,SubInt32Int16,SubInt32UInt16,SubInt32Int32,SubInt32UInt32,SubInt32Int64,SubInt32UInt64,SubInt32Double },
+        { SubUInt32Int8Pointer,SubUInt32UInt8Pointer,SubUInt32Int16Pointer,SubUInt32UInt16Pointer,SubUInt32Int32Pointer,SubUInt32UInt32Pointer,SubUInt32Int64Pointer,SubUInt32UInt64Pointer,SubUInt32DoublePointer,SubUInt32Int8,SubUInt32UInt8,SubUInt32Int16,SubUInt32UInt16,SubUInt32Int32,SubUInt32UInt32,SubUInt32Int64,SubUInt32UInt64,SubUInt32Double },
+        { SubInt64Int8Pointer,SubInt64UInt8Pointer,SubInt64Int16Pointer,SubInt64UInt16Pointer,SubInt64Int32Pointer,SubInt64UInt32Pointer,SubInt64Int64Pointer,SubInt64UInt64Pointer,SubInt64DoublePointer,SubInt64Int8,SubInt64UInt8,SubInt64Int16,SubInt64UInt16,SubInt64Int32,SubInt64UInt32,SubInt64Int64,SubInt64UInt64,SubInt64Double },
+        { SubUInt64Int8Pointer,SubUInt64UInt8Pointer,SubUInt64Int16Pointer,SubUInt64UInt16Pointer,SubUInt64Int32Pointer,SubUInt64UInt32Pointer,SubUInt64Int64Pointer,SubUInt64UInt64Pointer,SubUInt64DoublePointer,SubUInt64Int8,SubUInt64UInt8,SubUInt64Int16,SubUInt64UInt16,SubUInt64Int32,SubUInt64UInt32,SubUInt64Int64,SubUInt64UInt64,SubUInt64Double },
+        { SubDoubleInt8Pointer,SubDoubleUInt8Pointer,SubDoubleInt16Pointer,SubDoubleUInt16Pointer,SubDoubleInt32Pointer,SubDoubleUInt32Pointer,SubDoubleInt64Pointer,SubDoubleUInt64Pointer,SubDoubleDoublePointer,SubDoubleInt8,SubDoubleUInt8,SubDoubleInt16,SubDoubleUInt16,SubDoubleInt32,SubDoubleUInt32,SubDoubleInt64,SubDoubleUInt64,SubDoubleDouble }
     };
 
-    SubCallbackPtr MathOperation::subFunctions[][10] =
+    MulCallbackPtr MathOperation::mulFunctions[][18] =
     {
-        { SubtractUInt8UInt8, SubtractUInt8Int8, SubtractUInt8UInt16, SubtractUInt8Int16, SubtractUInt8UInt32, SubtractUInt8Int32, SubtractUInt8UInt64, SubtractUInt8Int64, SubtractUInt8Single, SubtractUInt8Double }, 
-        { SubtractInt8UInt8, SubtractInt8Int8, SubtractInt8UInt16, SubtractInt8Int16, SubtractInt8UInt32, SubtractInt8Int32, SubtractInt8UInt64, SubtractInt8Int64, SubtractInt8Single, SubtractInt8Double },
-        { SubtractUInt16UInt8, SubtractUInt16Int8, SubtractUInt16UInt16, SubtractUInt16Int16, SubtractUInt16UInt32, SubtractUInt16Int32, SubtractUInt16UInt64, SubtractUInt16Int64, SubtractUInt16Single, SubtractUInt16Double },
-        { SubtractInt16UInt8, SubtractInt16Int8, SubtractInt16UInt16, SubtractInt16Int16, SubtractInt16UInt32, SubtractInt16Int32, SubtractInt16UInt64, SubtractInt16Int64, SubtractInt16Single, SubtractInt16Double },
-        { SubtractUInt32UInt8, SubtractUInt32Int8, SubtractUInt32UInt16, SubtractUInt32Int16, SubtractUInt32UInt32, SubtractUInt32Int32, SubtractUInt32UInt64, SubtractUInt32Int64, SubtractUInt32Single, SubtractUInt32Double },
-        { SubtractInt32UInt8, SubtractInt32Int8, SubtractInt32UInt16, SubtractInt32Int16, SubtractInt32UInt32, SubtractInt32Int32, SubtractInt32UInt64, SubtractInt32Int64, SubtractInt32Single, SubtractInt32Double },
-        { SubtractUInt64UInt8, SubtractUInt64Int8, SubtractUInt64UInt16, SubtractUInt64Int16, SubtractUInt64UInt32, SubtractUInt64Int32, SubtractUInt64UInt64, SubtractUInt64Int64, SubtractUInt64Single, SubtractUInt64Double },
-        { SubtractInt64UInt8, SubtractInt64Int8, SubtractInt64UInt16, SubtractInt64Int16, SubtractInt64UInt32, SubtractInt64Int32, SubtractInt64UInt64, SubtractInt64Int64, SubtractInt64Single, SubtractInt64Double },
-        { SubtractSingleUInt8, SubtractSingleInt8, SubtractSingleUInt16, SubtractSingleInt16, SubtractSingleUInt32, SubtractSingleInt32, SubtractSingleUInt64, SubtractSingleInt64, SubtractSingleSingle, SubtractSingleDouble },
-        { SubtractDoubleUInt8, SubtractDoubleInt8, SubtractDoubleUInt16, SubtractDoubleInt16, SubtractDoubleUInt32, SubtractDoubleInt32, SubtractDoubleUInt64, SubtractDoubleInt64, SubtractDoubleSingle, SubtractDoubleDouble }
+        { MulInt8PointerInt8Pointer,MulInt8PointerUInt8Pointer,MulInt8PointerInt16Pointer,MulInt8PointerUInt16Pointer,MulInt8PointerInt32Pointer,MulInt8PointerUInt32Pointer,MulInt8PointerInt64Pointer,MulInt8PointerUInt64Pointer,MulInt8PointerDoublePointer,MulInt8PointerInt8,MulInt8PointerUInt8,MulInt8PointerInt16,MulInt8PointerUInt16,MulInt8PointerInt32,MulInt8PointerUInt32,MulInt8PointerInt64,MulInt8PointerUInt64,MulInt8PointerDouble },
+        { MulUInt8PointerInt8Pointer,MulUInt8PointerUInt8Pointer,MulUInt8PointerInt16Pointer,MulUInt8PointerUInt16Pointer,MulUInt8PointerInt32Pointer,MulUInt8PointerUInt32Pointer,MulUInt8PointerInt64Pointer,MulUInt8PointerUInt64Pointer,MulUInt8PointerDoublePointer,MulUInt8PointerInt8,MulUInt8PointerUInt8,MulUInt8PointerInt16,MulUInt8PointerUInt16,MulUInt8PointerInt32,MulUInt8PointerUInt32,MulUInt8PointerInt64,MulUInt8PointerUInt64,MulUInt8PointerDouble },
+        { MulInt16PointerInt8Pointer,MulInt16PointerUInt8Pointer,MulInt16PointerInt16Pointer,MulInt16PointerUInt16Pointer,MulInt16PointerInt32Pointer,MulInt16PointerUInt32Pointer,MulInt16PointerInt64Pointer,MulInt16PointerUInt64Pointer,MulInt16PointerDoublePointer,MulInt16PointerInt8,MulInt16PointerUInt8,MulInt16PointerInt16,MulInt16PointerUInt16,MulInt16PointerInt32,MulInt16PointerUInt32,MulInt16PointerInt64,MulInt16PointerUInt64,MulInt16PointerDouble },
+        { MulUInt16PointerInt8Pointer,MulUInt16PointerUInt8Pointer,MulUInt16PointerInt16Pointer,MulUInt16PointerUInt16Pointer,MulUInt16PointerInt32Pointer,MulUInt16PointerUInt32Pointer,MulUInt16PointerInt64Pointer,MulUInt16PointerUInt64Pointer,MulUInt16PointerDoublePointer,MulUInt16PointerInt8,MulUInt16PointerUInt8,MulUInt16PointerInt16,MulUInt16PointerUInt16,MulUInt16PointerInt32,MulUInt16PointerUInt32,MulUInt16PointerInt64,MulUInt16PointerUInt64,MulUInt16PointerDouble },
+        { MulInt32PointerInt8Pointer,MulInt32PointerUInt8Pointer,MulInt32PointerInt16Pointer,MulInt32PointerUInt16Pointer,MulInt32PointerInt32Pointer,MulInt32PointerUInt32Pointer,MulInt32PointerInt64Pointer,MulInt32PointerUInt64Pointer,MulInt32PointerDoublePointer,MulInt32PointerInt8,MulInt32PointerUInt8,MulInt32PointerInt16,MulInt32PointerUInt16,MulInt32PointerInt32,MulInt32PointerUInt32,MulInt32PointerInt64,MulInt32PointerUInt64,MulInt32PointerDouble },
+        { MulUInt32PointerInt8Pointer,MulUInt32PointerUInt8Pointer,MulUInt32PointerInt16Pointer,MulUInt32PointerUInt16Pointer,MulUInt32PointerInt32Pointer,MulUInt32PointerUInt32Pointer,MulUInt32PointerInt64Pointer,MulUInt32PointerUInt64Pointer,MulUInt32PointerDoublePointer,MulUInt32PointerInt8,MulUInt32PointerUInt8,MulUInt32PointerInt16,MulUInt32PointerUInt16,MulUInt32PointerInt32,MulUInt32PointerUInt32,MulUInt32PointerInt64,MulUInt32PointerUInt64,MulUInt32PointerDouble },
+        { MulInt64PointerInt8Pointer,MulInt64PointerUInt8Pointer,MulInt64PointerInt16Pointer,MulInt64PointerUInt16Pointer,MulInt64PointerInt32Pointer,MulInt64PointerUInt32Pointer,MulInt64PointerInt64Pointer,MulInt64PointerUInt64Pointer,MulInt64PointerDoublePointer,MulInt64PointerInt8,MulInt64PointerUInt8,MulInt64PointerInt16,MulInt64PointerUInt16,MulInt64PointerInt32,MulInt64PointerUInt32,MulInt64PointerInt64,MulInt64PointerUInt64,MulInt64PointerDouble },
+        { MulUInt64PointerInt8Pointer,MulUInt64PointerUInt8Pointer,MulUInt64PointerInt16Pointer,MulUInt64PointerUInt16Pointer,MulUInt64PointerInt32Pointer,MulUInt64PointerUInt32Pointer,MulUInt64PointerInt64Pointer,MulUInt64PointerUInt64Pointer,MulUInt64PointerDoublePointer,MulUInt64PointerInt8,MulUInt64PointerUInt8,MulUInt64PointerInt16,MulUInt64PointerUInt16,MulUInt64PointerInt32,MulUInt64PointerUInt32,MulUInt64PointerInt64,MulUInt64PointerUInt64,MulUInt64PointerDouble },
+        { MulDoublePointerInt8Pointer,MulDoublePointerUInt8Pointer,MulDoublePointerInt16Pointer,MulDoublePointerUInt16Pointer,MulDoublePointerInt32Pointer,MulDoublePointerUInt32Pointer,MulDoublePointerInt64Pointer,MulDoublePointerUInt64Pointer,MulDoublePointerDoublePointer,MulDoublePointerInt8,MulDoublePointerUInt8,MulDoublePointerInt16,MulDoublePointerUInt16,MulDoublePointerInt32,MulDoublePointerUInt32,MulDoublePointerInt64,MulDoublePointerUInt64,MulDoublePointerDouble },
+        { MulInt8Int8Pointer,MulInt8UInt8Pointer,MulInt8Int16Pointer,MulInt8UInt16Pointer,MulInt8Int32Pointer,MulInt8UInt32Pointer,MulInt8Int64Pointer,MulInt8UInt64Pointer,MulInt8DoublePointer,MulInt8Int8,MulInt8UInt8,MulInt8Int16,MulInt8UInt16,MulInt8Int32,MulInt8UInt32,MulInt8Int64,MulInt8UInt64,MulInt8Double },
+        { MulUInt8Int8Pointer,MulUInt8UInt8Pointer,MulUInt8Int16Pointer,MulUInt8UInt16Pointer,MulUInt8Int32Pointer,MulUInt8UInt32Pointer,MulUInt8Int64Pointer,MulUInt8UInt64Pointer,MulUInt8DoublePointer,MulUInt8Int8,MulUInt8UInt8,MulUInt8Int16,MulUInt8UInt16,MulUInt8Int32,MulUInt8UInt32,MulUInt8Int64,MulUInt8UInt64,MulUInt8Double },
+        { MulInt16Int8Pointer,MulInt16UInt8Pointer,MulInt16Int16Pointer,MulInt16UInt16Pointer,MulInt16Int32Pointer,MulInt16UInt32Pointer,MulInt16Int64Pointer,MulInt16UInt64Pointer,MulInt16DoublePointer,MulInt16Int8,MulInt16UInt8,MulInt16Int16,MulInt16UInt16,MulInt16Int32,MulInt16UInt32,MulInt16Int64,MulInt16UInt64,MulInt16Double },
+        { MulUInt16Int8Pointer,MulUInt16UInt8Pointer,MulUInt16Int16Pointer,MulUInt16UInt16Pointer,MulUInt16Int32Pointer,MulUInt16UInt32Pointer,MulUInt16Int64Pointer,MulUInt16UInt64Pointer,MulUInt16DoublePointer,MulUInt16Int8,MulUInt16UInt8,MulUInt16Int16,MulUInt16UInt16,MulUInt16Int32,MulUInt16UInt32,MulUInt16Int64,MulUInt16UInt64,MulUInt16Double },
+        { MulInt32Int8Pointer,MulInt32UInt8Pointer,MulInt32Int16Pointer,MulInt32UInt16Pointer,MulInt32Int32Pointer,MulInt32UInt32Pointer,MulInt32Int64Pointer,MulInt32UInt64Pointer,MulInt32DoublePointer,MulInt32Int8,MulInt32UInt8,MulInt32Int16,MulInt32UInt16,MulInt32Int32,MulInt32UInt32,MulInt32Int64,MulInt32UInt64,MulInt32Double },
+        { MulUInt32Int8Pointer,MulUInt32UInt8Pointer,MulUInt32Int16Pointer,MulUInt32UInt16Pointer,MulUInt32Int32Pointer,MulUInt32UInt32Pointer,MulUInt32Int64Pointer,MulUInt32UInt64Pointer,MulUInt32DoublePointer,MulUInt32Int8,MulUInt32UInt8,MulUInt32Int16,MulUInt32UInt16,MulUInt32Int32,MulUInt32UInt32,MulUInt32Int64,MulUInt32UInt64,MulUInt32Double },
+        { MulInt64Int8Pointer,MulInt64UInt8Pointer,MulInt64Int16Pointer,MulInt64UInt16Pointer,MulInt64Int32Pointer,MulInt64UInt32Pointer,MulInt64Int64Pointer,MulInt64UInt64Pointer,MulInt64DoublePointer,MulInt64Int8,MulInt64UInt8,MulInt64Int16,MulInt64UInt16,MulInt64Int32,MulInt64UInt32,MulInt64Int64,MulInt64UInt64,MulInt64Double },
+        { MulUInt64Int8Pointer,MulUInt64UInt8Pointer,MulUInt64Int16Pointer,MulUInt64UInt16Pointer,MulUInt64Int32Pointer,MulUInt64UInt32Pointer,MulUInt64Int64Pointer,MulUInt64UInt64Pointer,MulUInt64DoublePointer,MulUInt64Int8,MulUInt64UInt8,MulUInt64Int16,MulUInt64UInt16,MulUInt64Int32,MulUInt64UInt32,MulUInt64Int64,MulUInt64UInt64,MulUInt64Double },
+        { MulDoubleInt8Pointer,MulDoubleUInt8Pointer,MulDoubleInt16Pointer,MulDoubleUInt16Pointer,MulDoubleInt32Pointer,MulDoubleUInt32Pointer,MulDoubleInt64Pointer,MulDoubleUInt64Pointer,MulDoubleDoublePointer,MulDoubleInt8,MulDoubleUInt8,MulDoubleInt16,MulDoubleUInt16,MulDoubleInt32,MulDoubleUInt32,MulDoubleInt64,MulDoubleUInt64,MulDoubleDouble }
     };
 
-    MulCallbackPtr MathOperation::mulFunctions[][10] =
+    DivCallbackPtr MathOperation::divFunctions[][18] =
     {
-        { MultiplyUInt8UInt8, MultiplyUInt8Int8, MultiplyUInt8UInt16, MultiplyUInt8Int16, MultiplyUInt8UInt32, MultiplyUInt8Int32, MultiplyUInt8UInt64, MultiplyUInt8Int64, MultiplyUInt8Single, MultiplyUInt8Double }, 
-        { MultiplyInt8UInt8, MultiplyInt8Int8, MultiplyInt8UInt16, MultiplyInt8Int16, MultiplyInt8UInt32, MultiplyInt8Int32, MultiplyInt8UInt64, MultiplyInt8Int64, MultiplyInt8Single, MultiplyInt8Double },
-        { MultiplyUInt16UInt8, MultiplyUInt16Int8, MultiplyUInt16UInt16, MultiplyUInt16Int16, MultiplyUInt16UInt32, MultiplyUInt16Int32, MultiplyUInt16UInt64, MultiplyUInt16Int64, MultiplyUInt16Single, MultiplyUInt16Double },
-        { MultiplyInt16UInt8, MultiplyInt16Int8, MultiplyInt16UInt16, MultiplyInt16Int16, MultiplyInt16UInt32, MultiplyInt16Int32, MultiplyInt16UInt64, MultiplyInt16Int64, MultiplyInt16Single, MultiplyInt16Double },
-        { MultiplyUInt32UInt8, MultiplyUInt32Int8, MultiplyUInt32UInt16, MultiplyUInt32Int16, MultiplyUInt32UInt32, MultiplyUInt32Int32, MultiplyUInt32UInt64, MultiplyUInt32Int64, MultiplyUInt32Single, MultiplyUInt32Double },
-        { MultiplyInt32UInt8, MultiplyInt32Int8, MultiplyInt32UInt16, MultiplyInt32Int16, MultiplyInt32UInt32, MultiplyInt32Int32, MultiplyInt32UInt64, MultiplyInt32Int64, MultiplyInt32Single, MultiplyInt32Double },
-        { MultiplyUInt64UInt8, MultiplyUInt64Int8, MultiplyUInt64UInt16, MultiplyUInt64Int16, MultiplyUInt64UInt32, MultiplyUInt64Int32, MultiplyUInt64UInt64, MultiplyUInt64Int64, MultiplyUInt64Single, MultiplyUInt64Double },
-        { MultiplyInt64UInt8, MultiplyInt64Int8, MultiplyInt64UInt16, MultiplyInt64Int16, MultiplyInt64UInt32, MultiplyInt64Int32, MultiplyInt64UInt64, MultiplyInt64Int64, MultiplyInt64Single, MultiplyInt64Double },
-        { MultiplySingleUInt8, MultiplySingleInt8, MultiplySingleUInt16, MultiplySingleInt16, MultiplySingleUInt32, MultiplySingleInt32, MultiplySingleUInt64, MultiplySingleInt64, MultiplySingleSingle, MultiplySingleDouble },
-        { MultiplyDoubleUInt8, MultiplyDoubleInt8, MultiplyDoubleUInt16, MultiplyDoubleInt16, MultiplyDoubleUInt32, MultiplyDoubleInt32, MultiplyDoubleUInt64, MultiplyDoubleInt64, MultiplyDoubleSingle, MultiplyDoubleDouble }
+        { DivInt8PointerInt8Pointer,DivInt8PointerUInt8Pointer,DivInt8PointerInt16Pointer,DivInt8PointerUInt16Pointer,DivInt8PointerInt32Pointer,DivInt8PointerUInt32Pointer,DivInt8PointerInt64Pointer,DivInt8PointerUInt64Pointer,DivInt8PointerDoublePointer,DivInt8PointerInt8,DivInt8PointerUInt8,DivInt8PointerInt16,DivInt8PointerUInt16,DivInt8PointerInt32,DivInt8PointerUInt32,DivInt8PointerInt64,DivInt8PointerUInt64,DivInt8PointerDouble },
+        { DivUInt8PointerInt8Pointer,DivUInt8PointerUInt8Pointer,DivUInt8PointerInt16Pointer,DivUInt8PointerUInt16Pointer,DivUInt8PointerInt32Pointer,DivUInt8PointerUInt32Pointer,DivUInt8PointerInt64Pointer,DivUInt8PointerUInt64Pointer,DivUInt8PointerDoublePointer,DivUInt8PointerInt8,DivUInt8PointerUInt8,DivUInt8PointerInt16,DivUInt8PointerUInt16,DivUInt8PointerInt32,DivUInt8PointerUInt32,DivUInt8PointerInt64,DivUInt8PointerUInt64,DivUInt8PointerDouble },
+        { DivInt16PointerInt8Pointer,DivInt16PointerUInt8Pointer,DivInt16PointerInt16Pointer,DivInt16PointerUInt16Pointer,DivInt16PointerInt32Pointer,DivInt16PointerUInt32Pointer,DivInt16PointerInt64Pointer,DivInt16PointerUInt64Pointer,DivInt16PointerDoublePointer,DivInt16PointerInt8,DivInt16PointerUInt8,DivInt16PointerInt16,DivInt16PointerUInt16,DivInt16PointerInt32,DivInt16PointerUInt32,DivInt16PointerInt64,DivInt16PointerUInt64,DivInt16PointerDouble },
+        { DivUInt16PointerInt8Pointer,DivUInt16PointerUInt8Pointer,DivUInt16PointerInt16Pointer,DivUInt16PointerUInt16Pointer,DivUInt16PointerInt32Pointer,DivUInt16PointerUInt32Pointer,DivUInt16PointerInt64Pointer,DivUInt16PointerUInt64Pointer,DivUInt16PointerDoublePointer,DivUInt16PointerInt8,DivUInt16PointerUInt8,DivUInt16PointerInt16,DivUInt16PointerUInt16,DivUInt16PointerInt32,DivUInt16PointerUInt32,DivUInt16PointerInt64,DivUInt16PointerUInt64,DivUInt16PointerDouble },
+        { DivInt32PointerInt8Pointer,DivInt32PointerUInt8Pointer,DivInt32PointerInt16Pointer,DivInt32PointerUInt16Pointer,DivInt32PointerInt32Pointer,DivInt32PointerUInt32Pointer,DivInt32PointerInt64Pointer,DivInt32PointerUInt64Pointer,DivInt32PointerDoublePointer,DivInt32PointerInt8,DivInt32PointerUInt8,DivInt32PointerInt16,DivInt32PointerUInt16,DivInt32PointerInt32,DivInt32PointerUInt32,DivInt32PointerInt64,DivInt32PointerUInt64,DivInt32PointerDouble },
+        { DivUInt32PointerInt8Pointer,DivUInt32PointerUInt8Pointer,DivUInt32PointerInt16Pointer,DivUInt32PointerUInt16Pointer,DivUInt32PointerInt32Pointer,DivUInt32PointerUInt32Pointer,DivUInt32PointerInt64Pointer,DivUInt32PointerUInt64Pointer,DivUInt32PointerDoublePointer,DivUInt32PointerInt8,DivUInt32PointerUInt8,DivUInt32PointerInt16,DivUInt32PointerUInt16,DivUInt32PointerInt32,DivUInt32PointerUInt32,DivUInt32PointerInt64,DivUInt32PointerUInt64,DivUInt32PointerDouble },
+        { DivInt64PointerInt8Pointer,DivInt64PointerUInt8Pointer,DivInt64PointerInt16Pointer,DivInt64PointerUInt16Pointer,DivInt64PointerInt32Pointer,DivInt64PointerUInt32Pointer,DivInt64PointerInt64Pointer,DivInt64PointerUInt64Pointer,DivInt64PointerDoublePointer,DivInt64PointerInt8,DivInt64PointerUInt8,DivInt64PointerInt16,DivInt64PointerUInt16,DivInt64PointerInt32,DivInt64PointerUInt32,DivInt64PointerInt64,DivInt64PointerUInt64,DivInt64PointerDouble },
+        { DivUInt64PointerInt8Pointer,DivUInt64PointerUInt8Pointer,DivUInt64PointerInt16Pointer,DivUInt64PointerUInt16Pointer,DivUInt64PointerInt32Pointer,DivUInt64PointerUInt32Pointer,DivUInt64PointerInt64Pointer,DivUInt64PointerUInt64Pointer,DivUInt64PointerDoublePointer,DivUInt64PointerInt8,DivUInt64PointerUInt8,DivUInt64PointerInt16,DivUInt64PointerUInt16,DivUInt64PointerInt32,DivUInt64PointerUInt32,DivUInt64PointerInt64,DivUInt64PointerUInt64,DivUInt64PointerDouble },
+        { DivDoublePointerInt8Pointer,DivDoublePointerUInt8Pointer,DivDoublePointerInt16Pointer,DivDoublePointerUInt16Pointer,DivDoublePointerInt32Pointer,DivDoublePointerUInt32Pointer,DivDoublePointerInt64Pointer,DivDoublePointerUInt64Pointer,DivDoublePointerDoublePointer,DivDoublePointerInt8,DivDoublePointerUInt8,DivDoublePointerInt16,DivDoublePointerUInt16,DivDoublePointerInt32,DivDoublePointerUInt32,DivDoublePointerInt64,DivDoublePointerUInt64,DivDoublePointerDouble },
+        { DivInt8Int8Pointer,DivInt8UInt8Pointer,DivInt8Int16Pointer,DivInt8UInt16Pointer,DivInt8Int32Pointer,DivInt8UInt32Pointer,DivInt8Int64Pointer,DivInt8UInt64Pointer,DivInt8DoublePointer,DivInt8Int8,DivInt8UInt8,DivInt8Int16,DivInt8UInt16,DivInt8Int32,DivInt8UInt32,DivInt8Int64,DivInt8UInt64,DivInt8Double },
+        { DivUInt8Int8Pointer,DivUInt8UInt8Pointer,DivUInt8Int16Pointer,DivUInt8UInt16Pointer,DivUInt8Int32Pointer,DivUInt8UInt32Pointer,DivUInt8Int64Pointer,DivUInt8UInt64Pointer,DivUInt8DoublePointer,DivUInt8Int8,DivUInt8UInt8,DivUInt8Int16,DivUInt8UInt16,DivUInt8Int32,DivUInt8UInt32,DivUInt8Int64,DivUInt8UInt64,DivUInt8Double },
+        { DivInt16Int8Pointer,DivInt16UInt8Pointer,DivInt16Int16Pointer,DivInt16UInt16Pointer,DivInt16Int32Pointer,DivInt16UInt32Pointer,DivInt16Int64Pointer,DivInt16UInt64Pointer,DivInt16DoublePointer,DivInt16Int8,DivInt16UInt8,DivInt16Int16,DivInt16UInt16,DivInt16Int32,DivInt16UInt32,DivInt16Int64,DivInt16UInt64,DivInt16Double },
+        { DivUInt16Int8Pointer,DivUInt16UInt8Pointer,DivUInt16Int16Pointer,DivUInt16UInt16Pointer,DivUInt16Int32Pointer,DivUInt16UInt32Pointer,DivUInt16Int64Pointer,DivUInt16UInt64Pointer,DivUInt16DoublePointer,DivUInt16Int8,DivUInt16UInt8,DivUInt16Int16,DivUInt16UInt16,DivUInt16Int32,DivUInt16UInt32,DivUInt16Int64,DivUInt16UInt64,DivUInt16Double },
+        { DivInt32Int8Pointer,DivInt32UInt8Pointer,DivInt32Int16Pointer,DivInt32UInt16Pointer,DivInt32Int32Pointer,DivInt32UInt32Pointer,DivInt32Int64Pointer,DivInt32UInt64Pointer,DivInt32DoublePointer,DivInt32Int8,DivInt32UInt8,DivInt32Int16,DivInt32UInt16,DivInt32Int32,DivInt32UInt32,DivInt32Int64,DivInt32UInt64,DivInt32Double },
+        { DivUInt32Int8Pointer,DivUInt32UInt8Pointer,DivUInt32Int16Pointer,DivUInt32UInt16Pointer,DivUInt32Int32Pointer,DivUInt32UInt32Pointer,DivUInt32Int64Pointer,DivUInt32UInt64Pointer,DivUInt32DoublePointer,DivUInt32Int8,DivUInt32UInt8,DivUInt32Int16,DivUInt32UInt16,DivUInt32Int32,DivUInt32UInt32,DivUInt32Int64,DivUInt32UInt64,DivUInt32Double },
+        { DivInt64Int8Pointer,DivInt64UInt8Pointer,DivInt64Int16Pointer,DivInt64UInt16Pointer,DivInt64Int32Pointer,DivInt64UInt32Pointer,DivInt64Int64Pointer,DivInt64UInt64Pointer,DivInt64DoublePointer,DivInt64Int8,DivInt64UInt8,DivInt64Int16,DivInt64UInt16,DivInt64Int32,DivInt64UInt32,DivInt64Int64,DivInt64UInt64,DivInt64Double },
+        { DivUInt64Int8Pointer,DivUInt64UInt8Pointer,DivUInt64Int16Pointer,DivUInt64UInt16Pointer,DivUInt64Int32Pointer,DivUInt64UInt32Pointer,DivUInt64Int64Pointer,DivUInt64UInt64Pointer,DivUInt64DoublePointer,DivUInt64Int8,DivUInt64UInt8,DivUInt64Int16,DivUInt64UInt16,DivUInt64Int32,DivUInt64UInt32,DivUInt64Int64,DivUInt64UInt64,DivUInt64Double },
+        { DivDoubleInt8Pointer,DivDoubleUInt8Pointer,DivDoubleInt16Pointer,DivDoubleUInt16Pointer,DivDoubleInt32Pointer,DivDoubleUInt32Pointer,DivDoubleInt64Pointer,DivDoubleUInt64Pointer,DivDoubleDoublePointer,DivDoubleInt8,DivDoubleUInt8,DivDoubleInt16,DivDoubleUInt16,DivDoubleInt32,DivDoubleUInt32,DivDoubleInt64,DivDoubleUInt64,DivDoubleDouble }
     };
 
-    DivCallbackPtr MathOperation::divFunctions[][10] =
+    CmpCallbackPtr MathOperation::cmpFunctions[][18] =
     {
-        { DivideUInt8UInt8, DivideUInt8Int8, DivideUInt8UInt16, DivideUInt8Int16, DivideUInt8UInt32, DivideUInt8Int32, DivideUInt8UInt64, DivideUInt8Int64, DivideUInt8Single, DivideUInt8Double }, 
-        { DivideInt8UInt8, DivideInt8Int8, DivideInt8UInt16, DivideInt8Int16, DivideInt8UInt32, DivideInt8Int32, DivideInt8UInt64, DivideInt8Int64, DivideInt8Single, DivideInt8Double },
-        { DivideUInt16UInt8, DivideUInt16Int8, DivideUInt16UInt16, DivideUInt16Int16, DivideUInt16UInt32, DivideUInt16Int32, DivideUInt16UInt64, DivideUInt16Int64, DivideUInt16Single, DivideUInt16Double },
-        { DivideInt16UInt8, DivideInt16Int8, DivideInt16UInt16, DivideInt16Int16, DivideInt16UInt32, DivideInt16Int32, DivideInt16UInt64, DivideInt16Int64, DivideInt16Single, DivideInt16Double },
-        { DivideUInt32UInt8, DivideUInt32Int8, DivideUInt32UInt16, DivideUInt32Int16, DivideUInt32UInt32, DivideUInt32Int32, DivideUInt32UInt64, DivideUInt32Int64, DivideUInt32Single, DivideUInt32Double },
-        { DivideInt32UInt8, DivideInt32Int8, DivideInt32UInt16, DivideInt32Int16, DivideInt32UInt32, DivideInt32Int32, DivideInt32UInt64, DivideInt32Int64, DivideInt32Single, DivideInt32Double },
-        { DivideUInt64UInt8, DivideUInt64Int8, DivideUInt64UInt16, DivideUInt64Int16, DivideUInt64UInt32, DivideUInt64Int32, DivideUInt64UInt64, DivideUInt64Int64, DivideUInt64Single, DivideUInt64Double },
-        { DivideInt64UInt8, DivideInt64Int8, DivideInt64UInt16, DivideInt64Int16, DivideInt64UInt32, DivideInt64Int32, DivideInt64UInt64, DivideInt64Int64, DivideInt64Single, DivideInt64Double },
-        { DivideSingleUInt8, DivideSingleInt8, DivideSingleUInt16, DivideSingleInt16, DivideSingleUInt32, DivideSingleInt32, DivideSingleUInt64, DivideSingleInt64, DivideSingleSingle, DivideSingleDouble },
-        { DivideDoubleUInt8, DivideDoubleInt8, DivideDoubleUInt16, DivideDoubleInt16, DivideDoubleUInt32, DivideDoubleInt32, DivideDoubleUInt64, DivideDoubleInt64, DivideDoubleSingle, DivideDoubleDouble }
+        { CmpInt8PointerInt8Pointer,CmpInt8PointerUInt8Pointer,CmpInt8PointerInt16Pointer,CmpInt8PointerUInt16Pointer,CmpInt8PointerInt32Pointer,CmpInt8PointerUInt32Pointer,CmpInt8PointerInt64Pointer,CmpInt8PointerUInt64Pointer,CmpInt8PointerDoublePointer,CmpInt8PointerInt8,CmpInt8PointerUInt8,CmpInt8PointerInt16,CmpInt8PointerUInt16,CmpInt8PointerInt32,CmpInt8PointerUInt32,CmpInt8PointerInt64,CmpInt8PointerUInt64,CmpInt8PointerDouble },
+        { CmpUInt8PointerInt8Pointer,CmpUInt8PointerUInt8Pointer,CmpUInt8PointerInt16Pointer,CmpUInt8PointerUInt16Pointer,CmpUInt8PointerInt32Pointer,CmpUInt8PointerUInt32Pointer,CmpUInt8PointerInt64Pointer,CmpUInt8PointerUInt64Pointer,CmpUInt8PointerDoublePointer,CmpUInt8PointerInt8,CmpUInt8PointerUInt8,CmpUInt8PointerInt16,CmpUInt8PointerUInt16,CmpUInt8PointerInt32,CmpUInt8PointerUInt32,CmpUInt8PointerInt64,CmpUInt8PointerUInt64,CmpUInt8PointerDouble },
+        { CmpInt16PointerInt8Pointer,CmpInt16PointerUInt8Pointer,CmpInt16PointerInt16Pointer,CmpInt16PointerUInt16Pointer,CmpInt16PointerInt32Pointer,CmpInt16PointerUInt32Pointer,CmpInt16PointerInt64Pointer,CmpInt16PointerUInt64Pointer,CmpInt16PointerDoublePointer,CmpInt16PointerInt8,CmpInt16PointerUInt8,CmpInt16PointerInt16,CmpInt16PointerUInt16,CmpInt16PointerInt32,CmpInt16PointerUInt32,CmpInt16PointerInt64,CmpInt16PointerUInt64,CmpInt16PointerDouble },
+        { CmpUInt16PointerInt8Pointer,CmpUInt16PointerUInt8Pointer,CmpUInt16PointerInt16Pointer,CmpUInt16PointerUInt16Pointer,CmpUInt16PointerInt32Pointer,CmpUInt16PointerUInt32Pointer,CmpUInt16PointerInt64Pointer,CmpUInt16PointerUInt64Pointer,CmpUInt16PointerDoublePointer,CmpUInt16PointerInt8,CmpUInt16PointerUInt8,CmpUInt16PointerInt16,CmpUInt16PointerUInt16,CmpUInt16PointerInt32,CmpUInt16PointerUInt32,CmpUInt16PointerInt64,CmpUInt16PointerUInt64,CmpUInt16PointerDouble },
+        { CmpInt32PointerInt8Pointer,CmpInt32PointerUInt8Pointer,CmpInt32PointerInt16Pointer,CmpInt32PointerUInt16Pointer,CmpInt32PointerInt32Pointer,CmpInt32PointerUInt32Pointer,CmpInt32PointerInt64Pointer,CmpInt32PointerUInt64Pointer,CmpInt32PointerDoublePointer,CmpInt32PointerInt8,CmpInt32PointerUInt8,CmpInt32PointerInt16,CmpInt32PointerUInt16,CmpInt32PointerInt32,CmpInt32PointerUInt32,CmpInt32PointerInt64,CmpInt32PointerUInt64,CmpInt32PointerDouble },
+        { CmpUInt32PointerInt8Pointer,CmpUInt32PointerUInt8Pointer,CmpUInt32PointerInt16Pointer,CmpUInt32PointerUInt16Pointer,CmpUInt32PointerInt32Pointer,CmpUInt32PointerUInt32Pointer,CmpUInt32PointerInt64Pointer,CmpUInt32PointerUInt64Pointer,CmpUInt32PointerDoublePointer,CmpUInt32PointerInt8,CmpUInt32PointerUInt8,CmpUInt32PointerInt16,CmpUInt32PointerUInt16,CmpUInt32PointerInt32,CmpUInt32PointerUInt32,CmpUInt32PointerInt64,CmpUInt32PointerUInt64,CmpUInt32PointerDouble },
+        { CmpInt64PointerInt8Pointer,CmpInt64PointerUInt8Pointer,CmpInt64PointerInt16Pointer,CmpInt64PointerUInt16Pointer,CmpInt64PointerInt32Pointer,CmpInt64PointerUInt32Pointer,CmpInt64PointerInt64Pointer,CmpInt64PointerUInt64Pointer,CmpInt64PointerDoublePointer,CmpInt64PointerInt8,CmpInt64PointerUInt8,CmpInt64PointerInt16,CmpInt64PointerUInt16,CmpInt64PointerInt32,CmpInt64PointerUInt32,CmpInt64PointerInt64,CmpInt64PointerUInt64,CmpInt64PointerDouble },
+        { CmpUInt64PointerInt8Pointer,CmpUInt64PointerUInt8Pointer,CmpUInt64PointerInt16Pointer,CmpUInt64PointerUInt16Pointer,CmpUInt64PointerInt32Pointer,CmpUInt64PointerUInt32Pointer,CmpUInt64PointerInt64Pointer,CmpUInt64PointerUInt64Pointer,CmpUInt64PointerDoublePointer,CmpUInt64PointerInt8,CmpUInt64PointerUInt8,CmpUInt64PointerInt16,CmpUInt64PointerUInt16,CmpUInt64PointerInt32,CmpUInt64PointerUInt32,CmpUInt64PointerInt64,CmpUInt64PointerUInt64,CmpUInt64PointerDouble },
+        { CmpDoublePointerInt8Pointer,CmpDoublePointerUInt8Pointer,CmpDoublePointerInt16Pointer,CmpDoublePointerUInt16Pointer,CmpDoublePointerInt32Pointer,CmpDoublePointerUInt32Pointer,CmpDoublePointerInt64Pointer,CmpDoublePointerUInt64Pointer,CmpDoublePointerDoublePointer,CmpDoublePointerInt8,CmpDoublePointerUInt8,CmpDoublePointerInt16,CmpDoublePointerUInt16,CmpDoublePointerInt32,CmpDoublePointerUInt32,CmpDoublePointerInt64,CmpDoublePointerUInt64,CmpDoublePointerDouble },
+        { CmpInt8Int8Pointer,CmpInt8UInt8Pointer,CmpInt8Int16Pointer,CmpInt8UInt16Pointer,CmpInt8Int32Pointer,CmpInt8UInt32Pointer,CmpInt8Int64Pointer,CmpInt8UInt64Pointer,CmpInt8DoublePointer,CmpInt8Int8,CmpInt8UInt8,CmpInt8Int16,CmpInt8UInt16,CmpInt8Int32,CmpInt8UInt32,CmpInt8Int64,CmpInt8UInt64,CmpInt8Double },
+        { CmpUInt8Int8Pointer,CmpUInt8UInt8Pointer,CmpUInt8Int16Pointer,CmpUInt8UInt16Pointer,CmpUInt8Int32Pointer,CmpUInt8UInt32Pointer,CmpUInt8Int64Pointer,CmpUInt8UInt64Pointer,CmpUInt8DoublePointer,CmpUInt8Int8,CmpUInt8UInt8,CmpUInt8Int16,CmpUInt8UInt16,CmpUInt8Int32,CmpUInt8UInt32,CmpUInt8Int64,CmpUInt8UInt64,CmpUInt8Double },
+        { CmpInt16Int8Pointer,CmpInt16UInt8Pointer,CmpInt16Int16Pointer,CmpInt16UInt16Pointer,CmpInt16Int32Pointer,CmpInt16UInt32Pointer,CmpInt16Int64Pointer,CmpInt16UInt64Pointer,CmpInt16DoublePointer,CmpInt16Int8,CmpInt16UInt8,CmpInt16Int16,CmpInt16UInt16,CmpInt16Int32,CmpInt16UInt32,CmpInt16Int64,CmpInt16UInt64,CmpInt16Double },
+        { CmpUInt16Int8Pointer,CmpUInt16UInt8Pointer,CmpUInt16Int16Pointer,CmpUInt16UInt16Pointer,CmpUInt16Int32Pointer,CmpUInt16UInt32Pointer,CmpUInt16Int64Pointer,CmpUInt16UInt64Pointer,CmpUInt16DoublePointer,CmpUInt16Int8,CmpUInt16UInt8,CmpUInt16Int16,CmpUInt16UInt16,CmpUInt16Int32,CmpUInt16UInt32,CmpUInt16Int64,CmpUInt16UInt64,CmpUInt16Double },
+        { CmpInt32Int8Pointer,CmpInt32UInt8Pointer,CmpInt32Int16Pointer,CmpInt32UInt16Pointer,CmpInt32Int32Pointer,CmpInt32UInt32Pointer,CmpInt32Int64Pointer,CmpInt32UInt64Pointer,CmpInt32DoublePointer,CmpInt32Int8,CmpInt32UInt8,CmpInt32Int16,CmpInt32UInt16,CmpInt32Int32,CmpInt32UInt32,CmpInt32Int64,CmpInt32UInt64,CmpInt32Double },
+        { CmpUInt32Int8Pointer,CmpUInt32UInt8Pointer,CmpUInt32Int16Pointer,CmpUInt32UInt16Pointer,CmpUInt32Int32Pointer,CmpUInt32UInt32Pointer,CmpUInt32Int64Pointer,CmpUInt32UInt64Pointer,CmpUInt32DoublePointer,CmpUInt32Int8,CmpUInt32UInt8,CmpUInt32Int16,CmpUInt32UInt16,CmpUInt32Int32,CmpUInt32UInt32,CmpUInt32Int64,CmpUInt32UInt64,CmpUInt32Double },
+        { CmpInt64Int8Pointer,CmpInt64UInt8Pointer,CmpInt64Int16Pointer,CmpInt64UInt16Pointer,CmpInt64Int32Pointer,CmpInt64UInt32Pointer,CmpInt64Int64Pointer,CmpInt64UInt64Pointer,CmpInt64DoublePointer,CmpInt64Int8,CmpInt64UInt8,CmpInt64Int16,CmpInt64UInt16,CmpInt64Int32,CmpInt64UInt32,CmpInt64Int64,CmpInt64UInt64,CmpInt64Double },
+        { CmpUInt64Int8Pointer,CmpUInt64UInt8Pointer,CmpUInt64Int16Pointer,CmpUInt64UInt16Pointer,CmpUInt64Int32Pointer,CmpUInt64UInt32Pointer,CmpUInt64Int64Pointer,CmpUInt64UInt64Pointer,CmpUInt64DoublePointer,CmpUInt64Int8,CmpUInt64UInt8,CmpUInt64Int16,CmpUInt64UInt16,CmpUInt64Int32,CmpUInt64UInt32,CmpUInt64Int64,CmpUInt64UInt64,CmpUInt64Double },
+        { CmpDoubleInt8Pointer,CmpDoubleUInt8Pointer,CmpDoubleInt16Pointer,CmpDoubleUInt16Pointer,CmpDoubleInt32Pointer,CmpDoubleUInt32Pointer,CmpDoubleInt64Pointer,CmpDoubleUInt64Pointer,CmpDoubleDoublePointer,CmpDoubleInt8,CmpDoubleUInt8,CmpDoubleInt16,CmpDoubleUInt16,CmpDoubleInt32,CmpDoubleUInt32,CmpDoubleInt64,CmpDoubleUInt64,CmpDoubleDouble }
     };
 
-    int64_t MathOperation::Compare(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType)
-    {
-        int64_t result = cmpFunctions[lhsDataType][rhsDataType](lhs, rhs);
-
-        if(result == 0)
-            return 0;
-        else if (result < 0)
-            return -1;
-        else
-            return 1;
-    }
-
-    int64_t MathOperation::Add(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType)
-    {
-        return addFunctions[lhsDataType][rhsDataType](lhs, rhs);
-    }
-
-    int64_t MathOperation::Subtract(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType)
-    {
-        return subFunctions[lhsDataType][rhsDataType](lhs, rhs);
-    }
-
-    int64_t MathOperation::Multiply(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType)
-    {
-        return mulFunctions[lhsDataType][rhsDataType](lhs, rhs);
-    }
-
-    int64_t MathOperation::Divide(byte* lhs, byte* rhs, Type lhsDataType, Type rhsDataType)
-    {
-        return divFunctions[lhsDataType][rhsDataType](lhs, rhs);
-    }
-
-    //Compare--------------------------
-    //---------------------------------
-    //---------------------------------
-    //---------------------------------
-
-    int64_t MathOperation::CompareUInt8UInt8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Int8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8UInt16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Int16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8UInt32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Int32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8UInt64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Int64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Single(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt8Double(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8UInt8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Int8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8UInt16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Int16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8UInt32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Int32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8UInt64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Int64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Single(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt8Double(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16UInt8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Int8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16UInt16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Int16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16UInt32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Int32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16UInt64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Int64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Single(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareUInt16Double(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt16UInt8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt16Int8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt16UInt16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt16Int16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        int64_t result = (*ptrLhs - *ptrRhs);
-        return result;
-    }
-
-    int64_t MathOperation::CompareInt16UInt32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt16Int32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt16UInt64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt16Int64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt16Single(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt16Double(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32UInt8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Int8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32UInt16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Int16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32UInt32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Int32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32UInt64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Int64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Single(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt32Double(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32UInt8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Int8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32UInt16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Int16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32UInt32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);	    
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Int32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32UInt64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Int64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Single(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt32Double(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64UInt8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Int8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64UInt16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Int16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64UInt32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Int32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64UInt64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Int64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Single(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareUInt64Double(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64UInt8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Int8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64UInt16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Int16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64UInt32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Int32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64UInt64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Int64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Single(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareInt64Double(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleUInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleUInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleUInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleUInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleSingle(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareSingleDouble(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleUInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleUInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleUInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleUInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleSingle(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-    int64_t MathOperation::CompareDoubleDouble(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        return CompareTypeWithType(*ptrLhs, *ptrRhs);
-    }
-
-
-    //Add------------------------------
-    //---------------------------------
-    //---------------------------------
-    //---------------------------------
-
-    int64_t MathOperation::AddUInt8UInt8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Int8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8UInt16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Int16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8UInt32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Int32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8UInt64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Int64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Single(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt8Double(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8UInt8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Int8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8UInt16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Int16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8UInt32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Int32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8UInt64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Int64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Single(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt8Double(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16UInt8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Int8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16UInt16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Int16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16UInt32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Int32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16UInt64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Int64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Single(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt16Double(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16UInt8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Int8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16UInt16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Int16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16UInt32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Int32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16UInt64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Int64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Single(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt16Double(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32UInt8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Int8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32UInt16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Int16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32UInt32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Int32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32UInt64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Int64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Single(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt32Double(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32UInt8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Int8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32UInt16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Int16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32UInt32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Int32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32UInt64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Int64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Single(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt32Double(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64UInt8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Int8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64UInt16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Int16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64UInt32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Int32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64UInt64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Int64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Single(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddUInt64Double(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64UInt8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Int8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64UInt16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Int16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64UInt32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Int32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64UInt64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Int64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Single(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddInt64Double(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleUInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleUInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleUInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleUInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleSingle(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddSingleDouble(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleUInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleUInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleUInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleUInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleSingle(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::AddDoubleDouble(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs += *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-
-    //Subtract-------------------------
-    //---------------------------------
-    //---------------------------------
-    //---------------------------------
-
-    int64_t MathOperation::SubtractUInt8UInt8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Int8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8UInt16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Int16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8UInt32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Int32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8UInt64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Int64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Single(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt8Double(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8UInt8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Int8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8UInt16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Int16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8UInt32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Int32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8UInt64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Int64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Single(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt8Double(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16UInt8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Int8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16UInt16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Int16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16UInt32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Int32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16UInt64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Int64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Single(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt16Double(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16UInt8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Int8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16UInt16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Int16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16UInt32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Int32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16UInt64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Int64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Single(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt16Double(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32UInt8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Int8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32UInt16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Int16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32UInt32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Int32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32UInt64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Int64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Single(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt32Double(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32UInt8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Int8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32UInt16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Int16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32UInt32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Int32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32UInt64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Int64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Single(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt32Double(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64UInt8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Int8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64UInt16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Int16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64UInt32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Int32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64UInt64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Int64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Single(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractUInt64Double(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64UInt8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Int8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64UInt16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Int16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64UInt32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Int32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64UInt64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Int64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Single(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractInt64Double(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleUInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleUInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleUInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleUInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleSingle(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractSingleDouble(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleUInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleUInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleUInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleUInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleSingle(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::SubtractDoubleDouble(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs -= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-
-    //Multiply-------------------------
-    //---------------------------------
-    //---------------------------------
-    //---------------------------------
-
-    int64_t MathOperation::MultiplyUInt8UInt8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Int8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8UInt16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Int16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8UInt32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Int32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8UInt64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Int64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Single(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt8Double(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8UInt8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Int8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8UInt16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Int16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8UInt32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Int32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8UInt64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Int64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Single(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt8Double(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16UInt8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Int8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16UInt16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Int16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16UInt32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Int32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16UInt64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Int64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Single(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt16Double(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16UInt8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Int8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16UInt16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Int16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16UInt32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Int32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16UInt64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Int64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Single(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt16Double(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32UInt8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Int8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32UInt16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Int16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32UInt32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Int32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32UInt64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Int64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Single(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt32Double(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32UInt8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Int8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32UInt16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Int16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32UInt32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Int32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32UInt64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Int64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Single(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt32Double(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64UInt8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Int8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64UInt16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Int16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64UInt32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Int32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64UInt64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Int64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Single(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyUInt64Double(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64UInt8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Int8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64UInt16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Int16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64UInt32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Int32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64UInt64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Int64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Single(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyInt64Double(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleUInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleUInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleUInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleUInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleSingle(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplySingleDouble(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleUInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleUInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleUInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleUInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleSingle(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::MultiplyDoubleDouble(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs *= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-
-    //Divide---------------------------
-    //---------------------------------
-    //---------------------------------
-    //---------------------------------
-
-    int64_t MathOperation::DivideUInt8UInt8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Int8(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8UInt16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Int16(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8UInt32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Int32(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8UInt64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Int64(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Single(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt8Double(byte* lhs, byte* rhs)
-    {
-        uint8_t* ptrLhs = reinterpret_cast<uint8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8UInt8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Int8(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8UInt16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Int16(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8UInt32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Int32(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8UInt64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Int64(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Single(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt8Double(byte* lhs, byte* rhs)
-    {
-        int8_t* ptrLhs = reinterpret_cast<int8_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16UInt8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Int8(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16UInt16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Int16(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16UInt32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Int32(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16UInt64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Int64(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Single(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt16Double(byte* lhs, byte* rhs)
-    {
-        uint16_t* ptrLhs = reinterpret_cast<uint16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16UInt8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Int8(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16UInt16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Int16(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16UInt32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Int32(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16UInt64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Int64(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Single(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt16Double(byte* lhs, byte* rhs)
-    {
-        int16_t* ptrLhs = reinterpret_cast<int16_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32UInt8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Int8(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32UInt16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Int16(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32UInt32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Int32(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32UInt64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Int64(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Single(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt32Double(byte* lhs, byte* rhs)
-    {
-        uint32_t* ptrLhs = reinterpret_cast<uint32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32UInt8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Int8(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32UInt16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Int16(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32UInt32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Int32(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32UInt64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Int64(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Single(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt32Double(byte* lhs, byte* rhs)
-    {
-        int32_t* ptrLhs = reinterpret_cast<int32_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64UInt8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Int8(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64UInt16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Int16(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64UInt32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Int32(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64UInt64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Int64(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Single(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideUInt64Double(byte* lhs, byte* rhs)
-    {
-        uint64_t* ptrLhs = reinterpret_cast<uint64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64UInt8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Int8(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64UInt16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Int16(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64UInt32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Int32(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64UInt64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Int64(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Single(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideInt64Double(byte* lhs, byte* rhs)
-    {
-        int64_t* ptrLhs = reinterpret_cast<int64_t*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleUInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleInt8(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleUInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleInt16(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleUInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleInt32(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleUInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleInt64(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleSingle(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideSingleDouble(byte* lhs, byte* rhs)
-    {
-        float* ptrLhs = reinterpret_cast<float*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleUInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint8_t* ptrRhs = reinterpret_cast<uint8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleInt8(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int8_t* ptrRhs = reinterpret_cast<int8_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleUInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint16_t* ptrRhs = reinterpret_cast<uint16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleInt16(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int16_t* ptrRhs = reinterpret_cast<int16_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleUInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint32_t* ptrRhs = reinterpret_cast<uint32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleInt32(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int32_t* ptrRhs = reinterpret_cast<int32_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleUInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        uint64_t* ptrRhs = reinterpret_cast<uint64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleInt64(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        int64_t* ptrRhs = reinterpret_cast<int64_t*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleSingle(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        float* ptrRhs = reinterpret_cast<float*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
-
-    int64_t MathOperation::DivideDoubleDouble(byte* lhs, byte* rhs)
-    {
-        double* ptrLhs = reinterpret_cast<double*>(lhs);
-        double* ptrRhs = reinterpret_cast<double*>(rhs);
-        *ptrLhs /= *ptrRhs;
-        return *ptrLhs == 0 ? 1 : 0;
-    }
+    int64_t MathOperation::Add(Object* lhs, Object* rhs)
+    {
+        return addFunctions[lhs->type][rhs->type](lhs, rhs);
+    }    
+
+    int64_t MathOperation::Subtract(Object* lhs, Object* rhs)
+    {
+        return subFunctions[lhs->type][rhs->type](lhs, rhs);
+    }
+
+    int64_t MathOperation::Multiply(Object* lhs, Object* rhs)
+    {
+        return mulFunctions[lhs->type][rhs->type](lhs, rhs);
+    }
+
+    int64_t MathOperation::Divide(Object* lhs, Object* rhs)
+    {
+        return divFunctions[lhs->type][rhs->type](lhs, rhs);
+    }
+
+    int64_t MathOperation::Compare(Object* lhs, Object* rhs)
+    {
+        return cmpFunctions[lhs->type][rhs->type](lhs, rhs);
+    }    
+
+	//
+	//Add
+	//
+	int64_t MathOperation::AddInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += *rhs->as_double_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_int8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_uint8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_int16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_uint16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_int32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_uint32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_int64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_uint64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer += rhs->as_double;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += *rhs->as_double_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_int8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_uint8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_int16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_uint16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_int32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_uint32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_int64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_uint64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer += rhs->as_double;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += *rhs->as_double_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_int8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_uint8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_int16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_uint16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_int32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_uint32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_int64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_uint64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer += rhs->as_double;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += *rhs->as_double_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_int8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_uint8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_int16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_uint16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_int32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_uint32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_int64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_uint64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer += rhs->as_double;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += *rhs->as_double_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_int8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_uint8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_int16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_uint16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_int32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_uint32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_int64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_uint64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer += rhs->as_double;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += *rhs->as_double_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_int8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_uint8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_int16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_uint16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_int32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_uint32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_int64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_uint64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer += rhs->as_double;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += *rhs->as_double_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_int8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_uint8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_int16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_uint16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_int32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_uint32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_int64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_uint64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer += rhs->as_double;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += *rhs->as_double_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_int8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_uint8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_int16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_uint16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_int32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_uint32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_int64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_uint64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer += rhs->as_double;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_int8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_uint8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_int16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_uint16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_int32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_uint32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_int64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_uint64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += *rhs->as_double_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_int8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_uint8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_int16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_uint16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_int32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_uint32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_int64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_uint64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoublePointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer += rhs->as_double;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_int8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_uint8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_int16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_uint16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_int32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_uint32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_int64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_uint64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += *rhs->as_double_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_int8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_uint8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_int16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_uint16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_int32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_uint32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_int64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_uint64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 += rhs->as_double;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_int8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_uint8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_int16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_uint16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_int32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_uint32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_int64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_uint64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += *rhs->as_double_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_int8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_uint8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_int16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_uint16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_int32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_uint32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_int64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_uint64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 += rhs->as_double;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_int8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_uint8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_int16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_uint16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_int32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_uint32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_int64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_uint64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += *rhs->as_double_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_int8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_uint8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_int16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_uint16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_int32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_uint32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_int64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_uint64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 += rhs->as_double;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_int8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_uint8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_int16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_uint16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_int32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_uint32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_int64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_uint64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += *rhs->as_double_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_int8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_uint8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_int16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_uint16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_int32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_uint32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_int64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_uint64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 += rhs->as_double;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_int8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_uint8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_int16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_uint16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_int32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_uint32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_int64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_uint64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += *rhs->as_double_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_int8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_uint8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_int16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_uint16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_int32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_uint32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_int64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_uint64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 += rhs->as_double;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_int8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_uint8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_int16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_uint16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_int32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_uint32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_int64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_uint64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += *rhs->as_double_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_int8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_uint8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_int16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_uint16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_int32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_uint32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_int64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_uint64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 += rhs->as_double;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_int8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_uint8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_int16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_uint16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_int32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_uint32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_int64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_uint64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += *rhs->as_double_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_int8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_uint8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_int16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_uint16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_int32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_uint32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_int64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_uint64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 += rhs->as_double;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_int8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_uint8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_int16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_uint16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_int32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_uint32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_int64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_uint64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += *rhs->as_double_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_int8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_uint8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_int16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_uint16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_int32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_uint32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_int64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_uint64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddUInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 += rhs->as_double;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_int8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_uint8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_int16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_uint16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_int32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_uint32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_int64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_uint64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleDoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += *rhs->as_double_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_int8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_uint8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_int16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_uint16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_int32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_uint32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_int64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleUInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_uint64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::AddDoubleDouble(Object* lhs, Object* rhs)
+	{
+		lhs->as_double += rhs->as_double;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	//
+	//Subtract
+	//
+	int64_t MathOperation::SubInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_int8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_uint8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_int16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_uint16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_int32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_uint32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_int64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_uint64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer -= rhs->as_double;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_int8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_uint8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_int16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_uint16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_int32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_uint32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_int64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_uint64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer -= rhs->as_double;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_int8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_uint8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_int16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_uint16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_int32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_uint32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_int64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_uint64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer -= rhs->as_double;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_int8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_uint8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_int16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_uint16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_int32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_uint32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_int64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_uint64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer -= rhs->as_double;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_int8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_uint8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_int16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_uint16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_int32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_uint32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_int64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_uint64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer -= rhs->as_double;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_int8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_uint8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_int16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_uint16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_int32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_uint32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_int64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_uint64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer -= rhs->as_double;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_int8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_uint8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_int16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_uint16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_int32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_uint32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_int64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_uint64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer -= rhs->as_double;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_int8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_uint8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_int16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_uint16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_int32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_uint32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_int64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_uint64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer -= rhs->as_double;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_int8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_uint8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_int16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_uint16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_int32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_uint32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_int64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_uint64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= *rhs->as_double_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_int8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_uint8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_int16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_uint16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_int32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_uint32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_int64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_uint64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoublePointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer -= rhs->as_double;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_int8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_uint8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_int16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_uint16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_int32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_uint32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_int64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_uint64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= *rhs->as_double_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_int8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_uint8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_int16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_uint16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_int32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_uint32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_int64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_uint64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 -= rhs->as_double;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_int8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_uint8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_int16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_uint16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_int32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_uint32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_int64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_uint64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= *rhs->as_double_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_int8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_uint8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_int16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_uint16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_int32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_uint32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_int64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_uint64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 -= rhs->as_double;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_int8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_uint8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_int16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_uint16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_int32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_uint32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_int64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_uint64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= *rhs->as_double_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_int8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_uint8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_int16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_uint16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_int32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_uint32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_int64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_uint64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 -= rhs->as_double;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_int8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_uint8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_int16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_uint16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_int32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_uint32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_int64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_uint64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= *rhs->as_double_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_int8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_uint8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_int16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_uint16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_int32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_uint32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_int64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_uint64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 -= rhs->as_double;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_int8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_uint8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_int16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_uint16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_int32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_uint32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_int64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_uint64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= *rhs->as_double_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_int8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_uint8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_int16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_uint16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_int32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_uint32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_int64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_uint64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 -= rhs->as_double;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_int8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_uint8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_int16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_uint16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_int32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_uint32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_int64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_uint64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= *rhs->as_double_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_int8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_uint8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_int16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_uint16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_int32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_uint32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_int64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_uint64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 -= rhs->as_double;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_int8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_uint8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_int16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_uint16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_int32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_uint32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_int64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_uint64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= *rhs->as_double_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_int8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_uint8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_int16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_uint16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_int32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_uint32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_int64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_uint64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 -= rhs->as_double;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_int8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_uint8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_int16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_uint16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_int32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_uint32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_int64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_uint64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= *rhs->as_double_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_int8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_uint8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_int16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_uint16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_int32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_uint32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_int64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_uint64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubUInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 -= rhs->as_double;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_int8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_uint8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_int16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_uint16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_int32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_uint32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_int64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_uint64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleDoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= *rhs->as_double_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_int8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_uint8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_int16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_uint16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_int32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_uint32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_int64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleUInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_uint64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::SubDoubleDouble(Object* lhs, Object* rhs)
+	{
+		lhs->as_double -= rhs->as_double;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	//
+	//Multiply
+	//
+	int64_t MathOperation::MulInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_int8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_uint8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_int16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_uint16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_int32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_uint32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_int64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_uint64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer *= rhs->as_double;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_int8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_uint8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_int16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_uint16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_int32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_uint32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_int64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_uint64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer *= rhs->as_double;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_int8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_uint8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_int16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_uint16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_int32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_uint32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_int64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_uint64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer *= rhs->as_double;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_int8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_uint8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_int16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_uint16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_int32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_uint32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_int64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_uint64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer *= rhs->as_double;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_int8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_uint8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_int16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_uint16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_int32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_uint32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_int64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_uint64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer *= rhs->as_double;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_int8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_uint8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_int16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_uint16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_int32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_uint32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_int64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_uint64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer *= rhs->as_double;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_int8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_uint8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_int16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_uint16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_int32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_uint32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_int64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_uint64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer *= rhs->as_double;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_int8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_uint8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_int16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_uint16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_int32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_uint32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_int64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_uint64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer *= rhs->as_double;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_int8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_uint8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_int16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_uint16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_int32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_uint32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_int64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_uint64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= *rhs->as_double_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_int8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_uint8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_int16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_uint16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_int32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_uint32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_int64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_uint64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoublePointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer *= rhs->as_double;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_int8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_uint8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_int16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_uint16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_int32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_uint32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_int64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_uint64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= *rhs->as_double_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_int8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_uint8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_int16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_uint16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_int32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_uint32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_int64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_uint64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 *= rhs->as_double;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_int8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_uint8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_int16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_uint16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_int32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_uint32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_int64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_uint64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= *rhs->as_double_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_int8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_uint8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_int16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_uint16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_int32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_uint32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_int64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_uint64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 *= rhs->as_double;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_int8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_uint8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_int16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_uint16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_int32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_uint32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_int64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_uint64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= *rhs->as_double_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_int8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_uint8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_int16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_uint16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_int32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_uint32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_int64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_uint64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 *= rhs->as_double;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_int8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_uint8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_int16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_uint16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_int32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_uint32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_int64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_uint64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= *rhs->as_double_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_int8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_uint8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_int16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_uint16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_int32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_uint32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_int64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_uint64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 *= rhs->as_double;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_int8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_uint8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_int16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_uint16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_int32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_uint32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_int64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_uint64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= *rhs->as_double_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_int8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_uint8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_int16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_uint16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_int32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_uint32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_int64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_uint64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 *= rhs->as_double;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_int8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_uint8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_int16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_uint16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_int32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_uint32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_int64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_uint64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= *rhs->as_double_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_int8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_uint8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_int16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_uint16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_int32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_uint32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_int64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_uint64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 *= rhs->as_double;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_int8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_uint8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_int16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_uint16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_int32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_uint32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_int64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_uint64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= *rhs->as_double_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_int8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_uint8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_int16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_uint16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_int32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_uint32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_int64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_uint64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 *= rhs->as_double;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_int8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_uint8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_int16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_uint16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_int32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_uint32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_int64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_uint64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= *rhs->as_double_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_int8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_uint8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_int16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_uint16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_int32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_uint32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_int64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_uint64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulUInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 *= rhs->as_double;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_int8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_uint8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_int16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_uint16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_int32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_uint32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_int64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_uint64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleDoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= *rhs->as_double_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_int8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_uint8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_int16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_uint16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_int32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_uint32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_int64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleUInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_uint64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::MulDoubleDouble(Object* lhs, Object* rhs)
+	{
+		lhs->as_double *= rhs->as_double;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	//
+	//Divide
+	//
+	int64_t MathOperation::DivInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_int8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_uint8;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_int16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_uint16;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_int32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_uint32;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_int64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_uint64;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int8_pointer /= rhs->as_double;
+		return *lhs->as_int8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_int8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_uint8;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_int16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_uint16;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_int32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_uint32;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_int64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_uint64;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint8_pointer /= rhs->as_double;
+		return *lhs->as_uint8_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_int8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_uint8;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_int16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_uint16;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_int32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_uint32;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_int64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_uint64;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int16_pointer /= rhs->as_double;
+		return *lhs->as_int16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_int8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_uint8;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_int16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_uint16;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_int32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_uint32;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_int64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_uint64;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint16_pointer /= rhs->as_double;
+		return *lhs->as_uint16_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_int8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_uint8;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_int16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_uint16;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_int32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_uint32;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_int64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_uint64;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int32_pointer /= rhs->as_double;
+		return *lhs->as_int32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_int8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_uint8;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_int16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_uint16;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_int32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_uint32;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_int64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_uint64;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint32_pointer /= rhs->as_double;
+		return *lhs->as_uint32_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_int8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_uint8;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_int16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_uint16;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_int32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_uint32;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_int64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_uint64;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_int64_pointer /= rhs->as_double;
+		return *lhs->as_int64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_int8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_uint8;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_int16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_uint16;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_int32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_uint32;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_int64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_uint64;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_uint64_pointer /= rhs->as_double;
+		return *lhs->as_uint64_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_int8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_uint8_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_int16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_uint16_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_int32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_uint32_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_int64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_uint64_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= *rhs->as_double_pointer;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_int8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt8(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_uint8;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_int16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt16(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_uint16;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_int32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt32(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_uint32;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_int64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerUInt64(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_uint64;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoublePointerDouble(Object* lhs, Object* rhs)
+	{
+		*lhs->as_double_pointer /= rhs->as_double;
+		return *lhs->as_double_pointer == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_int8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_uint8_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_int16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_uint16_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_int32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_uint32_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_int64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_uint64_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= *rhs->as_double_pointer;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_int8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_uint8;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_int16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_uint16;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_int32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_uint32;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_int64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_uint64;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int8 /= rhs->as_double;
+		return lhs->as_int8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_int8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_uint8_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_int16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_uint16_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_int32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_uint32_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_int64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_uint64_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= *rhs->as_double_pointer;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_int8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_uint8;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_int16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_uint16;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_int32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_uint32;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_int64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_uint64;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt8Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint8 /= rhs->as_double;
+		return lhs->as_uint8 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_int8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_uint8_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_int16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_uint16_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_int32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_uint32_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_int64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_uint64_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= *rhs->as_double_pointer;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_int8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_uint8;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_int16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_uint16;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_int32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_uint32;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_int64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_uint64;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int16 /= rhs->as_double;
+		return lhs->as_int16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_int8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_uint8_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_int16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_uint16_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_int32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_uint32_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_int64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_uint64_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= *rhs->as_double_pointer;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_int8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_uint8;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_int16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_uint16;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_int32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_uint32;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_int64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_uint64;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt16Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint16 /= rhs->as_double;
+		return lhs->as_uint16 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_int8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_uint8_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_int16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_uint16_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_int32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_uint32_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_int64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_uint64_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= *rhs->as_double_pointer;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_int8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_uint8;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_int16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_uint16;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_int32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_uint32;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_int64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_uint64;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int32 /= rhs->as_double;
+		return lhs->as_int32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_int8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_uint8_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_int16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_uint16_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_int32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_uint32_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_int64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_uint64_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= *rhs->as_double_pointer;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_int8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_uint8;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_int16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_uint16;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_int32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_uint32;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_int64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_uint64;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt32Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint32 /= rhs->as_double;
+		return lhs->as_uint32 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_int8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_uint8_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_int16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_uint16_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_int32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_uint32_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_int64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_uint64_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= *rhs->as_double_pointer;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_int8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_uint8;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_int16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_uint16;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_int32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_uint32;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_int64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_uint64;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_int64 /= rhs->as_double;
+		return lhs->as_int64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_int8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_uint8_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_int16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_uint16_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_int32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_uint32_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_int64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_uint64_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= *rhs->as_double_pointer;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_int8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_uint8;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_int16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_uint16;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_int32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_uint32;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Int64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_int64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64UInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_uint64;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivUInt64Double(Object* lhs, Object* rhs)
+	{
+		lhs->as_uint64 /= rhs->as_double;
+		return lhs->as_uint64 == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_int8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_uint8_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_int16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_uint16_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_int32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_uint32_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_int64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_uint64_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleDoublePointer(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= *rhs->as_double_pointer;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_int8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt8(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_uint8;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_int16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt16(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_uint16;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_int32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt32(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_uint32;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_int64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleUInt64(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_uint64;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	int64_t MathOperation::DivDoubleDouble(Object* lhs, Object* rhs)
+	{
+		lhs->as_double /= rhs->as_double;
+		return lhs->as_double == 0 ? 1 : 0;
+	}
+
+	//
+	//Compare
+	//
+	int64_t MathOperation::CmpInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int8_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt8PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint8_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int16_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt16PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint16_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int32_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt32PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint32_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_int64_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt64PointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_uint64_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpDoublePointerInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpDoublePointerUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpDoublePointerDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(*lhs->as_double_pointer,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt8Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt8UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt8Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt8UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt8Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt8UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt8Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt8UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt8Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int8,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt8Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt8Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt8Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt8Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt8Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt8UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt8Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint8,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt16Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt16UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt16Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt16UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt16Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt16UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt16Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt16UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt16Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int16,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt16Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt16Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt16Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt16Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt16Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt16UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt16Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint16,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt32Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt32UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt32Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt32UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt32Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt32UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt32Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt32UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt32Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int32,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt32Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt32Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt32Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt32Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt32Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt32UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt32Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint32,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpInt64Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpInt64UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpInt64Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpInt64UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpInt64Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpInt64UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpInt64Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpInt64UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpInt64Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_int64,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpUInt64Int8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64Int16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64Int32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64Int64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64DoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpUInt64Int8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpUInt64Int16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpUInt64Int32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpUInt64Int64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpUInt64UInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpUInt64Double(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_uint64,rhs->as_double);
+	}
+
+	int64_t MathOperation::CmpDoubleInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_int8_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt8Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_uint8_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_int16_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt16Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_uint16_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_int32_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt32Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_uint32_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_int64_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt64Pointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_uint64_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleDoublePointer(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,*rhs->as_double_pointer);
+	}
+
+	int64_t MathOperation::CmpDoubleInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_int8);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt8(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_uint8);
+	}
+
+	int64_t MathOperation::CmpDoubleInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_int16);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt16(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_uint16);
+	}
+
+	int64_t MathOperation::CmpDoubleInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_int32);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt32(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_uint32);
+	}
+
+	int64_t MathOperation::CmpDoubleInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_int64);
+	}
+
+	int64_t MathOperation::CmpDoubleUInt64(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_uint64);
+	}
+
+	int64_t MathOperation::CmpDoubleDouble(Object* lhs, Object* rhs)
+	{
+		return CompareTypeWithType(lhs->as_double,rhs->as_double);
+	}
 }

@@ -1,5 +1,5 @@
-#ifndef FILE_HPP
-#define FILE_HPP
+#ifndef VOLT_FILE_HPP
+#define VOLT_FILE_HPP
 
 #include <string>
 #include <vector>

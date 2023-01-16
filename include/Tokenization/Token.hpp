@@ -1,5 +1,5 @@
-#ifndef TOKEN_HPP
-#define TOKEN_HPP
+#ifndef VOLT_TOKEN_HPP
+#define VOLT_TOKEN_HPP
 
 #include <string>
 
