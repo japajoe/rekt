@@ -1,24 +1,17 @@
 # volt
 A stack and register based virtual machine which can compile and execute arbitrary code in runtime.
 
-Support for integer types like
+Support for types like
 - int64/uint64
 - double
-
-# Dependencies
-- None
-
-# About
-This is a similar project to https://github.com/japajoe/StackVMCPP but with quite a lot of changes. I have decided I don't want to deal with all these push/pop instructions anymore, so I got rid of them. I also felt little need to support so many numeric types because it only complicates matters in an already complicated project. There is now also support for defining string literals, which is so much more fun than pushing individual characters to the stack.
-
-As anything in life, there are always ifs and buts. I can not guarantee this project solves your problems, and I can not guarantee it has no bugs or problems. In fact there must be issues that I'm either not aware of, or haven't found a solution for yet. Please open an issue if you find something, because only then I know people actually use this. I personally have used this successfully in different applications where there was a need to have an embedded programming language with a small footprint. I have found it reasonably fast and pretty capable.
+- pointers
 
 # News
 - 01/16/2023: Rewrote entire project. All entities on the stack and in registers are now considered an Object. This is a breaking change, old code is moved to 'legacy' branche.
 - 01/05/2023: It is possible to print formatted strings. For more info on what string formatting options there are, see https://github.com/fmtlib/fmt
 
 # Note
-In contrary to my previous project, the instruction opcodes are case sensitive and MUST be lower case!
+The instruction opcodes are case sensitive and MUST be lower case!
 
 # Example use
 ```cpp
