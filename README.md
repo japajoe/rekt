@@ -14,7 +14,8 @@ This is a similar project to https://github.com/japajoe/StackVMCPP but with quit
 As anything in life, there are always ifs and buts. I can not guarantee this project solves your problems, and I can not guarantee it has no bugs or problems. In fact there must be issues that I'm either not aware of, or haven't found a solution for yet. Please open an issue if you find something, because only then I know people actually use this. I personally have used this successfully in different applications where there was a need to have an embedded programming language with a small footprint. I have found it reasonably fast and pretty capable.
 
 # News
-- As of 01/05/2023 it is possible to print formatted strings. For more info on what string formatting options there are, see https://github.com/fmtlib/fmt
+- 01/16/2023: Rewrote entire project. All entities on the stack and in registers are now considered an Object. This is a breaking change, old code is moved to 'legacy' branche.
+- 01/05/2023: It is possible to print formatted strings. For more info on what string formatting options there are, see https://github.com/fmtlib/fmt
 
 # Note
 In contrary to my previous project, the instruction opcodes are case sensitive and MUST be lower case!
@@ -23,17 +24,11 @@ In contrary to my previous project, the instruction opcodes are case sensitive a
 ```cpp
 #include <iostream>
 #include <chrono>
-#include <memory>
-#include <exception>
-#include <IO/File.hpp>
 #include <Compilation/Compiler.hpp>
-#include <Compilation/Instruction.hpp>
 #include <Core/VirtualMachine.hpp>
-#include <Core/Assembly.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
-#include <Modules/MemoryModule.hpp>
-#include <Modules/MathModule.hpp>
+#include <Utilities/File.hpp>
 
 using namespace VoltLang;
 
@@ -41,54 +36,48 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    std::string filepath = "helloworld.vlt";
+    std::string filepath = "fibonacci.asm";
 
     if(argc > 1)
     {
         filepath = std::string(argv[1]);
     }
 
-    //Load some standard modules so you can call functions such as printf etc.
-    ModuleLoader::Load<SystemModule>();
-    ModuleLoader::Load<MemoryModule>();
-    ModuleLoader::Load<MathModule>();
-
-    Assembly assembly;
-    VirtualMachine machine;
-
-    if (!File::Exists(filepath))
+    if(!File::Exists(filepath))
     {
-        std::cout << "File does not exist: " << filepath << std::endl;
+        std::cout << "The file does not exist " << filepath << std::endl;
         return 1;
     }
+
+    ModuleLoader::Load<SystemModule>();
 
     std::string source = File::ReadAllText(filepath);
 
     Compiler compiler;
+    Assembly assembly;
+    VirtualMachine machine;
 
     if(compiler.Compile(source, &assembly))
     {
-        machine.LoadAssembly(&assembly);
-
-        ExecutionStatus status = ExecutionStatus::Ok;
-
-        auto startTime = high_resolution_clock::now();
-
-        while (status == ExecutionStatus::Ok)
+        if(machine.LoadAssembly(&assembly))
         {
-            status = machine.Run();
+            ExecutionStatus status = ExecutionStatus::Ok;
+
+            auto startTime = high_resolution_clock::now();
+
+            while (status == ExecutionStatus::Ok)
+            {
+                status = machine.Run();
+            }
+
+            auto endTime = high_resolution_clock::now();
+            auto elapsedMilliseconds = duration_cast<microseconds>(endTime - startTime).count() * 0.001;
+
+            std::cout << "Execution finished with status " << (int)status << " in " << elapsedMilliseconds << " milliseconds" << std::endl;
         }
-
-        auto endTime = high_resolution_clock::now();
-        auto elapsedMilliseconds = duration_cast<microseconds>(endTime - startTime).count() * 0.001;
-
-        std::cout << "Execution finished with status " << (int)status << " in " << elapsedMilliseconds << " milliseconds" << std::endl;
     }
-
-    //Release resources allocated by modules (if any).
-    ModuleLoader::Dispose();
 
     return 0;
 }
