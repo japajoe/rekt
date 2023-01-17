@@ -20,6 +20,10 @@ namespace VoltLang
         static int MemSet(Stack<Object> *stack);
         static int MemCpy(Stack<Object> *stack);
         static int Free(Stack<Object> *stack);
+        static int MemInc(Stack<Object> *stack);
+        static int MemDec(Stack<Object> *stack);
+        static int MemAdd(Stack<Object> *stack);
+        static int MemSub(Stack<Object> *stack);        
     };
 }
 #endif

@@ -2,11 +2,11 @@
 #define VOLT_HPP
 
 #include <LibraryDefinitions.hpp>
+#include <Compilation/Compiler.hpp>
 #include <Core/Specification.hpp>
+#include <Core/Stack.hpp>
 #include <Core/Assembly.hpp>
 #include <Core/VirtualMachine.hpp>
-#include <Core/Stack.hpp>
-#include <Compilation/Compiler.hpp>
 #include <Utilities/File.hpp>
 
 using namespace VoltLang;

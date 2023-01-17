@@ -20,6 +20,10 @@ namespace VoltLang
         RegisterFunction("memset", SystemModule::MemSet);
         RegisterFunction("memcpy", SystemModule::MemCpy);
         RegisterFunction("free", SystemModule::Free);
+        RegisterFunction("meminc", SystemModule::MemInc);
+        RegisterFunction("memdec", SystemModule::MemDec);
+        RegisterFunction("memadd", SystemModule::MemAdd);
+        RegisterFunction("memsub", SystemModule::MemSub);        
     }
 
     void SystemModule::Dispose()
@@ -344,4 +348,142 @@ namespace VoltLang
         free(address);
         return 0;
     }
+
+    int SystemModule::MemInc(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
+        p += 1;
+        void *ptr = p;
+        stack->Push(Object(ptr, argPtr.type));
+
+        return 0;
+    }
+
+    int SystemModule::MemDec(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
+        p -= 1;
+        void *ptr = p;
+        stack->Push(Object(ptr, argPtr.type));
+
+        return 0;
+    }
+
+    int SystemModule::MemAdd(Stack<Object> *stack)
+    {
+        Object argCount, argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!stack->Pop(argCount))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        uint64_t count = 0;
+
+        switch(argCount.type)
+        {
+            case Type::Int64:
+                count = argCount.as_int64;
+                break;
+            case Type::UInt64:
+                count = argCount.as_uint64;
+                break;
+            case Type::Int64Pointer:
+                count = *argCount.as_int64_pointer;
+                break;
+            case Type::UInt64Pointer:
+                count = *argCount.as_uint64_pointer;
+                break;
+            default:
+                return -1;
+        }     
+
+        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
+        p += count;
+        void *ptr = p;
+
+        stack->Push(Object(ptr, argPtr.type));
+
+        return 0;
+    }
+
+    int SystemModule::MemSub(Stack<Object> *stack)
+    {
+        Object argCount, argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!stack->Pop(argCount))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        uint64_t count = 0;
+
+        switch(argCount.type)
+        {
+            case Type::Int64:
+                count = argCount.as_int64;
+                break;
+            case Type::UInt64:
+                count = argCount.as_uint64;
+                break;
+            case Type::Int64Pointer:
+                count = *argCount.as_int64_pointer;
+                break;
+            case Type::UInt64Pointer:
+                count = *argCount.as_uint64_pointer;
+                break;
+            default:
+                return -1;
+        }
+
+        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
+        p -= count;
+        void *ptr = p;
+
+        return 0;
+    }    
 }

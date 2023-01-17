@@ -362,6 +362,25 @@ namespace VoltLang
             }
         }
 
+        bool IsNumericType() const
+        {
+            switch(type)
+            {
+                case Int8:
+                case UInt8:
+                case Int16:
+                case UInt16:
+                case Int32:
+                case UInt32:
+                case Int64:
+                case UInt64:
+                case Double:               
+                    return true;
+                default:
+                    return false;
+            }
+        }        
+
         template<typename T>
         T GetValueAs()
         {

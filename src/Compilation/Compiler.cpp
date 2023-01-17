@@ -20,6 +20,25 @@ namespace VoltLang
         registers["rdx"] = 12;     
     }
 
+    int FindCommentIndex(const std::string& input) 
+    {
+        int commentIndex = -1;
+        bool inString = false;
+        for (size_t i = 0; i < input.size(); i++) 
+        {
+            if (input[i] == '\"') 
+            {
+                inString = !inString;
+            }
+            if (input[i] == ';' && !inString) 
+            {
+                commentIndex = i;
+                break;
+            }
+        }
+        return commentIndex;
+    }    
+
     bool Compiler::Compile(const std::string& source, Assembly* assembly)
     {
         assembly->Clear();
@@ -70,20 +89,9 @@ namespace VoltLang
         for (size_t i = 0; i < lines.size(); i++)
         {
             //Strip comment
-            if (StringUtility::Contains(lines[i], ";;"))
-            {
-                for (int j = lines[i].size() -1; j > 0; j--)
-                {
-                    if (lines[i][j] == ';' && j >= 1)
-                    {
-                        if (lines[i][j - 1] == ';')
-                        {
-                            size_t index = j -1;
-                            lines[i].resize(index);
-                        }
-                    }
-                }
-            }
+            int commentIndex = FindCommentIndex(lines[i]);
+            if(commentIndex != -1)
+                lines[i] = lines[i].substr(0, commentIndex);
 
             auto tokens = tokenizer.Parse(lines[i]);
             
