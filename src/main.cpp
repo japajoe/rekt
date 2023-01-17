@@ -13,14 +13,6 @@ using std::chrono::microseconds;
 
 int main(int argc, char **argv)
 {
-    Object obj;
-    std::cout << "Size of Object  " << sizeof(obj) << std::endl;
-    std::cout << "Offset of type  " << offsetof(Object, type) << std::endl;
-    std::cout << "Offset of union " << offsetof(Object, as_uint64) << std::endl;
-    
-
-    return 0;
-
     std::string filepath = "fibonacci.asm";
 
     if(argc > 1)
