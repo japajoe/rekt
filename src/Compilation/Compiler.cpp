@@ -22,8 +22,10 @@ namespace VoltLang
 
     bool Compiler::Compile(const std::string& source, Assembly* assembly)
     {
+        assembly->Clear();
+
         compilationStage = CompilationStage::None;
-        
+
         // Tokenizes the input string and returns a std::vector<std::vector<Token<TokenType>>>
         // This way we can process the source line by line. This also means none of our instructions or declarations
         // are allowed to be defined over the span of multiple lines.

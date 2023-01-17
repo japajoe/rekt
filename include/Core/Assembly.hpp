@@ -19,7 +19,16 @@ namespace VoltLang
         std::map<std::string, uint64_t> symbols;
         std::map<std::string, OffsetInfo> offsets;
         std::map<std::string, Type> types;
-        std::map<std::string, uint64_t> labels;
+        std::map<std::string, uint64_t> labels;\
+        
+        void Clear()
+        {
+            instructions.clear();
+            labels.clear();
+            offsets.clear();
+            symbols.clear();
+            types.clear();            
+        }
 
         void* GetDataPointer(const std::string& symbol, Type& type)
         {
