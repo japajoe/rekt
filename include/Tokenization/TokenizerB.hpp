@@ -1,5 +1,5 @@
-#ifndef VOLT_TOKENIZER_B_HPP
-#define VOLT_TOKENIZER_B_HPP
+#ifndef REKT_TOKENIZER_B_HPP
+#define REKT_TOKENIZER_B_HPP
 
 #include <iostream>
 #include <vector>
@@ -7,7 +7,7 @@
 #include <string>
 #include <Token.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     class TokenizerB
     {

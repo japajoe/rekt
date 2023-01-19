@@ -1,12 +1,12 @@
-#ifndef VOLT_MODULELOADER_HPP
-#define VOLT_MODULELOADER_HPP
+#ifndef REKT_MODULELOADER_HPP
+#define REKT_MODULELOADER_HPP
 
 #include <Module.hpp>
 #include <memory>
 #include <vector>
 #include <iostream>
 
-namespace VoltLang
+namespace REKT
 {
     class ModuleLoader
     {

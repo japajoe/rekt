@@ -3,7 +3,7 @@
 #include <chrono>
 #include <iostream>
 
-namespace VoltLang
+namespace REKT
 {
     SystemModule::SystemModule()
     {

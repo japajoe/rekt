@@ -1,7 +1,7 @@
 #include <ConversionUtility.hpp>
 #include <cstring>
 
-namespace VoltLang
+namespace REKT
 {
     void ConversionUtility::CastSourceToDestinationType(Object* src, Object* dst, Type srcType, Type dstType)
     {

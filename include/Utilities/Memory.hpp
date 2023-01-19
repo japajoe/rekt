@@ -1,12 +1,12 @@
-#ifndef VOLT_MEMORY_HPP
-#define VOLT_MEMORY_HPP
+#ifndef REKT_MEMORY_HPP
+#define REKT_MEMORY_HPP
 
 #include <cstdint>
 #include <Specification.hpp>
 #include <vector>
 #include <string>
 
-namespace VoltLang
+namespace REKT
 {
     constexpr int SIZE_OF_WORD = static_cast<int>(sizeof(void *));
 

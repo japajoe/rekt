@@ -1,12 +1,12 @@
-#ifndef VOLT_TOKENIZER_HPP
-#define VOLT_TOKENIZER_HPP
+#ifndef REKT_TOKENIZER_HPP
+#define REKT_TOKENIZER_HPP
 
 #include <Token.hpp>
 #include <TokenizerA.hpp>
 #include <TokenizerB.hpp>
 #include <map>
 
-namespace VoltLang
+namespace REKT
 {
     typedef std::vector<std::vector<Token<TokenType>>> TokenList;
 

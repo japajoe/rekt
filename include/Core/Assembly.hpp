@@ -1,5 +1,5 @@
-#ifndef VOLT_ASSEMBLY_HPP
-#define VOLT_ASSEMBLY_HPP
+#ifndef REKT_ASSEMBLY_HPP
+#define REKT_ASSEMBLY_HPP
 
 #include <vector>
 #include <cstdint>
@@ -9,7 +9,7 @@
 #include <Core/Specification.hpp>
 #include <Utilities/Memory.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     class Assembly
     {

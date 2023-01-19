@@ -1,7 +1,7 @@
 #include <Memory.hpp>
 #include <cstring>
 
-namespace VoltLang
+namespace REKT
 {
     uint64_t Memory::GetSizeInWords(uint64_t sizeInBytes)
     {

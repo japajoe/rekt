@@ -1,5 +1,5 @@
-#ifndef VIRTUALMACHINE_HPP
-#define VIRTUALMACHINE_HPP
+#ifndef REKT_VIRTUALMACHINE_HPP
+#define REKT_VIRTUALMACHINE_HPP
 
 #include <Utilities/ConversionUtility.hpp>
 #include <Modules/Module.hpp>
@@ -10,7 +10,7 @@
 #include <vector>
 #include <cstring>
 
-namespace VoltLang
+namespace REKT
 {
     constexpr uint64_t STACK_CAPACITY = 1024;
     constexpr uint64_t NUM_REGISTERS = 13;
@@ -45,8 +45,8 @@ namespace VoltLang
         {
             stackCapacity = MathUtility::NearestPowerOfTwo(stackCapacity);
 
-            if(stackCapacity < VOLT_MIN_STACK_CAPACITY)
-                stackCapacity = VOLT_MIN_STACK_CAPACITY;
+            if(stackCapacity < REKT_MIN_STACK_CAPACITY)
+                stackCapacity = REKT_MIN_STACK_CAPACITY;
 
             for (size_t i = 0; i < NUM_REGISTERS; i++)
             {
@@ -295,7 +295,7 @@ namespace VoltLang
                     }
                     else if(instruction->operands[0].type == OperandType::LabelToFunction)
                     {                        
-                        VoltVMFunction func = reinterpret_cast<VoltVMFunction>(obj->as_void_pointer);
+                        REKTFunction func = reinterpret_cast<REKTFunction>(obj->as_void_pointer);
                         
                         int result = func(&stack);
 

@@ -1,6 +1,6 @@
 #include <ModuleLoader.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     std::vector<std::shared_ptr<Module>> ModuleLoader::modules;
 }

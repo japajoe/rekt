@@ -1,5 +1,5 @@
-#ifndef VOLT_SPECIFICATION_HPP
-#define VOLT_SPECIFICATION_HPP
+#ifndef REKT_SPECIFICATION_HPP
+#define REKT_SPECIFICATION_HPP
 
 #include <cstdint>
 #include <string>
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <Formatting/FMT.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     typedef unsigned char byte;
     

@@ -1,10 +1,10 @@
-#ifndef VOLT_SYSTEM_MODULE_HPP
-#define VOLT_SYSTEM_MODULE_HPP
+#ifndef REKT_SYSTEM_MODULE_HPP
+#define REKT_SYSTEM_MODULE_HPP
 
 #include <Module.hpp>
 #include <memory>
 
-namespace VoltLang
+namespace REKT
 {
     class SystemModule : public Module
     {

@@ -1,5 +1,5 @@
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef REKT_STACK_HPP
+#define REKT_STACK_HPP
 
 #include <cstring>
 #include <iostream>
@@ -8,9 +8,9 @@
 #include <Specification.hpp>
 #include <MathUtility.hpp>
 
-namespace VoltLang
+namespace REKT
 {
-    constexpr uint64_t VOLT_MIN_STACK_CAPACITY = 1024;
+    constexpr uint64_t REKT_MIN_STACK_CAPACITY = 1024;
 
     template<typename T>
     class Stack
@@ -27,8 +27,8 @@ namespace VoltLang
         {
             capacity = MathUtility::NearestPowerOfTwo(capacity);
 
-            if(capacity < VOLT_MIN_STACK_CAPACITY)
-                capacity = VOLT_MIN_STACK_CAPACITY;
+            if(capacity < REKT_MIN_STACK_CAPACITY)
+                capacity = REKT_MIN_STACK_CAPACITY;
 
             this->capacity = capacity;
             size = 0;

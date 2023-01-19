@@ -1,9 +1,9 @@
-#ifndef VOLT_TOKEN_HPP
-#define VOLT_TOKEN_HPP
+#ifndef REKT_TOKEN_HPP
+#define REKT_TOKEN_HPP
 
 #include <string>
 
-namespace VoltLang
+namespace REKT
 {
     enum class PrimitiveTokenType : int
     {

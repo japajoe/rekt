@@ -1,7 +1,7 @@
 #include <Compiler.hpp>
 #include <Modules/Module.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     Compiler::Compiler()
     {
@@ -964,7 +964,7 @@ namespace VoltLang
             }
             case OperandType::LabelToFunction:
             {
-                VoltVMFunction value;
+                REKTFunction value;
 
                 if(Module::FindFunction(text, value))
                 {

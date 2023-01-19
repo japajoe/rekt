@@ -6,7 +6,7 @@
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
 
-using namespace VoltLang;
+using namespace REKT;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;

@@ -1,9 +1,9 @@
-#ifndef VOLT_MATHUTILITY_HPP
-#define VOLT_MATHUTILITY_HPP
+#ifndef REKT_MATHUTILITY_HPP
+#define REKT_MATHUTILITY_HPP
 
 #include <cstdint>
 
-namespace VoltLang
+namespace REKT
 {
     class MathUtility
     {

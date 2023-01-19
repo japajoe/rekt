@@ -1,9 +1,9 @@
-#ifndef VOLT_MATHOPERATION_HPP
-#define VOLT_MATHOPERATION_HPP
+#ifndef REKT_MATHOPERATION_HPP
+#define REKT_MATHOPERATION_HPP
 
 #include <Specification.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     typedef int64_t (*CmpCallbackPtr)(Object* lhs, Object* rhs);
     typedef int64_t (*AddCallbackPtr)(Object* lhs, Object* rhs);

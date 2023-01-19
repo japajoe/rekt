@@ -1,8 +1,8 @@
 #include <Module.hpp>
 
-namespace VoltLang
+namespace REKT
 {
-    std::map<std::string, VoltVMFunction> Module::functionMap;
+    std::map<std::string, REKTFunction> Module::functionMap;
 
     void Module::Register()
     {
@@ -14,7 +14,7 @@ namespace VoltLang
 
     }    
     
-    bool Module::RegisterFunction(const std::string &name, VoltVMFunction fn_ptr)
+    bool Module::RegisterFunction(const std::string &name, REKTFunction fn_ptr)
     {
         if(functionMap.count(name) == 0)
         {
@@ -28,7 +28,7 @@ namespace VoltLang
         }
     }
 
-    bool Module::FindFunction(const std::string &name, VoltVMFunction& fn_ptr)
+    bool Module::FindFunction(const std::string &name, REKTFunction& fn_ptr)
     {
         if(functionMap.count(name))
         {
@@ -39,7 +39,7 @@ namespace VoltLang
         return false;
     }
 
-    bool Module::GetFunctionName(VoltVMFunction fn_ptr, std::string& name)
+    bool Module::GetFunctionName(REKTFunction fn_ptr, std::string& name)
     {
         for(auto& f : functionMap)
         {

@@ -1,10 +1,10 @@
-// #ifndef VOLT_MATHHELPER_HPP
-// #define VOLT_MATHHELPER_HPP
+// #ifndef REKT_MATHHELPER_HPP
+// #define REKT_MATHHELPER_HPP
 
 // #include <cstdint>
 // #include <Core/Specification.hpp>
 
-// using namespace VoltLang;
+// using namespace REKT;
 
 // template<Type>
 // struct type_to_type;

@@ -1,7 +1,7 @@
 #include <MathOperation.hpp>
 #include <iostream>
 
-namespace VoltLang
+namespace REKT
 {
     //Yep this is some retarded shit right here.
     AddCallbackPtr MathOperation::addFunctions[][18] =

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sys/stat.h>
 
-namespace VoltLang
+namespace REKT
 {
     const char DirectorySeparatorChar = '\\';
     const char AltDirectorySeparatorChar = '/';

@@ -1,5 +1,5 @@
-#ifndef VOLT_COMPILER_HPP
-#define VOLT_COMPILER_HPP
+#ifndef REKT_COMPILER_HPP
+#define REKT_COMPILER_HPP
 
 #include <string>
 #include <algorithm>
@@ -10,7 +10,7 @@
 #include <Utilities/StringUtility.hpp>
 #include <Utilities/Memory.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     enum class CompilationStage : int
     {

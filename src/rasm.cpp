@@ -1,30 +1,30 @@
-#include <volt.hpp>
+#include <rasm.hpp>
 #include <Utilities/Memory.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
 
-void volt_modules_load(void)
+void rekt_modules_load(void)
 {
     ModuleLoader::Load<SystemModule>();
 }
 
-void volt_modules_dispose(void)
+void rekt_modules_dispose(void)
 {
     ModuleLoader::Dispose();
 }
 
-bool volt_function_register(const char* name, VoltVMFunction fn_ptr)
+bool rekt_function_register(const char* name, REKTFunction fn_ptr)
 {
     return Module::RegisterFunction(name, fn_ptr);
 }
 
-Assembly* volt_assembly_create(void)
+Assembly* rekt_assembly_create(void)
 {
     Assembly* assembly = new Assembly();
     return assembly;
 }
 
-void volt_assembly_destroy(Assembly* assembly)
+void rekt_assembly_destroy(Assembly* assembly)
 {
     if(assembly != nullptr)
     {
@@ -33,7 +33,7 @@ void volt_assembly_destroy(Assembly* assembly)
     }
 }
 
-uint64_t volt_assembly_get_num_instructions(Assembly* assembly)
+uint64_t rekt_assembly_get_num_instructions(Assembly* assembly)
 {
     if(assembly == nullptr)
         return 0;
@@ -41,7 +41,7 @@ uint64_t volt_assembly_get_num_instructions(Assembly* assembly)
     return assembly->instructions.size();
 }
 
-bool volt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_t* startOffset, uint64_t* size, Type* type)
+bool rekt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_t* startOffset, uint64_t* size, Type* type)
 {
     if(assembly == nullptr)
         return false;
@@ -62,7 +62,7 @@ bool volt_assembly_get_symbol_info(Assembly* assembly, const char* name, uint64_
     return true;
 }
 
-bool volt_assembly_get_label_info(Assembly* assembly, const char* name, uint64_t* offset)
+bool rekt_assembly_get_label_info(Assembly* assembly, const char* name, uint64_t* offset)
 {
     if(assembly == nullptr)
         return false;
@@ -75,7 +75,7 @@ bool volt_assembly_get_label_info(Assembly* assembly, const char* name, uint64_t
     return true;
 }
 
-char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
+char** rekt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
 {
     if(assembly == nullptr)
     {
@@ -112,7 +112,7 @@ char** volt_assembly_get_symbols(Assembly* assembly, uint64_t* count)
     return symbols;
 }
 
-char** volt_assembly_get_labels(Assembly* assembly, uint64_t* count)
+char** rekt_assembly_get_labels(Assembly* assembly, uint64_t* count)
 {
     if(assembly == nullptr)
     {
@@ -149,7 +149,7 @@ char** volt_assembly_get_labels(Assembly* assembly, uint64_t* count)
     return labels;
 }
 
-OpCode volt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset)
+OpCode rekt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset)
 {
     if(assembly == nullptr)
         return OpCode::NUM_OPCODES;
@@ -160,13 +160,13 @@ OpCode volt_assembly_get_instruction_opcode(Assembly* assembly, uint64_t offset)
     return assembly->instructions[offset].opcode;
 }
 
-VirtualMachine* volt_virtual_machine_create(uint64_t stackCapacity)
+VirtualMachine* rekt_virtual_machine_create(uint64_t stackCapacity)
 {
     VirtualMachine *vm = new VirtualMachine(stackCapacity);
     return vm;
 }
 
-void volt_virtual_machine_destroy(VirtualMachine* vm)
+void rekt_virtual_machine_destroy(VirtualMachine* vm)
 {
     if(vm != nullptr)
     {
@@ -175,7 +175,7 @@ void volt_virtual_machine_destroy(VirtualMachine* vm)
     }
 }
 
-bool volt_virtual_machine_load_assembly(VirtualMachine* vm, Assembly* assembly)
+bool rekt_virtual_machine_load_assembly(VirtualMachine* vm, Assembly* assembly)
 {
     if(vm == nullptr)
         return false;
@@ -185,7 +185,7 @@ bool volt_virtual_machine_load_assembly(VirtualMachine* vm, Assembly* assembly)
     return vm->LoadAssembly(assembly);
 }
 
-bool volt_virtual_machine_reset(VirtualMachine* vm)
+bool rekt_virtual_machine_reset(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return false;
@@ -194,7 +194,7 @@ bool volt_virtual_machine_reset(VirtualMachine* vm)
     return true;
 }
 
-bool volt_virtual_machine_set_instruction_pointer(VirtualMachine* vm, uint64_t offset)
+bool rekt_virtual_machine_set_instruction_pointer(VirtualMachine* vm, uint64_t offset)
 {
     if(vm == nullptr)
         return false;
@@ -203,7 +203,7 @@ bool volt_virtual_machine_set_instruction_pointer(VirtualMachine* vm, uint64_t o
     return true;
 }
 
-uint64_t volt_virtual_machine_get_instruction_pointer(VirtualMachine* vm)
+uint64_t rekt_virtual_machine_get_instruction_pointer(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return 0;
@@ -211,14 +211,14 @@ uint64_t volt_virtual_machine_get_instruction_pointer(VirtualMachine* vm)
     return vm->GetInstructionPointer();
 }
 
-ExecutionStatus volt_virtual_machine_run(VirtualMachine* vm)
+ExecutionStatus rekt_virtual_machine_run(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return ExecutionStatus::Error;
     return vm->Run();
 }
 
-ExecutionStatus volt_virtual_machine_call(VirtualMachine* vm, uint64_t labelOffset)
+ExecutionStatus rekt_virtual_machine_call(VirtualMachine* vm, uint64_t labelOffset)
 {
     if(vm == nullptr)
         return ExecutionStatus::Error;
@@ -226,7 +226,7 @@ ExecutionStatus volt_virtual_machine_call(VirtualMachine* vm, uint64_t labelOffs
     return vm->Call(labelOffset);
 }
 
-Object* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
+Object* rekt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
 {
     if(vm == nullptr)
         return nullptr;
@@ -235,7 +235,7 @@ Object* volt_virtual_machine_get_registers(VirtualMachine* vm, uint64_t* size)
     return vm->GetRegisters();
 }
 
-Stack<Object>* volt_virtual_machine_get_stack(VirtualMachine* vm)
+Stack<Object>* rekt_virtual_machine_get_stack(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return nullptr;
@@ -243,7 +243,7 @@ Stack<Object>* volt_virtual_machine_get_stack(VirtualMachine* vm)
     return vm->GetStack();
 }
 
-int64_t volt_virtual_machine_get_compare_flag(VirtualMachine* vm)
+int64_t rekt_virtual_machine_get_compare_flag(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return 0;
@@ -251,7 +251,7 @@ int64_t volt_virtual_machine_get_compare_flag(VirtualMachine* vm)
     return vm->GetCompareFlag();
 }
 
-int64_t volt_virtual_machine_get_zero_flag(VirtualMachine* vm)
+int64_t rekt_virtual_machine_get_zero_flag(VirtualMachine* vm)
 {
     if(vm == nullptr)
         return 0;
@@ -259,13 +259,13 @@ int64_t volt_virtual_machine_get_zero_flag(VirtualMachine* vm)
     return vm->GetZeroFlag();
 }
 
-Compiler* volt_compiler_create(void)
+Compiler* rekt_compiler_create(void)
 {
     Compiler* compiler = new Compiler();
     return compiler;
 }
 
-void volt_compiler_destroy(Compiler* compiler)
+void rekt_compiler_destroy(Compiler* compiler)
 {
     if(compiler != nullptr)
     {
@@ -274,7 +274,7 @@ void volt_compiler_destroy(Compiler* compiler)
     }
 }
 
-bool volt_compile_from_text(Compiler* compiler, const char* source, Assembly* assembly)
+bool rekt_compile_from_text(Compiler* compiler, const char* source, Assembly* assembly)
 {
     if(compiler == nullptr || assembly == nullptr)
         return false;
@@ -282,7 +282,7 @@ bool volt_compile_from_text(Compiler* compiler, const char* source, Assembly* as
     return compiler->Compile(source, assembly);
 }
 
-bool volt_compile_from_file(Compiler* compiler, const char* filepath, Assembly* assembly)
+bool rekt_compile_from_file(Compiler* compiler, const char* filepath, Assembly* assembly)
 {
     if(compiler == nullptr || assembly == nullptr)
         return false;
@@ -298,56 +298,56 @@ bool volt_compile_from_file(Compiler* compiler, const char* filepath, Assembly* 
     return compiler->Compile(source, assembly);
 }
 
-void volt_stack_clear(Stack<Object> *stack)
+void rekt_stack_clear(Stack<Object> *stack)
 {
     if(stack == nullptr)
         return;
     stack->Clear();
 }
 
-bool volt_stack_push(Stack<Object>* stack, Object obj, Type type)
+bool rekt_stack_push(Stack<Object>* stack, Object obj, Type type)
 {
     if(stack == nullptr)
         return false;
     return stack->Push(obj);
 }
 
-bool volt_stack_pop(Stack<Object>* stack, Object* obj)
+bool rekt_stack_pop(Stack<Object>* stack, Object* obj)
 {
     if(stack == nullptr)
         return false;
     return stack->Pop(*obj);
 }
 
-Type volt_stack_get_top_type(Stack<Object>* stack)
+Type rekt_stack_get_top_type(Stack<Object>* stack)
 {
     if(stack == nullptr)
         return Type::Undefined;
     return stack->GetTopType();
 }
 
-bool volt_stack_check_type(Stack<Object>* stack, Type type, int64_t index)
+bool rekt_stack_check_type(Stack<Object>* stack, Type type, int64_t index)
 {
     if(stack == nullptr)
         return false;
     return stack->CheckType(type, index);
 }
 
-uint64_t volt_stack_get_capacity(Stack<Object>* stack)
+uint64_t rekt_stack_get_capacity(Stack<Object>* stack)
 {
     if(stack == nullptr)
         return 0;
     return stack->GetCapacity();
 }
 
-uint64_t volt_stack_get_count(Stack<Object>* stack)
+uint64_t rekt_stack_get_count(Stack<Object>* stack)
 {
     if(stack == nullptr)
         return 0;
     return stack->GetSize();
 }
 
-void volt_free_char_pointer(char* ptr)
+void rekt_free_char_pointer(char* ptr)
 {
     if(ptr == nullptr)
         return;

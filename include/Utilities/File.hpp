@@ -1,10 +1,10 @@
-#ifndef VOLT_FILE_HPP
-#define VOLT_FILE_HPP
+#ifndef REKT_FILE_HPP
+#define REKT_FILE_HPP
 
 #include <string>
 #include <vector>
 
-namespace VoltLang
+namespace REKT
 {
     class File
     {

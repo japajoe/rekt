@@ -3,7 +3,7 @@
 #include <locale>
 #include <cstdlib> //std::strtol
 
-namespace VoltLang
+namespace REKT
 {
     const std::string WHITESPACE = " \n\r\t\f\v";
 

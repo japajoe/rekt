@@ -1,5 +1,5 @@
-#ifndef VOLT_STRINGUTILITY_HPP
-#define VOLT_STRINGUTILITY_HPP
+#ifndef REKT_STRINGUTILITY_HPP
+#define REKT_STRINGUTILITY_HPP
 
 #include <string>
 #include <string.h>
@@ -9,7 +9,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace VoltLang
+namespace REKT
 {
     class StringUtility
     {

@@ -1,9 +1,9 @@
-#ifndef VOLT_CONVERSIONUTILITY_HPP
-#define VOLT_CONVERSIONUTILITY_HPP
+#ifndef REKT_CONVERSIONUTILITY_HPP
+#define REKT_CONVERSIONUTILITY_HPP
 
 #include <Core/Specification.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     class ConversionUtility
     {

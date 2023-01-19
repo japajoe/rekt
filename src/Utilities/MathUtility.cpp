@@ -1,6 +1,6 @@
 #include <MathUtility.hpp>
 
-namespace VoltLang
+namespace REKT
 {
     uint64_t MathUtility::NearestPowerOfTwo(uint64_t n)
     {
