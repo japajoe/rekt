@@ -386,6 +386,36 @@ namespace REKT
         {
             return reinterpret_cast<T>(as_void_pointer);
         }
+
+        double GetValueAsDouble()
+        {
+            double value = 0;
+            switch (type)
+            {
+                case Type::Int64:
+                    value = static_cast<double>(as_int64);
+                    break;
+                case Type::UInt64:
+                    value = static_cast<double>(as_uint64);
+                    break;
+                case Type::Int64Pointer:
+                    value = static_cast<double>(*as_int64_pointer);
+                    break;
+                case Type::UInt64Pointer:
+                    value = static_cast<double>(*as_uint64_pointer);
+                    break;
+                case Type::Double:
+                    value = as_double;
+                    break;
+                case Type::DoublePointer:
+                    value = *as_double_pointer;
+                    break;                                
+                default:
+                    return 0;
+            }
+
+            return value;
+        }
     };
 
     class Operand

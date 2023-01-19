@@ -5,6 +5,7 @@
 #include <Utilities/File.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
+#include <Modules/MathModule.hpp>
 
 using namespace REKT;
 using std::chrono::high_resolution_clock;
@@ -27,6 +28,7 @@ int main(int argc, char **argv)
     }
 
     ModuleLoader::Load<SystemModule>();
+    ModuleLoader::Load<MathModule>();
 
     std::string source = File::ReadAllText(filepath);
 

@@ -2,10 +2,12 @@
 #include <Utilities/Memory.hpp>
 #include <Modules/ModuleLoader.hpp>
 #include <Modules/SystemModule.hpp>
+#include <Modules/MathModule.hpp>
 
 void rekt_modules_load(void)
 {
     ModuleLoader::Load<SystemModule>();
+    ModuleLoader::Load<MathModule>();
 }
 
 void rekt_modules_dispose(void)

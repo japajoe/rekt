@@ -23,7 +23,7 @@ namespace REKT
         RegisterFunction("meminc", SystemModule::MemInc);
         RegisterFunction("memdec", SystemModule::MemDec);
         RegisterFunction("memadd", SystemModule::MemAdd);
-        RegisterFunction("memsub", SystemModule::MemSub);        
+        RegisterFunction("memsub", SystemModule::MemSub);
     }
 
     void SystemModule::Dispose()
@@ -485,5 +485,5 @@ namespace REKT
         void *ptr = p;
 
         return 0;
-    }    
+    }
 }

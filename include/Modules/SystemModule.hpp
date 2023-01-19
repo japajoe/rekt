@@ -23,7 +23,7 @@ namespace REKT
         static int MemInc(Stack<Object> *stack);
         static int MemDec(Stack<Object> *stack);
         static int MemAdd(Stack<Object> *stack);
-        static int MemSub(Stack<Object> *stack);        
+        static int MemSub(Stack<Object> *stack);
     };
 }
 #endif

@@ -104,7 +104,7 @@ namespace REKT
             size--;
             stackIndex--;
             return true;
-        }
+        }        
 
         bool CheckType(Type type, int64_t index)
         {
