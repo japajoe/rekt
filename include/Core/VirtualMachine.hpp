@@ -187,6 +187,7 @@ namespace REKT
                         }
                         else
                         {
+                            //std::cout << "Source Type: " << TypeToString(src.type) << " Destination Type: " << TypeToString(dst->type) << std::endl;
                             ConversionUtility::CastSourceToDestinationType(&src, dst, src.type, dst->type);
                         }                     
                     }
