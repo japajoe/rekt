@@ -16,8 +16,11 @@ namespace REKT
         static uint64_t GetSizeInWords(uint64_t sizeInBytes);
         static std::vector<byte> GetBytes(const std::string& value);
         static std::vector<byte> GetBytes(double value);
+        static std::vector<byte> GetBytes(float value);
         static std::vector<byte> GetBytes(int64_t value);
-        static std::vector<byte> GetBytes(uint64_t value);        
+        static std::vector<byte> GetBytes(uint64_t value);
+        static std::vector<byte> GetBytes(int32_t value);
+        static std::vector<byte> GetBytes(uint32_t value);
     };
 }
 

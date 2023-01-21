@@ -22,6 +22,14 @@ namespace REKT
         return bytes;
     }
 
+    std::vector<byte> Memory::GetBytes(float value)
+    {
+        std::vector<byte> bytes;
+        bytes.resize(sizeof(float));
+        memcpy(&bytes[0], &value, sizeof(float));
+        return bytes;
+    }    
+
     std::vector<byte> Memory::GetBytes(int64_t value)
     {
         std::vector<byte> bytes;
@@ -36,5 +44,21 @@ namespace REKT
         bytes.resize(sizeof(uint64_t));
         memcpy(&bytes[0], &value, sizeof(uint64_t));
         return bytes;
-    }        
+    }
+
+    std::vector<byte> Memory::GetBytes(int32_t value)
+    {
+        std::vector<byte> bytes;
+        bytes.resize(sizeof(int32_t));
+        memcpy(&bytes[0], &value, sizeof(int32_t));
+        return bytes;
+    }
+
+    std::vector<byte> Memory::GetBytes(uint32_t value)
+    {
+        std::vector<byte> bytes;
+        bytes.resize(sizeof(uint32_t));
+        memcpy(&bytes[0], &value, sizeof(uint32_t));
+        return bytes;
+    }    
 }
