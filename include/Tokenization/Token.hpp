@@ -36,6 +36,7 @@ namespace REKT
         Data,
         DB,
         DQ,
+        DP,
         Text,
         Halt,
         Push,

@@ -23,6 +23,7 @@ namespace REKT
             items["data"] = TokenType::Data;
             items["db"] = TokenType::DB;
             items["dq"] = TokenType::DQ;
+            items["dp"] = TokenType::DP;
             items["text"] = TokenType::Text;
             items["hlt"] = TokenType::Halt;
             items["push"] = TokenType::Push;

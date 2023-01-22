@@ -135,7 +135,8 @@ namespace REKT
                 if (AssertParameterTypes(tokens, TokenType::DB, TokenType::Colon, TokenType::StringLiteral ) ||
                     AssertParameterTypes(tokens, TokenType::DB, TokenType::Colon, TokenType::IntegerLiteral ) ||
                     AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::IntegerLiteral ) ||
-                    AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::FloatingPointLiteral ))
+                    AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::FloatingPointLiteral ) ||
+                    AssertParameterTypes(tokens, TokenType::DP, TokenType::Colon, TokenType::IntegerLiteral ))
                 {
                     if (tokens[1].type == TokenType::DB)
                     {
@@ -164,7 +165,7 @@ namespace REKT
                             }
                         }
                     }
-                    else
+                    else if(tokens[1].type == TokenType::DQ)
                     {
                         if (tokens[3].type == TokenType::FloatingPointLiteral)
                         {
@@ -191,6 +192,24 @@ namespace REKT
                             }
 
                             if (!assembly.AddData(tokens[0].text, result))
+                            {
+                                LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
+                                return false;
+                            }
+                        }
+                    }
+                    else if(tokens[1].type == TokenType::DP)
+                    {
+                        if (tokens[3].type == TokenType::IntegerLiteral)
+                        {
+                            uint64_t result;
+                            if (!StringUtility::ParseNumberLexical<uint64_t>(tokens[3].text, result))
+                            {
+                                LogError(CompilationError::ParseNumber, "", tokens[0].lineNumber);
+                                return false;
+                            }
+
+                            if (!assembly.AddDataAsPointer(tokens[0].text, result))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -935,11 +954,15 @@ namespace REKT
             {            
                 if(assembly.symbols.count(text))
                 {
-                    uint64_t value = assembly.symbols[text];
+                    uint64_t value = assembly.symbols[text]; //offset to data
                     Type valueType = assembly.types[text];
 
-                    void *ptr = &assembly.data[value];
-                    operand->object = Object(ptr, valueType);
+                    //Rather than storing a pointer to the data, store the index of the data
+                    operand->object = Object(value);
+
+                    //This is old code and will be removed
+                    // void *ptr = &assembly.data[value];
+                    // operand->object = Object(ptr, valueType);
                     return true;
                 }
                 else

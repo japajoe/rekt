@@ -295,7 +295,7 @@ namespace REKT
                         SetInstructionPointer(obj->as_uint64);
                     }
                     else if(instruction->operands[0].type == OperandType::LabelToFunction)
-                    {                        
+                    {
                         REKTFunction func = reinterpret_cast<REKTFunction>(obj->as_void_pointer);
                         
                         int result = func(&stack);
@@ -574,6 +574,7 @@ namespace REKT
                 case OperandType::Register:
                     return &registers[operand->object.as_uint64];
                 case OperandType::Data:
+                    return &assembly->data[operand->object.as_uint64];
                 case OperandType::LabelToInstruction:
                 case OperandType::LabelToFunction:
                 case OperandType::IntegerLiteral:

@@ -122,11 +122,13 @@ namespace REKT
 
         if (!stack->Pop(argCharPtr))
         {
+            std::cout << "FGETS 1" << std::endl;
             return -1;
         }        
 
         if (!stack->Pop(argSize))
         {
+            std::cout << "FGETS 2" << std::endl;
             return -1;
         }
 
@@ -135,6 +137,7 @@ namespace REKT
 
         if(!argCharPtr.IsPointerType())
         {
+            std::cout << "FGETS 3" << std::endl;
             return -1;
         }
 
@@ -158,7 +161,10 @@ namespace REKT
         str = argCharPtr.as_char_pointer;
 
         if (fgets(str, size, stdin) == NULL)
+        {
+            std::cout << "FGETS 4" << std::endl;
             return -1;
+        }
 
         Object obj(str);
         stack->Push(obj);
@@ -344,8 +350,12 @@ namespace REKT
             return -1;
         }
 
+        if(argPtr.as_void_pointer == nullptr)
+            return 0;
+
         void *address = argPtr.as_void_pointer;
         free(address);
+
         return 0;
     }
 

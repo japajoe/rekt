@@ -128,9 +128,10 @@ namespace REKT
 
     struct OffsetInfo
     {
-        uint64_t offset;
-        uint64_t size;
-    };    
+        uint64_t offset; //The offset of the data in the data vector
+        uint64_t size; //The size of the data in number of bytes
+        bool isHeap; //Signifies whether memory is heap allocated or not (typically char* are)
+    };
 
     class Object
     {

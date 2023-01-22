@@ -33,6 +33,7 @@ namespace REKT
             tokenToString[TokenType::Data] = "Data";
             tokenToString[TokenType::DB] = "DB";
             tokenToString[TokenType::DQ] = "DQ";
+            tokenToString[TokenType::DP] = "DP";
             tokenToString[TokenType::Text] = "Text";
             tokenToString[TokenType::Halt] = "Halt";
             tokenToString[TokenType::Push] = "Push";
