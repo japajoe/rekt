@@ -135,8 +135,7 @@ namespace REKT
                 if (AssertParameterTypes(tokens, TokenType::DB, TokenType::Colon, TokenType::StringLiteral ) ||
                     AssertParameterTypes(tokens, TokenType::DB, TokenType::Colon, TokenType::IntegerLiteral ) ||
                     AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::IntegerLiteral ) ||
-                    AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::FloatingPointLiteral ) ||
-                    AssertParameterTypes(tokens, TokenType::DP, TokenType::Colon, TokenType::IntegerLiteral ))
+                    AssertParameterTypes(tokens, TokenType::DQ, TokenType::Colon, TokenType::FloatingPointLiteral ))
                 {
                     if (tokens[1].type == TokenType::DB)
                     {
@@ -150,15 +149,15 @@ namespace REKT
                         }
                         else
                         {
-                            //Instead of allocating space for a string, allocate x number of bytes
-                            uint64_t numBytesToAllocate;
-                            if(!StringUtility::ParseNumberLexical<uint64_t>(tokens[3].text, numBytesToAllocate))
+                            //Create general purpose pointer type
+                            uint64_t address;
+                            if (!StringUtility::ParseNumberLexical<uint64_t>(tokens[3].text, address))
                             {
                                 LogError(CompilationError::ParseNumber, "", tokens[0].lineNumber);
                                 return false;
                             }
 
-                            if (!assembly.AddDataWithRange(tokens[0].text, numBytesToAllocate))
+                            if (!assembly.AddDataAsPointer(tokens[0].text, address))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;
@@ -192,24 +191,6 @@ namespace REKT
                             }
 
                             if (!assembly.AddData(tokens[0].text, result))
-                            {
-                                LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
-                                return false;
-                            }
-                        }
-                    }
-                    else if(tokens[1].type == TokenType::DP)
-                    {
-                        if (tokens[3].type == TokenType::IntegerLiteral)
-                        {
-                            uint64_t result;
-                            if (!StringUtility::ParseNumberLexical<uint64_t>(tokens[3].text, result))
-                            {
-                                LogError(CompilationError::ParseNumber, "", tokens[0].lineNumber);
-                                return false;
-                            }
-
-                            if (!assembly.AddDataAsPointer(tokens[0].text, result))
                             {
                                 LogError(CompilationError::DuplicateDeclaration, "", tokens[0].lineNumber);
                                 return false;

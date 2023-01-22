@@ -303,7 +303,6 @@ namespace REKT
             }
 
             data.clear();
-
             instructions.clear();
             labels.clear();
             offsets.clear();
