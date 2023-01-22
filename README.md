@@ -7,6 +7,7 @@ Support for types like
 - pointers
 
 # News
+- 01/22/2023: Added 'dp' directive to declare pointer types. With this you can hold on to any pointer, without having to sacrifice registers to store them.
 - 01/18/2023: Renamed project because all cool names were taken and I wasn't feeling super creative.
 - 01/16/2023: Rewrote entire project. All entities on the stack and in registers are now considered an Object. This is a breaking change, old code is moved to 'legacy' branche.
 - 01/05/2023: It is possible to print formatted strings. For more info on what string formatting options there are, see https://github.com/fmtlib/fmt
