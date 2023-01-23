@@ -66,6 +66,23 @@ namespace REKT
         Undefined
     };
 
+    enum RegisterInfo : uint8_t
+    {
+        EAX = 0,
+        EBX = 1,
+        ECX = 2,
+        EDX = 3,
+        EBP = 4,
+        ESP = 5,
+        EDI = 6,
+        EIP = 7,
+        ESI = 8,
+        RAX = 9,
+        RBX = 10,
+        RCX = 11,
+        RDX = 12
+    };
+
     static std::string TypeToString(Type type)
     {
         switch(type)

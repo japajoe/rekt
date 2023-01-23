@@ -24,6 +24,10 @@ namespace REKT
         RegisterFunction("memdec", SystemModule::MemDec);
         RegisterFunction("memadd", SystemModule::MemAdd);
         RegisterFunction("memsub", SystemModule::MemSub);
+        RegisterFunction("to_int64_ptr", SystemModule::ToInt64Pointer);
+        RegisterFunction("to_uint64_ptr", SystemModule::ToUInt64Pointer);
+        RegisterFunction("to_double_ptr", SystemModule::ToDoublePointer);
+        RegisterFunction("to_void_ptr", SystemModule::ToVoidPointer);
     }
 
     void SystemModule::Dispose()
@@ -122,13 +126,11 @@ namespace REKT
 
         if (!stack->Pop(argCharPtr))
         {
-            std::cout << "FGETS 1" << std::endl;
             return -1;
         }        
 
         if (!stack->Pop(argSize))
         {
-            std::cout << "FGETS 2" << std::endl;
             return -1;
         }
 
@@ -137,7 +139,6 @@ namespace REKT
 
         if(!argCharPtr.IsPointerType())
         {
-            std::cout << "FGETS 3" << std::endl;
             return -1;
         }
 
@@ -162,7 +163,6 @@ namespace REKT
 
         if (fgets(str, size, stdin) == NULL)
         {
-            std::cout << "FGETS 4" << std::endl;
             return -1;
         }
 
@@ -373,8 +373,8 @@ namespace REKT
             return -1;
         }
 
-        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
-        p += 1;
+        char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);        
+        p += 1;        
         void *ptr = p;
         stack->Push(Object(ptr, argPtr.type));
 
@@ -493,6 +493,83 @@ namespace REKT
         char *p = reinterpret_cast<char *>(argPtr.as_void_pointer);
         p -= count;
         void *ptr = p;
+        stack->Push(Object(ptr, argPtr.type));
+
+        return 0;
+    }
+
+    int SystemModule::ToInt64Pointer(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        stack->Push(Object(argPtr.as_void_pointer, Type::Int64Pointer));
+
+        return 0;
+    }
+
+    int SystemModule::ToUInt64Pointer(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        stack->Push(Object(argPtr.as_void_pointer, Type::UInt64Pointer));
+
+        return 0;
+    }
+
+    int SystemModule::ToDoublePointer(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        stack->Push(Object(argPtr.as_void_pointer, Type::DoublePointer));
+
+        return 0;
+    }
+
+    int SystemModule::ToVoidPointer(Stack<Object> *stack)
+    {
+        Object argPtr;
+        
+        if(!stack->Pop(argPtr))
+        {
+            return -1;
+        }
+
+        if(!argPtr.IsPointerType())
+        {
+            return -1;
+        }
+
+        stack->Push(Object(argPtr.as_void_pointer, Type::VoidPointer));
 
         return 0;
     }

@@ -48,10 +48,30 @@ namespace REKT
                 {
                     case Type::CharPointer:
                     case Type::VoidPointer:
+                    case Type::DoublePointer:
+                    case Type::Int64Pointer:
+                    case Type::UInt64Pointer:
+                        //Just assign pointer, don't change type of destination
                         dst->as_void_pointer = src->as_void_pointer;
-                        dst->type = Type::VoidPointer;
                         break;                        
                 }
+                break;
+            }
+            case Type::DoublePointer:
+            case Type::Int64Pointer:
+            case Type::UInt64Pointer:
+            {
+                switch(dstType)
+                {
+                    case Type::CharPointer:
+                    case Type::VoidPointer:
+                    case Type::DoublePointer:
+                    case Type::Int64Pointer:
+                    case Type::UInt64Pointer:
+                        dst->as_void_pointer = src->as_void_pointer;
+                        dst->type = src->type;
+                        break;                        
+                }                
                 break;
             }
             default:

@@ -24,6 +24,10 @@ namespace REKT
         static int MemDec(Stack<Object> *stack);
         static int MemAdd(Stack<Object> *stack);
         static int MemSub(Stack<Object> *stack);
+        static int ToInt64Pointer(Stack<Object> *stack);
+        static int ToUInt64Pointer(Stack<Object> *stack);
+        static int ToDoublePointer(Stack<Object> *stack);
+        static int ToVoidPointer(Stack<Object> *stack);
     };
 }
 #endif

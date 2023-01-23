@@ -125,6 +125,7 @@ namespace REKT
         void SetInstructionPointerOffset(uint64_t offset)
         {
             this->ip = offset;
+            registers[RegisterInfo::EIP] = ip;
         }       
 
         uint64_t GetInstructionPointer() const
@@ -352,9 +353,16 @@ namespace REKT
                     }
                     else
                     {
-                        execute = false;
-                        std::cout << "JMP: can't jump to offset" << obj->as_uint64 << std::endl;
-                        return ExecutionStatus::IllegalJump;
+                        if(obj->as_uint64 < assembly->instructions.size())
+                        {
+                            SetInstructionPointer(obj->as_uint64);
+                        }
+                        else
+                        {
+                            execute = false;
+                            std::cout << "JMP: can't jump to offset" << obj->as_uint64 << std::endl;
+                            return ExecutionStatus::IllegalJump;
+                        }
                     }                    
                     
                     break;
@@ -593,11 +601,13 @@ namespace REKT
         inline void SetInstructionPointer(uint64_t offset)
         {
             ip = offset;
+            registers[RegisterInfo::EIP] = ip;
         }
 
         inline void IncrementInstructionPointer()
         {
             ip++;
+            registers[RegisterInfo::EIP] = ip;
         }
     };
 }
