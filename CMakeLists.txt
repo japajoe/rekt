@@ -1,44 +1,26 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.5...3.28)
 
 project(rekt)
 
+set(CMAKE_CXX_STANDARD 17)
+
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Default build type" FORCE)
 endif()
 
-# set this for adding debug symbols
-#set (CMAKE_CXX_FLAGS "-pg")
-#set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
+    if(MSVC)
+        set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /DEBUG:NONE")
+    else()
+        set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -g0")
+    endif()
+endif()
 
-# Add sources
-file(GLOB SOURCES
+file(GLOB_RECURSE SOURCES
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
-    "${PROJECT_SOURCE_DIR}/src/Compilation/*.cpp"
-    "${PROJECT_SOURCE_DIR}/src/Core/*.cpp"
-    "${PROJECT_SOURCE_DIR}/src/Formatting/fmt/*.c"
-    "${PROJECT_SOURCE_DIR}/src/Modules/*.cpp"
-    "${PROJECT_SOURCE_DIR}/src/Utilities/*.cpp"
 )
 
-# Will add __FILENAME__ macros for all source files, which is the filename without full find_path
-# Courtesy of SO
-function(define_file_basename_for_sources targetname)
-    get_target_property(source_files "${targetname}" SOURCES)
-    foreach(sourcefile ${source_files})
-        # Get source file's current list of compile definitions.
-        get_property(defs SOURCE "${sourcefile}"
-            PROPERTY COMPILE_DEFINITIONS)
-        # Add the FILE_BASENAME=filename compile definition to the list.
-        get_filename_component(basename "${sourcefile}" NAME)
-        list(APPEND defs "__FILENAME__=\"${basename}\"")
-        # Set the updated compile definitions on the source file.
-        set_property(
-            SOURCE "${sourcefile}"
-            PROPERTY COMPILE_DEFINITIONS ${defs})
-    endforeach()
-endfunction()
-
-# Specify include Directory
 include_directories(
     "${PROJECT_SOURCE_DIR}/include"
     "${PROJECT_SOURCE_DIR}/include/Compilation"
@@ -56,12 +38,3 @@ else()
     message("-- Configuring as executable")
     add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
-
-target_link_libraries(${PROJECT_NAME} -s)
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-
-define_file_basename_for_sources(${PROJECT_NAME})
-
-install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/lib)
